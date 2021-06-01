@@ -1,3 +1,13 @@
 /* 
     General Styles
 */
+button {
+    outline: none !important; 
+}
+textarea {
+    outline: none !important; 
+    border: none;
+    overflow:hidden;
+    resize: none;
+    font-size: 25px;
+}
