@@ -10,18 +10,18 @@ import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
+import { flexbox } from "@material-ui/system";
+import { positions } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		flexGrow: 1
 	},
 	paper: {
-		padding: theme.spacing(2),
 		margin: "auto",
 		maxWidth: 500
 	},
 	image: {
-		width: 128,
 		height: 128
 	},
 	img: {
@@ -39,8 +39,8 @@ export default function CardProf() {
 	return (
 		<div className={classes.root}>
 			<Paper className={classes.paper}>
-				<Grid container spacing={2}>
-					<Grid item>
+				<Grid container p={0} spacing={2}>
+					<Grid item p={0}>
 						<ButtonBase className={classes.image}>
 							<img className={classes.img} alt="complex" src="https://picsum.photos/200" />
 						</ButtonBase>
@@ -48,11 +48,8 @@ export default function CardProf() {
 					<Grid item xs={12} sm container>
 						<Grid item xs container direction="column" spacing={1}>
 							<Grid item xs spacing={2}>
-								<Box mb={3}>
-									<textarea readOnly="true" rows="2" cols="12">
-										Tecnologo en informatica asdadasdasdsad
-									</textarea>
-									<Typography variant="h5">Tecnologo en informatica</Typography>
+								<Box>
+									<p className="titulocard">Tecnologo </p>
 								</Box>
 								<Typography variant="body2">nombreprof</Typography>
 								<Box component="fieldset" borderColor="transparent">
@@ -64,15 +61,17 @@ export default function CardProf() {
 										}}
 									/>
 								</Box>
-								<Typography variant="body2">
-									<EventIcon fontSize="small" /> 22/07 <AccessTimeIcon fontSize="small" /> 22:00
-								</Typography>
+								<Box display="flex" flexDirection="row" alignItems="center">
+									<Typography variant="body2">
+										<EventIcon fontSize="small" /> 22/07 <AccessTimeIcon fontSize="small" /> 22:00
+									</Typography>
+									<Box ml="auto">
+										<Button variant="outlined" size="small" color="primary">
+											Reservar
+										</Button>
+									</Box>
+								</Box>
 							</Grid>
-						</Grid>
-						<Grid item>
-							<Button variant="outlined" size="small" color="primary" className={classes.margin}>
-								Reservar
-							</Button>
 						</Grid>
 					</Grid>
 				</Grid>
