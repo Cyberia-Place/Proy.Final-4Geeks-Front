@@ -37,6 +37,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+
+			getProfile: async () => {
+				let token =
+					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJlbWFpbCI6ImFndUBnbWFpbC5jb20iLCJub21icmUiOiJBZ3VzdGluIiwiYXBlbGxpZG8iOiJQZXJhemEifSwiaWF0IjoxNjIyNzIxNDIwLCJleHAiOjE2MjI4MDc4MjB9.VwyRmtMdWxoaXJ1SqC0p-oXFAc8p-p4nlKP4snWOxpM";
+
+				var myHeaders = new Headers();
+				myHeaders.append("Content-Type", "application/json");
+				myHeaders.append("Authorization", token);
+
+				var requestOptions = {
+					method: "GET",
+					headers: myHeaders,
+					redirect: "follow"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/profile", requestOptions);
+					let data = await response.json();
+					setStore({ userData: data });
+				} catch (error) {
+					console.log(error);
+				}
 			}
 		}
 	};
