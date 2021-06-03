@@ -6,13 +6,13 @@ import Button from "@material-ui/core/Button";
 import InputBase from "@material-ui/core/InputBase";
 import Modal from "@material-ui/core/Modal";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Input from "@material-ui/core/Input";
 import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
-
 import { fade, makeStyles } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
+import Input from "@material-ui/core/Input";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -68,10 +68,29 @@ const useStyles = makeStyles(theme => ({
 		position: "absolute",
 		border: " 1px solid #000",
 		boxShadow: theme.shadows[5],
-		padding: theme.spacing(2, 4, 3, 4),
+		padding: theme.spacing(4, 6, 4, 6),
 		left: "50%",
 		top: "50%",
 		transform: "translate(-50%, -50%)"
+		// display: "flex",
+		// flexDirection: "column",
+		// alignItems: "center",
+		// textAlign: "center"
+	},
+	styleTextField: {
+		marginTop: "15px"
+	},
+	exitSignInButton: {
+		position: "absolute",
+		right: "0px"
+	},
+	signInButton: {
+		background: "linear-gradient(45deg, #4caf50 30%, #64ffda 90%)",
+		marginTop: "20px",
+		marginBottom: "20px"
+	},
+	textPrueba: {
+		display: "flex"
 	}
 }));
 
@@ -80,6 +99,8 @@ export const Navbar = () => {
 
 	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
+	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
+
 	const [values, setValues] = useState({
 		amount: "",
 		password: "",
@@ -107,11 +128,32 @@ export const Navbar = () => {
 	const abrirCerrarSignIn = () => {
 		setOpenSignIn(!openSignIn);
 	};
+
+	const abrirCerrarChangePassword = () => {
+		setOpenChangePassword(!openChangePassword);
+	};
+
 	const bodyLogIn = (
 		<div className={classes.modal}>
-			<InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarLogIn()}>
+				<h5>X</h5>
+			</Button>
+			<Typography variant="h4" align="center" gutterBottom>
+				Inicio de sesión
+			</Typography>
+			<Typography variant="body1" gutterBottom>
+				Ingrese su correo electrónico y contraseña para iniciar sesión.
+			</Typography>
+
+			{/* // Input de email // */}
+			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+			<Input variant="outlined" size="small" fullWidth />
+
+			{/* // Input de contraseña // */}
+			<InputLabel className={classes.styleTextField}>Password</InputLabel>
 			<Input
-				id="standard-adornment-password"
+				fullWidth
+				id="outlined-adornment-password"
 				type={values.showPassword ? "text" : "password"}
 				value={values.password}
 				onChange={handleChange("password")}
@@ -120,21 +162,100 @@ export const Navbar = () => {
 						<IconButton
 							aria-label="toggle password visibility"
 							onClick={handleClickShowPassword}
-							onMouseDown={handleMouseDownPassword}>
+							onMouseDown={handleMouseDownPassword}
+							edge="end">
 							{values.showPassword ? <Visibility /> : <VisibilityOff />}
 						</IconButton>
 					</InputAdornment>
 				}
+				labelWidth={70}
 			/>
+			<Button variant="contained" className={classes.signInButton} fullWidth>
+				Iniciar sesión
+			</Button>
+			<Typography variant="body1" gutterBottom>
+				<Link
+					href="#"
+					onClick={() => {
+						abrirCerrarChangePassword();
+						abrirCerrarLogIn();
+					}}>
+					¿Olvidaste tu contraseña?
+				</Link>
+			</Typography>
 		</div>
 	);
 
 	const bodySignIn = (
 		<div className={classes.modal}>
-			<h1>Soy el Log In</h1>
+			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarSignIn()}>
+				<h5>X</h5>
+			</Button>
+			<Typography variant="h4" align="center" gutterBottom>
+				Registrate
+			</Typography>
+			<Typography variant="body1" gutterBottom>
+				Rellena los campos a continuación con tus datos.
+			</Typography>
+			<InputLabel className={classes.styleTextField}>Nombre completo</InputLabel>
+			<Input variant="outlined" size="small" fullWidth />
+			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+			<Input variant="outlined" size="small" fullWidth />
+
+			<InputLabel className={classes.styleTextField}>Password</InputLabel>
+			<Input
+				fullWidth
+				id="outlined-adornment-password"
+				type={values.showPassword ? "text" : "password"}
+				value={values.password}
+				onChange={handleChange("password")}
+				endAdornment={
+					<InputAdornment position="end">
+						<IconButton
+							aria-label="toggle password visibility"
+							onClick={handleClickShowPassword}
+							onMouseDown={handleMouseDownPassword}
+							edge="end">
+							{values.showPassword ? <Visibility /> : <VisibilityOff />}
+						</IconButton>
+					</InputAdornment>
+				}
+				labelWidth={70}
+			/>
+			<Button variant="contained" className={classes.signInButton} fullWidth>
+				Únete
+			</Button>
+			<Typography variant="body1" align="center" gutterBottom>
+				Volver a Iniciar Sesión.
+			</Typography>
+			<br />
+			<Typography variant="caption" display="block" gutterBottom>
+				Acepto los Términos de Uso y la Política de Privacidad de [nombre de la App].
+			</Typography>
 		</div>
 	);
 
+	const bodyChangePassword = (
+		<div className={classes.modal}>
+			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarChangePassword()}>
+				<h5>X</h5>
+			</Button>
+			<Typography variant="h4" align="center" gutterBottom>
+				¿Olvidaste tu contraseña?
+			</Typography>
+			<Typography variant="body1" gutterBottom>
+				Introduce tu dirección de correo electrónico. Te enviaremos un enlace para restablecer su contraseña.
+			</Typography>
+			<br />
+			{/* // Input de email // */}
+			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+			<Input variant="outlined" size="small" fullWidth />
+
+			<Button variant="contained" className={classes.signInButton}>
+				Enviar enlace
+			</Button>
+		</div>
+	);
 	return (
 		<div>
 			<AppBar position="static" className={classes.navBar}>
@@ -182,6 +303,14 @@ export const Navbar = () => {
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description">
 				{bodySignIn}
+			</Modal>
+
+			<Modal
+				open={openChangePassword}
+				onClose={abrirCerrarChangePassword}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description">
+				{bodyChangePassword}
 			</Modal>
 		</div>
 	);
