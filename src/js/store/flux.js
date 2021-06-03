@@ -54,7 +54,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				};
 
 				try {
-					let response = await fetch(process.env.BACK_URL + "/profile", requestOptions);
+					let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
 					let data = await response.json();
 					setStore({ userData: data });
 				} catch (error) {
