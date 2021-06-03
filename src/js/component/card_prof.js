@@ -2,16 +2,14 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
-import ButtonBase from "@material-ui/core/ButtonBase";
 import EventIcon from "@material-ui/icons/Event";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
-import Rating from "@material-ui/lab/Rating";
-import Box from "@material-ui/core/Box";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
-import { flexbox } from "@material-ui/system";
-import { positions } from "@material-ui/system";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -22,59 +20,48 @@ const useStyles = makeStyles(theme => ({
 		maxWidth: 500
 	},
 	image: {
-		height: 128
-	},
-	img: {
-		margin: "auto",
-		display: "block",
-		maxWidth: "100%",
-		maxHeight: "100%"
+		height: "160px",
+		width: "160px"
 	}
 }));
 
 export default function CardProf() {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(2);
+	const preventDefault = event => event.preventDefault();
 
 	return (
-		<div className={classes.root}>
-			<Paper className={classes.paper}>
-				<Grid container p={0} spacing={2}>
-					<Grid item p={0}>
-						<ButtonBase className={classes.image}>
-							<img className={classes.img} alt="complex" src="https://picsum.photos/200" />
-						</ButtonBase>
-					</Grid>
-					<Grid item xs={12} sm container>
-						<Grid item xs container direction="column" spacing={1}>
-							<Grid item xs spacing={2}>
-								<Box>
-									<p className="titulocard">Tecnologo </p>
-								</Box>
-								<Typography variant="body2">nombreprof</Typography>
-								<Box component="fieldset" borderColor="transparent">
-									<Rating
-										name="simple-controlled"
-										value={value}
-										onChange={(event, newValue) => {
-											setValue(newValue);
-										}}
-									/>
-								</Box>
-								<Box display="flex" flexDirection="row" alignItems="center">
-									<Typography variant="body2">
-										<EventIcon fontSize="small" /> 22/07 <AccessTimeIcon fontSize="small" /> 22:00
-									</Typography>
-									<Box ml="auto">
-										<Button variant="outlined" size="small" color="primary">
-											Reservar
-										</Button>
-									</Box>
-								</Box>
-							</Grid>
-						</Grid>
-					</Grid>
-				</Grid>
+		<div>
+			<Paper>
+				<Box display="flex" flexDirection="row" p={1}>
+					<Box className={classes.image} mr={2}>
+						<img alt="..." width="160" height="160" src="https://picsum.photos/200" />
+					</Box>
+					<Box>
+						<Box>
+							<p className="titulocard">Tecnologo asdasd as asdsads asdsadas asdasd asd asdda a</p>
+						</Box>
+						<Typography variant="body1">
+							<EventIcon /> 22/07 <AccessTimeIcon /> 22:00 -{" "}
+							<Link href="#" onClick={preventDefault}>
+								nombreprof
+							</Link>
+						</Typography>
+						<Box component="fieldset" borderColor="transparent">
+							<Rating name="read-only" value={value} readOnly size="large" />
+						</Box>
+						<Box display="flex" flexDirection="row" alignItems="center">
+							<Button variant="outlined" color="primary">
+								Reservar
+							</Button>
+							<Box ml="auto" mr={3}>
+								<Typography variant="h4">
+									<MonetizationOnIcon fontSize="large" /> 12
+								</Typography>
+							</Box>
+						</Box>
+					</Box>
+				</Box>
 			</Paper>
 		</div>
 	);
