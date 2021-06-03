@@ -1,8 +1,18 @@
-import React from "react";
-import { Toolbar, AppBar, Typography, Button, InputBase } from "@material-ui/core";
+import React, { useState } from "react";
+import Toolbar from "@material-ui/core/Toolbar";
+import AppBar from "@material-ui/core/AppBar";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import InputBase from "@material-ui/core/InputBase";
+import Modal from "@material-ui/core/Modal";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Input from "@material-ui/core/Input";
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
-import { flexbox } from "@material-ui/system";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -51,40 +61,128 @@ const useStyles = makeStyles(theme => ({
 	},
 	searchDiv: {
 		flexGrow: 1
+	},
+	modal: {
+		backgroundColor: "#FFFFFF",
+		width: 400,
+		position: "absolute",
+		border: " 1px solid #000",
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3, 4),
+		left: "50%",
+		top: "50%",
+		transform: "translate(-50%, -50%)"
 	}
 }));
 
 export const Navbar = () => {
 	const classes = useStyles();
 
-	return (
-		<AppBar position="static" className={classes.navBar}>
-			<Toolbar>
-				<Typography variant="h6" noWrap>
-					[ICONO]
-				</Typography>
+	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
+	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
+	const [values, setValues] = useState({
+		amount: "",
+		password: "",
+		weight: "",
+		weightRange: "",
+		showPassword: false
+	});
 
-				<div className={classes.search}>
-					<div className={classes.searchIcon}>
-						<SearchIcon />
+	const handleChange = prop => event => {
+		setValues({ ...values, [prop]: event.target.value });
+	};
+
+	const handleClickShowPassword = () => {
+		setValues({ ...values, showPassword: !values.showPassword });
+	};
+
+	const handleMouseDownPassword = event => {
+		event.preventDefault();
+	};
+
+	const abrirCerrarLogIn = () => {
+		setOpenLogIn(!openLogIn);
+	};
+
+	const abrirCerrarSignIn = () => {
+		setOpenSignIn(!openSignIn);
+	};
+	const bodyLogIn = (
+		<div className={classes.modal}>
+			<InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+			<Input
+				id="standard-adornment-password"
+				type={values.showPassword ? "text" : "password"}
+				value={values.password}
+				onChange={handleChange("password")}
+				endAdornment={
+					<InputAdornment position="end">
+						<IconButton
+							aria-label="toggle password visibility"
+							onClick={handleClickShowPassword}
+							onMouseDown={handleMouseDownPassword}>
+							{values.showPassword ? <Visibility /> : <VisibilityOff />}
+						</IconButton>
+					</InputAdornment>
+				}
+			/>
+		</div>
+	);
+
+	const bodySignIn = (
+		<div className={classes.modal}>
+			<h1>Soy el Log In</h1>
+		</div>
+	);
+
+	return (
+		<div>
+			<AppBar position="static" className={classes.navBar}>
+				<Toolbar>
+					<Typography variant="h6" noWrap>
+						[ICONO]
+					</Typography>
+
+					<div className={classes.search}>
+						<div className={classes.searchIcon}>
+							<SearchIcon />
+						</div>
+						<InputBase
+							placeholder="Search…"
+							classes={{
+								root: classes.inputRoot,
+								input: classes.inputInput
+							}}
+							inputProps={{ "aria-label": "search" }}
+						/>
 					</div>
-					<InputBase
-						placeholder="Search…"
-						classes={{
-							root: classes.inputRoot,
-							input: classes.inputInput
-						}}
-						inputProps={{ "aria-label": "search" }}
-					/>
-				</div>
-				<div className={classes.searchDiv} />
-				<Button variant="outlined" className={classes.navButton}>
-					Iniciar Sesion
-				</Button>
-				<Button variant="outlined" className={classes.navButton}>
-					Registrarse
-				</Button>
-			</Toolbar>
-		</AppBar>
+					<div className={classes.searchDiv} />
+					<Button variant="outlined" className={classes.navButton} onClick={() => abrirCerrarLogIn()}>
+						Iniciar Sesion
+					</Button>
+					<Button variant="outlined" className={classes.navButton} onClick={() => abrirCerrarSignIn()}>
+						Registrarse
+					</Button>
+				</Toolbar>
+			</AppBar>
+
+			{/* // Este es el modal del Log In // */}
+			<Modal
+				open={openLogIn}
+				onClose={abrirCerrarLogIn}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description">
+				{bodyLogIn}
+			</Modal>
+
+			{/* // Este es el modal del Sign In // */}
+			<Modal
+				open={openSignIn}
+				onClose={abrirCerrarSignIn}
+				aria-labelledby="simple-modal-title"
+				aria-describedby="simple-modal-description">
+				{bodySignIn}
+			</Modal>
+		</div>
 	);
 };
