@@ -1,14 +1,17 @@
 import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.scss";
-import Informacion_form from "../component/informacion_del_perfil";
-import Contraseña_form from "../component/contraseña";
-import Pago_form from "../component/Informacion_pago";
-import Cambiar_foto from "../component/cambiar_foto";
+import MainFeaturedPost from "../component/Jumbotron_principal";
+import Jumbotron_funcion from "../component/Jumbotron_funcion";
+import Jumbotron_categorias from "../component/jumbotron_categorias";
+import Jumbotron_beneficios from "../component/Jumbotron_beneficios";
+import { Navbar } from "../component/navbar";
 
 export const Home = () => (
-	<div className="text-center mt-5">
-		
+	<div>
+		<Navbar />
+		<MainFeaturedPost />
+		<Jumbotron_funcion />
+		<Jumbotron_beneficios />
+		<Jumbotron_categorias />
 	</div>
 );
-

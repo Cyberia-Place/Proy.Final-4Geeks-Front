@@ -1,17 +1,17 @@
 import React from "react";
 import CardProf from "../component/card_prof";
 import SelectorHora from "../component/selector_hora";
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import { NavbarSesion } from "../component/navbar_sesion";
 
 export const Inicio = () => (
 	<div>
+		<NavbarSesion />
 		<Container maxWidth="lg">
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
