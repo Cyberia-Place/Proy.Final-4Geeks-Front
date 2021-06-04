@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from "react";
+import React, { useState, useContext } from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
@@ -17,10 +17,12 @@ import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
-		marginRight: theme.spacing(2)
+		marginRight: theme.spacing(2),
+		backgroundColor: "#252525",
+		color: "white"
 	},
 	navBar: {
-		background: "linear-gradient(45deg, #4caf50 30%, #64ffda 90%)"
+		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)"
 	},
 	// Estilos del search bar que pegue
 	inputInput: {
@@ -73,10 +75,6 @@ const useStyles = makeStyles(theme => ({
 		left: "50%",
 		top: "50%",
 		transform: "translate(-50%, -50%)"
-		// display: "flex",
-		// flexDirection: "column",
-		// alignItems: "center",
-		// textAlign: "center"
 	},
 	styleTextField: {
 		marginTop: "15px"
@@ -86,7 +84,7 @@ const useStyles = makeStyles(theme => ({
 		right: "0px"
 	},
 	signInButton: {
-		background: "linear-gradient(45deg, #4caf50 30%, #64ffda 90%)",
+		background: "linear-gradient(45deg, #9ED54C 30%, #64ffda 90%)",
 		marginTop: "20px",
 		marginBottom: "20px"
 	},
@@ -144,128 +142,145 @@ export const Navbar = () => {
 
 	const bodyLogIn = (
 		<div className={classes.modal}>
-			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarLogIn()}>
-				<h5>X</h5>
-			</Button>
-			<Typography variant="h4" align="center" gutterBottom>
-				Inicio de sesión
-			</Typography>
-			<Typography variant="body1" gutterBottom>
-				Ingrese su correo electrónico y contraseña para iniciar sesión.
-			</Typography>
+			<form>
+				<Button className={classes.exitSignInButton} onClick={() => abrirCerrarLogIn()}>
+					<h5>X</h5>
+				</Button>
+				<Typography variant="h4" align="center" gutterBottom>
+					Inicio de sesión
+				</Typography>
+				<Typography variant="body1" gutterBottom>
+					Ingrese su correo electrónico y contraseña para iniciar sesión.
+				</Typography>
 
-			{/* // Input de email // */}
-			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-			<Input variant="outlined" size="small" fullWidth />
+				{/* // Input de email // */}
+				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+				<Input variant="outlined" size="small" fullWidth />
 
-			{/* // Input de contraseña // */}
-			<InputLabel className={classes.styleTextField}>Password</InputLabel>
-			<Input
-				fullWidth
-				id="outlined-adornment-password"
-				type={values.showPassword ? "text" : "password"}
-				value={values.password}
-				onChange={handleChange("password")}
-				endAdornment={
-					<InputAdornment position="end">
-						<IconButton
-							aria-label="toggle password visibility"
-							onClick={handleClickShowPassword}
-							onMouseDown={handleMouseDownPassword}
-							edge="end">
-							{values.showPassword ? <Visibility /> : <VisibilityOff />}
-						</IconButton>
-					</InputAdornment>
-				}
-				labelWidth={70}
-			/>
-			<Button variant="contained" className={classes.signInButton} fullWidth>
-				Iniciar sesión
-			</Button>
-			<Typography variant="body1" gutterBottom>
-				<Link
-					href="#"
-					onClick={() => {
-						abrirCerrarChangePassword();
-						abrirCerrarLogIn();
-					}}>
-					¿Olvidaste tu contraseña?
-				</Link>
-			</Typography>
+				{/* // Input de contraseña // */}
+				<InputLabel className={classes.styleTextField}>Password</InputLabel>
+				<Input
+					fullWidth
+					id="outlined-adornment-password"
+					type={values.showPassword ? "text" : "password"}
+					value={values.password}
+					onChange={handleChange("password")}
+					endAdornment={
+						<InputAdornment position="end">
+							<IconButton
+								aria-label="toggle password visibility"
+								onClick={handleClickShowPassword}
+								onMouseDown={handleMouseDownPassword}
+								edge="end">
+								{values.showPassword ? <Visibility /> : <VisibilityOff />}
+							</IconButton>
+						</InputAdornment>
+					}
+					labelWidth={70}
+				/>
+				<Button variant="contained" className={classes.signInButton} fullWidth>
+					Iniciar sesión
+				</Button>
+				<Typography variant="body1" gutterBottom>
+					<Link
+						href="#"
+						onClick={() => {
+							abrirCerrarChangePassword();
+							abrirCerrarLogIn();
+						}}>
+						¿Olvidaste tu contraseña?
+					</Link>
+				</Typography>
+			</form>
 		</div>
 	);
 
 	const bodySignIn = (
 		<div className={classes.modal}>
-			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarSignIn()}>
-				<h5>X</h5>
-			</Button>
-			<Typography variant="h4" align="center" gutterBottom>
-				Registrate
-			</Typography>
-			<Typography variant="body1" gutterBottom>
-				Rellena los campos a continuación con tus datos.
-			</Typography>
-			<InputLabel className={classes.styleTextField}>Nombre completo</InputLabel>
-			<Input onChange={event => setInputFullName(event.target.value)} variant="outlined" size="small" fullWidth />
-			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-			<Input onChange={event => setInputEmail(event.target.value)} variant="outlined" size="small" fullWidth />
+			<form>
+				<Button className={classes.exitSignInButton} onClick={() => abrirCerrarSignIn()}>
+					<h5>X</h5>
+				</Button>
+				<Typography variant="h4" align="center" gutterBottom>
+					Registrate
+				</Typography>
+				<Typography variant="body1" gutterBottom>
+					Rellena los campos a continuación con tus datos.
+				</Typography>
+				<InputLabel className={classes.styleTextField}>Nombre completo</InputLabel>
+				<Input
+					onChange={event => setInputFullName(event.target.value)}
+					variant="outlined"
+					size="small"
+					fullWidth
+				/>
+				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+				<Input
+					onChange={event => setInputEmail(event.target.value)}
+					variant="outlined"
+					size="small"
+					fullWidth
+				/>
 
-			<InputLabel className={classes.styleTextField}>Password</InputLabel>
-			<Input
-				fullWidth
-				id="outlined-adornment-password"
-				type={values.showPassword ? "text" : "password"}
-				value={values.password}
-				onChange={event => {
-					handleChange("password");
-					setInputPassword(event.target.value);
-				}}
-				endAdornment={
-					<InputAdornment position="end">
-						<IconButton
-							aria-label="toggle password visibility"
-							onClick={handleClickShowPassword}
-							onMouseDown={handleMouseDownPassword}
-							edge="end">
-							{values.showPassword ? <Visibility /> : <VisibilityOff />}
-						</IconButton>
-					</InputAdornment>
-				}
-				labelWidth={70}
-			/>
-			<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
-				Únete
-			</Button>
-			<Typography variant="body1" align="center" gutterBottom>
-				Volver a Iniciar Sesión.
-			</Typography>
-			<br />
-			<Typography variant="caption" display="block" gutterBottom>
-				Acepto los Términos de Uso y la Política de Privacidad de [nombre de la App].
-			</Typography>
+				<InputLabel className={classes.styleTextField}>Password</InputLabel>
+				<Input
+					fullWidth
+					id="outlined-adornment-password"
+					type={values.showPassword ? "text" : "password"}
+					value={values.password}
+					onChange={event => {
+						handleChange("password");
+						setInputPassword(event.target.value);
+					}}
+					endAdornment={
+						<InputAdornment position="end">
+							<IconButton
+								aria-label="toggle password visibility"
+								onClick={handleClickShowPassword}
+								onMouseDown={handleMouseDownPassword}
+								edge="end">
+								{values.showPassword ? <Visibility /> : <VisibilityOff />}
+							</IconButton>
+						</InputAdornment>
+					}
+					labelWidth={70}
+				/>
+				<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
+					Únete
+				</Button>
+				<Typography variant="body1" align="center" gutterBottom>
+					Volver a Iniciar Sesión.
+				</Typography>
+				<br />
+				<Typography variant="caption" display="block" gutterBottom>
+					Acepto los Términos de Uso y la Política de Privacidad de [nombre de la App].
+				</Typography>
+			</form>
 		</div>
 	);
 
 	const bodyChangePassword = (
 		<div className={classes.modal}>
-			<Button className={classes.exitSignInButton} onClick={() => abrirCerrarChangePassword()}>
-				<h5>X</h5>
-			</Button>
-			<Typography variant="h4" align="center" gutterBottom>
-				¿Olvidaste tu contraseña?
-			</Typography>
-			<Typography variant="body1" gutterBottom>
-				Introduce tu dirección de correo electrónico. Te enviaremos un enlace para restablecer su contraseña.
-			</Typography>
-			<br />
-			{/* // Input de email // */}
-			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-			<Input variant="outlined" size="small" fullWidth />
+			<form>
+				<Button className={classes.exitSignInButton} onClick={() => abrirCerrarChangePassword()}>
+					<h5>X</h5>
+				</Button>
+				<Typography variant="h4" align="center" gutterBottom>
+					¿Olvidaste tu contraseña?
+				</Typography>
+				<Typography variant="body1" gutterBottom>
+					Introduce tu dirección de correo electrónico. Te enviaremos un enlace para restablecer su
+					contraseña.
+				</Typography>
+				<br />
+				{/* // Input de email // */}
+				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
+				<Input variant="outlined" size="small" fullWidth />
 
-			<Button variant="contained" className={classes.signInButton}>
-				Enviar enlace
-			</Button>
+				<Button variant="contained" className={classes.signInButton}>
+					Enviar enlace
+				</Button>
+			</form>
 		</div>
 	);
 	return (
@@ -290,10 +305,10 @@ export const Navbar = () => {
 						/>
 					</div>
 					<div className={classes.searchDiv} />
-					<Button variant="outlined" className={classes.navButton} onClick={() => abrirCerrarLogIn()}>
+					<Button variant="contained" className={classes.navButton} onClick={() => abrirCerrarLogIn()}>
 						Iniciar Sesion
 					</Button>
-					<Button variant="outlined" className={classes.navButton} onClick={() => abrirCerrarSignIn()}>
+					<Button variant="contained" className={classes.navButton} onClick={() => abrirCerrarSignIn()}>
 						Registrarse
 					</Button>
 				</Toolbar>
