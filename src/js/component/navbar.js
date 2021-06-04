@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useRef } from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import Link from "@material-ui/core/Link";
+import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -97,9 +98,17 @@ const useStyles = makeStyles(theme => ({
 export const Navbar = () => {
 	const classes = useStyles();
 
+	const [inputEmail, setInputEmail] = useState();
+	const [inputPassword, setInputPassword] = useState();
+	const [inputFullName, setInputFullName] = useState();
+
 	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
 	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
+	const { store, actions } = useContext(Context);
+	const signup = () => {
+		actions.signUp(inputEmail, inputPassword, inputFullName);
+	};
 
 	const [values, setValues] = useState({
 		amount: "",
@@ -198,9 +207,9 @@ export const Navbar = () => {
 				Rellena los campos a continuación con tus datos.
 			</Typography>
 			<InputLabel className={classes.styleTextField}>Nombre completo</InputLabel>
-			<Input variant="outlined" size="small" fullWidth />
+			<Input onChange={event => setInputFullName(event.target.value)} variant="outlined" size="small" fullWidth />
 			<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-			<Input variant="outlined" size="small" fullWidth />
+			<Input onChange={event => setInputEmail(event.target.value)} variant="outlined" size="small" fullWidth />
 
 			<InputLabel className={classes.styleTextField}>Password</InputLabel>
 			<Input
@@ -208,7 +217,10 @@ export const Navbar = () => {
 				id="outlined-adornment-password"
 				type={values.showPassword ? "text" : "password"}
 				value={values.password}
-				onChange={handleChange("password")}
+				onChange={event => {
+					handleChange("password");
+					setInputPassword(event.target.value);
+				}}
 				endAdornment={
 					<InputAdornment position="end">
 						<IconButton
@@ -222,7 +234,7 @@ export const Navbar = () => {
 				}
 				labelWidth={70}
 			/>
-			<Button variant="contained" className={classes.signInButton} fullWidth>
+			<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
 				Únete
 			</Button>
 			<Typography variant="body1" align="center" gutterBottom>
