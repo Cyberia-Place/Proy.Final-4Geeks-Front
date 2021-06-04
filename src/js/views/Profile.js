@@ -22,9 +22,6 @@ const useStyles = makeStyles(theme => ({
 	userImg: {
 		width: theme.spacing(18),
 		height: theme.spacing(18)
-	},
-	card: {
-		padding: theme.spacing(3)
 	}
 }));
 
@@ -42,61 +39,66 @@ export const Profile = () => {
 			{store.userData ? (
 				<Grid container spacing={3}>
 					<Grid item xs={12}>
-						<Card className={classes.card}>
-							<CardContent>
-								<Grid container spacing={3}>
-									<Grid item xs={12} md={3}>
-										<Avatar
-											alt="User img"
-											src={
-												store.userData.imagen
-													? store.userData.imagen
-													: "https://fondosmil.com/fondo/17012.jpg"
-											}
-											className={classes.userImg}
-										/>
-									</Grid>
-									<Grid item xs={12} md={9}>
-										<Typography variant="h4" gutterBottom>
-											{store.userData.nombre}
-										</Typography>
-										<Typography variant="body1" gutterBottom>
-											<strong>Email </strong> {store.userData.email}
-										</Typography>
-										<Typography variant="body1" gutterBottom>
-											<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
-										</Typography>
-										<Typography variant="body1" gutterBottom>
-											<strong>Ubicacion </strong>{" "}
-											{store.userData.ubicacion ? store.userData.ubicacion : "-"}
-										</Typography>
-										<Typography variant="body1" gutterBottom>
-											<strong>Idioma </strong>{" "}
-											{store.userData.idioma ? store.userData.idioma : "-"}
-										</Typography>
-										<Typography variant="body1" gutterBottom>
-											<strong>Ocupacion </strong>{" "}
-											{store.userData.ocupacion ? store.userData.ocupacion : "-"}
-										</Typography>
-									</Grid>
-									{store.userData.descripcion ? (
+						<Card>
+							<Grid container spacing={3}>
+								<Grid item xs={12} sm={4}>
+									<Grid container direction="column" justify="center" alignItems="center" spacing={3}>
 										<Grid item xs={12}>
+											<Avatar
+												alt="User img"
+												src={
+													store.userData.imagen
+														? store.userData.imagen
+														: "https://fondosmil.com/fondo/17012.jpg"
+												}
+												className={classes.userImg}
+											/>
+										</Grid>
+										<Grid item xs={12}>
+											<Typography textAlign="center" variant="h4" gutterBottom>
+												{store.userData.nombre}
+											</Typography>
+										</Grid>
+										<Grid item xs={12}>
+											<Typography variant="h6" gutterBottom>
+												{store.userData.email}
+											</Typography>
+										</Grid>
+									</Grid>
+								</Grid>
+								<Grid item xs={12} sm={8}>
+									<Typography variant="body1" gutterBottom>
+										<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
+									</Typography>
+									<Typography variant="body1" gutterBottom>
+										<strong>Ubicacion </strong>{" "}
+										{store.userData.ubicacion ? store.userData.ubicacion : "-"}
+									</Typography>
+									<Typography variant="body1" gutterBottom>
+										<strong>Idioma </strong> {store.userData.idioma ? store.userData.idioma : "-"}
+									</Typography>
+									<Typography variant="body1" gutterBottom>
+										<strong>Ocupacion </strong>{" "}
+										{store.userData.ocupacion ? store.userData.ocupacion : "-"}
+									</Typography>
+									{store.userData.descripcion ? (
+										<>
 											<Typography variant="h6" gutterBottom>
 												Acerca de mi
 											</Typography>
 											<Typography variant="body1" gutterBottom>
 												{store.userData.descripcion}
 											</Typography>
-										</Grid>
+										</>
 									) : (
 										""
 									)}
 								</Grid>
-							</CardContent>
+							</Grid>
 						</Card>
 					</Grid>
 					<Grid item xs={12} md={6}>
-						<Card className={classes.card}>
+						<Card>
 							<CardHeader title="Aprendiendo" />
 							<Divider light />
 							<CardContent>
@@ -118,7 +120,7 @@ export const Profile = () => {
 						</Card>
 					</Grid>
 					<Grid item xs={12} md={6}>
-						<Card className={classes.card}>
+						<Card>
 							<CardHeader title="Enseñando" />
 							<Divider light />
 							<CardContent>
