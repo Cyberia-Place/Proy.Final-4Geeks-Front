@@ -16,6 +16,7 @@ import {
 import { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useState } from "react";
+import Categories_Area from "../component/Categories_Area";
 
 const useStyles = makeStyles(theme => ({
 	userImg: {
@@ -57,7 +58,7 @@ export const Profile = () => {
 									</Grid>
 									<Grid item xs={12} md={9}>
 										<Typography variant="h4" gutterBottom>
-											{store.userData.nombre + " " + store.userData.apellido}
+											{store.userData.nombre}
 										</Typography>
 										<Typography variant="body1" gutterBottom>
 											<strong>Email </strong> {store.userData.email}
@@ -68,6 +69,14 @@ export const Profile = () => {
 										<Typography variant="body1" gutterBottom>
 											<strong>Ubicacion </strong>{" "}
 											{store.userData.ubicacion ? store.userData.ubicacion : "-"}
+										</Typography>
+										<Typography variant="body1" gutterBottom>
+											<strong>Idioma </strong>{" "}
+											{store.userData.idioma ? store.userData.idioma : "-"}
+										</Typography>
+										<Typography variant="body1" gutterBottom>
+											<strong>Ocupacion </strong>{" "}
+											{store.userData.ocupacion ? store.userData.ocupacion : "-"}
 										</Typography>
 									</Grid>
 									{store.userData.descripcion ? (
@@ -100,6 +109,11 @@ export const Profile = () => {
 								<Typography variant="body1" gutterBottom>
 									<strong>Opiniones </strong> 22
 								</Typography>
+								<br />
+								<Categories_Area
+									titulo="Areas de interes"
+									categorias={["cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat"]}
+								/>
 							</CardContent>
 						</Card>
 					</Grid>
@@ -115,11 +129,14 @@ export const Profile = () => {
 									<strong>Horas </strong> 300 hs
 								</Typography>
 								<Typography variant="body1" gutterBottom>
-									<strong>Calificacion</strong>
+									<strong>Calificacion</strong> {/* <Rating name="read-only" value={3} readOnly /> */}
 								</Typography>
-								<Box component="fieldset" mb={3} borderColor="transparent">
-									{/* <Rating name="read-only" value={3} readOnly /> */}
-								</Box>
+
+								<br />
+								<Categories_Area
+									titulo="Areas de conocimiento"
+									categorias={["cat", "cat", "cat", "cat"]}
+								/>
 							</CardContent>
 						</Card>
 					</Grid>

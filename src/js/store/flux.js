@@ -40,25 +40,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getProfile: async () => {
-				let token =
-					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoxLCJlbWFpbCI6ImFndUBnbWFpbC5jb20iLCJub21icmUiOiJBZ3VzdGluIiwiYXBlbGxpZG8iOiJQZXJhemEifSwiaWF0IjoxNjIyNzIxNDIwLCJleHAiOjE2MjI4MDc4MjB9.VwyRmtMdWxoaXJ1SqC0p-oXFAc8p-p4nlKP4snWOxpM";
+				let token = localStorage.getItem("token");
 
-				var myHeaders = new Headers();
-				myHeaders.append("Content-Type", "application/json");
-				myHeaders.append("Authorization", token);
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
 
-				var requestOptions = {
-					method: "GET",
-					headers: myHeaders,
-					redirect: "follow"
-				};
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
 
-				try {
-					let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
-					let data = await response.json();
-					setStore({ userData: data });
-				} catch (error) {
-					console.log(error);
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
+						let data = await response.json();
+						setStore({ userData: data });
+					} catch (error) {
+						console.log(error);
+					}
 				}
 			}
 		}
