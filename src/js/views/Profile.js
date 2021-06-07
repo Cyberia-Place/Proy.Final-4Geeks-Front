@@ -11,7 +11,8 @@ import {
 	makeStyles,
 	Box,
 	Divider,
-	LinearProgress
+	LinearProgress,
+	Paper
 } from "@material-ui/core";
 import { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
@@ -21,7 +22,25 @@ import Categories_Area from "../component/Categories_Area";
 const useStyles = makeStyles(theme => ({
 	userImg: {
 		width: theme.spacing(18),
-		height: theme.spacing(18)
+		height: theme.spacing(18),
+		border: "4px solid white"
+	},
+
+	paper: {
+		background: "black",
+		color: "white"
+	},
+
+	userContent: {
+		height: "100%"
+	},
+
+	content: {
+		padding: theme.spacing(5)
+	},
+
+	header: {
+		padding: theme.spacing(3)
 	}
 }));
 
@@ -40,68 +59,84 @@ export const Profile = () => {
 				<Grid container spacing={3}>
 					<Grid item xs={12}>
 						<Card>
-							<Grid container spacing={3}>
-								<Grid item xs={12} sm={4}>
-									<Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-										<Grid item xs={12}>
-											<Avatar
-												alt="User img"
-												src={
-													store.userData.imagen
-														? store.userData.imagen
-														: "https://fondosmil.com/fondo/17012.jpg"
-												}
-												className={classes.userImg}
-											/>
-										</Grid>
-										<Grid item xs={12}>
-											<Typography textAlign="center" variant="h4" gutterBottom>
-												{store.userData.nombre}
-											</Typography>
-										</Grid>
-										<Grid item xs={12}>
-											<Typography variant="h6" gutterBottom>
-												{store.userData.email}
-											</Typography>
-										</Grid>
-									</Grid>
+							<Grid container>
+								<Grid item xs={12} md={4}>
+									<Paper className={`${classes.paper} ${classes.userContent}`} elevation={10}>
+										<CardContent className={classes.content}>
+											<Grid
+												container
+												direction="column"
+												justify="center"
+												alignItems="center"
+												spacing={1}>
+												<Grid item xs={12}>
+													<Avatar
+														alt="User img"
+														src={
+															store.userData.imagen
+																? store.userData.imagen
+																: "https://fondosmil.com/fondo/17012.jpg"
+														}
+														className={classes.userImg}
+													/>
+												</Grid>
+												<Grid item xs={12}>
+													<Typography align={"center"} variant="h5" gutterBottom>
+														{store.userData.nombre}
+													</Typography>
+												</Grid>
+												<Grid item xs={12}>
+													<Typography variant="body1" gutterBottom>
+														{store.userData.email}
+													</Typography>
+												</Grid>
+											</Grid>
+										</CardContent>
+									</Paper>
 								</Grid>
-								<Grid item xs={12} sm={8}>
-									<Typography variant="body1" gutterBottom>
-										<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
-									</Typography>
-									<Typography variant="body1" gutterBottom>
-										<strong>Ubicacion </strong>{" "}
-										{store.userData.ubicacion ? store.userData.ubicacion : "-"}
-									</Typography>
-									<Typography variant="body1" gutterBottom>
-										<strong>Idioma </strong> {store.userData.idioma ? store.userData.idioma : "-"}
-									</Typography>
-									<Typography variant="body1" gutterBottom>
-										<strong>Ocupacion </strong>{" "}
-										{store.userData.ocupacion ? store.userData.ocupacion : "-"}
-									</Typography>
-									{store.userData.descripcion ? (
-										<>
-											<Typography variant="h6" gutterBottom>
-												Acerca de mi
-											</Typography>
-											<Typography variant="body1" gutterBottom>
-												{store.userData.descripcion}
-											</Typography>
-										</>
-									) : (
-										""
-									)}
+								<Grid item xs={12} md={8}>
+									<CardContent className={classes.content}>
+										<Typography variant="body1" gutterBottom>
+											<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
+										</Typography>
+										<Typography variant="body1" gutterBottom>
+											<strong>Ubicacion </strong>{" "}
+											{store.userData.ubicacion ? store.userData.ubicacion : "-"}
+										</Typography>
+										<Typography variant="body1" gutterBottom>
+											<strong>Idioma </strong>{" "}
+											{store.userData.idioma ? store.userData.idioma : "-"}
+										</Typography>
+										<Typography variant="body1" gutterBottom>
+											<strong>Ocupacion </strong>{" "}
+											{store.userData.ocupacion ? store.userData.ocupacion : "-"}
+										</Typography>
+										{store.userData.descripcion ? (
+											<>
+												<br />
+												<Typography variant="h6" gutterBottom>
+													Acerca de mi
+												</Typography>
+												<Typography variant="body1" gutterBottom>
+													{store.userData.descripcion}
+												</Typography>
+											</>
+										) : (
+											""
+										)}
+									</CardContent>
 								</Grid>
 							</Grid>
 						</Card>
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<Card>
-							<CardHeader title="Aprendiendo" />
-							<Divider light />
-							<CardContent>
+							<Paper className={`${classes.paper} ${classes.header}`} elevation={10}>
+								<Typography variant="h5" style={{ margin: "0" }} align={"center"} gutterBottom>
+									Aprendiendo
+								</Typography>
+							</Paper>
+							<CardContent className={classes.content}>
 								<Typography variant="body1" gutterBottom>
 									<strong>Clases asistidas </strong> 120
 								</Typography>
@@ -121,9 +156,12 @@ export const Profile = () => {
 					</Grid>
 					<Grid item xs={12} md={6}>
 						<Card>
-							<CardHeader title="Enseñando" />
-							<Divider light />
-							<CardContent>
+							<Paper className={`${classes.paper} ${classes.header}`} elevation={10}>
+								<Typography variant="h5" style={{ margin: "0" }} align={"center"} gutterBottom>
+									Enseñando
+								</Typography>
+							</Paper>
+							<CardContent className={classes.content}>
 								<Typography variant="body1" gutterBottom>
 									<strong>Clases impartidas </strong> 160
 								</Typography>
