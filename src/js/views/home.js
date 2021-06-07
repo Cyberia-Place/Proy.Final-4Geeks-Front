@@ -8,7 +8,6 @@ import { Navbar } from "../component/navbar";
 
 export const Home = () => (
 	<div>
-		<Navbar />
 		<MainFeaturedPost />
 		<Jumbotron_funcion />
 		<Jumbotron_beneficios />

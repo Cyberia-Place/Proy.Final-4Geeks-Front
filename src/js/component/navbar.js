@@ -104,8 +104,13 @@ export const Navbar = () => {
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
 	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
 	const { store, actions } = useContext(Context);
+
 	const signup = () => {
 		actions.signUp(inputEmail, inputPassword, inputFullName);
+	};
+
+	const login = () => {
+		actions.logIn(inputEmail, inputPassword);
 	};
 
 	const [values, setValues] = useState({
@@ -155,7 +160,12 @@ export const Navbar = () => {
 
 				{/* // Input de email // */}
 				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-				<Input variant="outlined" size="small" fullWidth />
+				<Input
+					onChange={event => setInputEmail(event.target.value)}
+					variant="outlined"
+					size="small"
+					fullWidth
+				/>
 
 				{/* // Input de contraseña // */}
 				<InputLabel className={classes.styleTextField}>Password</InputLabel>
@@ -163,8 +173,10 @@ export const Navbar = () => {
 					fullWidth
 					id="outlined-adornment-password"
 					type={values.showPassword ? "text" : "password"}
-					value={values.password}
-					onChange={handleChange("password")}
+					onChange={event => {
+						handleChange("password");
+						setInputPassword(event.target.value);
+					}}
 					endAdornment={
 						<InputAdornment position="end">
 							<IconButton
@@ -178,7 +190,7 @@ export const Navbar = () => {
 					}
 					labelWidth={70}
 				/>
-				<Button variant="contained" className={classes.signInButton} fullWidth>
+				<Button variant="contained" className={classes.signInButton} onClick={login} fullWidth>
 					Iniciar sesión
 				</Button>
 				<Typography variant="body1" gutterBottom>
@@ -227,7 +239,6 @@ export const Navbar = () => {
 					fullWidth
 					id="outlined-adornment-password"
 					type={values.showPassword ? "text" : "password"}
-					value={values.password}
 					onChange={event => {
 						handleChange("password");
 						setInputPassword(event.target.value);
