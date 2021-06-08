@@ -4,18 +4,7 @@ import swal from "sweetalert";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			usuario: null
 		},
 		actions: {
 			loadSomeData: () => {
@@ -69,10 +58,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 						setStore({ usuario: data.usuario });
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
+
+						window.location.href = "/inicio";
 					}
 				} catch (error) {
 					getActions().showMessage("Error!", "Error en el servidor", "error");
 				}
+			},
+
+			logout: () => {
+				localStorage.clear();
+				setStore({ usuario: null });
+				window.location.href = "/";
 			},
 
 			showMessage: (title, text, icon) => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import AppBar from "@material-ui/core/AppBar";
 import Typography from "@material-ui/core/Typography";
@@ -13,6 +13,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	navBar: {
@@ -74,6 +75,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export const NavbarSesion = () => {
+	const { store, actions } = useContext(Context);
+
 	const classes = useStyles();
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -111,7 +114,13 @@ export const NavbarSesion = () => {
 			onClose={handleMenuClose}>
 			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
-			<MenuItem onClick={handleMenuClose}>Log out</MenuItem>
+			<MenuItem
+				onClick={() => {
+					handleMenuClose();
+					actions.logout();
+				}}>
+				Log out
+			</MenuItem>
 		</Menu>
 	);
 
@@ -188,6 +197,9 @@ export const NavbarSesion = () => {
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
+						<Typography variant="h6" gutterBottom>
+							{store.usuario.nombre}
+						</Typography>
 						<IconButton
 							edge="end"
 							aria-label="account of current user"
