@@ -8,6 +8,7 @@ import { Single } from "./views/single";
 import { InicioAlumno } from "./views/index_usuario_logueado";
 import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
+import { Profile } from "./views/Profile";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -47,6 +48,9 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/inicio/alumno">
 								<InicioAlumno />
+							</Route>
+							<Route exact path="/profile">
+								<Profile />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>
