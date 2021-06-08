@@ -11,30 +11,48 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 
-export default function CardCompra() {
-    const classes = useStyles();
-    const [value, setValue] = React.useState(2);
-    const preventDefault = event => event.preventDefault();
+const useStyles = makeStyles(theme => ({
+	root: {
+		flexGrow: 1
+	},
+	paper: {
+		margin: "auto",
+		width: 250
+	},
+	image: {
+		height: "160px",
+		width: "160px"
+	}
+}));
 
-    return (
-        <div>
-            <Paper>
-                <Box>
-                    <Typography variant="h3" gutterBottom>
-                        300 creditos
-                    </Typography>
-                </Box>
-                <Box>
-                    <Typography variant="h3" gutterBottom>
-                        $10
-                    </Typography>
-                </Box>
-                <Box>
-                    <Button variant="contained" color="primary">
-                    Comprar
-                    </Button>
-                </Box>
-            </Paper>
-        </div>
-    );
+export default function CardCompra() {
+	const classes = useStyles();
+	const [value, setValue] = React.useState(2);
+	const preventDefault = event => event.preventDefault();
+
+	return (
+		<div>
+			<Box mt={3}>
+				<Paper className={classes.paper}>
+					<Box display="flex" flexDirection="column">
+						<Box display="flex" justifyContent="center" my={3}>
+							<Typography variant="h4" gutterBottom>
+								<MonetizationOnIcon fontSize="large" /> 300
+							</Typography>
+						</Box>
+						<Box display="flex" justifyContent="center" my={3}>
+							<Typography variant="h2" gutterBottom>
+								$10
+							</Typography>
+						</Box>
+						<Box display="flex" justifyContent="center" my={3}>
+							<Button variant="contained" color="primary">
+								Comprar
+							</Button>
+						</Box>
+					</Box>
+				</Paper>
+			</Box>
+		</div>
+	);
 }

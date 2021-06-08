@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-import Compra from "./views/compra";
+import { Compra } from "./views/compra";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { InicioAlumno } from "./views/index_usuario_logueado";
