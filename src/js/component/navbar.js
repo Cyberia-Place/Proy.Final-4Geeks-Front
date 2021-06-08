@@ -14,6 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import Link from "@material-ui/core/Link";
 import { Context } from "../store/appContext";
+import validator from "validator";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -96,9 +97,9 @@ const useStyles = makeStyles(theme => ({
 export const Navbar = () => {
 	const classes = useStyles();
 
-	const [inputEmail, setInputEmail] = useState();
-	const [inputPassword, setInputPassword] = useState();
-	const [inputFullName, setInputFullName] = useState();
+	const [inputEmail, setInputEmail] = useState("");
+	const [inputPassword, setInputPassword] = useState("");
+	const [inputFullName, setInputFullName] = useState("");
 
 	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
@@ -106,11 +107,44 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 	const signup = () => {
-		actions.signUp(inputEmail, inputPassword, inputFullName);
+		let valid = true;
+
+		if (validator.isEmpty(inputFullName)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo nombre no puede estar vacio", "error");
+		}
+
+		if (!validator.isEmail(inputEmail)) {
+			valid = false;
+			actions.showMessage("Error!", "Email invalido", "error");
+		}
+
+		if (validator.isEmpty(inputPassword)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo contraseña no puede estar vacio", "error");
+		}
+
+		if (valid) {
+			actions.signUp(inputEmail, inputPassword, inputFullName);
+		}
 	};
 
 	const login = () => {
-		actions.logIn(inputEmail, inputPassword);
+		let valid = true;
+
+		if (!validator.isEmail(inputEmail)) {
+			valid = false;
+			actions.showMessage("Error!", "Email invalido", "error");
+		}
+
+		if (validator.isEmpty(inputPassword)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo contraseña no puede estar vacio", "error");
+		}
+
+		if (valid) {
+			actions.logIn(inputEmail, inputPassword);
+		}
 	};
 
 	const [values, setValues] = useState({

@@ -6,12 +6,28 @@ import { Context } from "./store/appContext";
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
-import { Inicio } from "./views/index_usuario_logueado";
+import { InicioAlumno } from "./views/index_usuario_logueado";
 import injectContext from "./store/appContext";
+
 import { Navbar } from "./component/navbar";
 import { NavbarSesion } from "./component/navbar_sesion";
-import { Footer } from "./component/footer";
 import { useContext } from "react";
+import { Footer } from "./component/footer";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#59a80f"
+		},
+		secondary: {
+			main: "#aef060"
+		},
+		error: {
+			main: "#fdd835"
+		}
+	}
+});
 
 //create your first component
 const Layout = () => {
@@ -21,31 +37,33 @@ const Layout = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="d-flex flex-column">
-			<BrowserRouter basename={basename}>
-				<ScrollToTop>
-					{store.usuario ? <NavbarSesion /> : <Navbar />}
-					<Switch>
-						<Route exact path="/">
-							<Home />
-						</Route>
-						<Route exact path="/demo">
-							<Demo />
-						</Route>
-						<Route exact path="/single/:theid">
-							<Single />
-						</Route>
-						<Route exact path="/inicio">
-							<Inicio />
-						</Route>
-						<Route>
-							<h1>Not found!</h1>
-						</Route>
-					</Switch>
-					<Footer />
-				</ScrollToTop>
-			</BrowserRouter>
-		</div>
+		<ThemeProvider theme={theme}>
+			<div className="d-flex flex-column">
+				<BrowserRouter basename={basename}>
+					<ScrollToTop>
+						{store.usuario ? <NavbarSesion /> : <Navbar />}
+						<Switch>
+							<Route exact path="/">
+								<Home />
+							</Route>
+							<Route exact path="/demo">
+								<Demo />
+							</Route>
+							<Route exact path="/single/:theid">
+								<Single />
+							</Route>
+							<Route exact path="/inicio">
+								<InicioAlumno />
+							</Route>
+							<Route>
+								<h1>Not found!</h1>
+							</Route>
+						</Switch>
+						<Footer />
+					</ScrollToTop>
+				</BrowserRouter>
+			</div>
+		</ThemeProvider>
 	);
 };
 
