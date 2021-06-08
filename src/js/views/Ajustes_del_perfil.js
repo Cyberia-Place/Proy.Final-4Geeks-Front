@@ -5,5 +5,18 @@ import Informacion_form from "../component/informacion_del_perfil";
 import Contraseña_form from "../component/contraseña";
 import Pago_form from "../component/Informacion_pago";
 import Cambiar_foto from "../component/cambiar_foto";
+import Agregar_link from "../component/agregar-link";
 
-export const Home = () => <div className="text-center mt-5" />;
+export const Ajustes_del_perfil = () => {
+	
+
+	return (
+        <div className="container p-2 m-auto">
+		<Cambiar_foto/>
+        <Informacion_form/>
+        <Contraseña_form/>
+        <Pago_form/>
+        <Agregar_link/>
+        </div>
+	);
+};
