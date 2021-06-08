@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { Modal } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import TextField from "@material-ui/core/TextField";
+import DatePicker from "react-datepicker";
 
 const useStyles = makeStyles(theme => ({
 	modal: {
@@ -18,6 +23,9 @@ const useStyles = makeStyles(theme => ({
 	exitMentorshipModal: {
 		position: "absolute",
 		right: "0px"
+	},
+	styleTextField: {
+		marginTop: "15px"
 	}
 }));
 
@@ -29,20 +37,44 @@ export const BotonMentoria = () => {
 		setNewMentorship(!NewMentorship);
 	};
 
-	const MentorshipForm = () => {
-		<Button className={classes.exitMentorshipModal} onClick={() => handlerMentorshipModal()}>
-			<h5>X</h5>
-		</Button>;
-	};
-	return (
+	const [startDate, setStartDate] = useState(new Date());
+	const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+		<TextField id="standard-basic" label="Standard" />
+	));
+	const calendarioInput = (
+		<DatePicker selected={startDate} onChange={date => setStartDate(date)} customInput={<ExampleCustomInput />} />
+	);
+
+	const mentorshipForm = (
 		<div className={classes.modal}>
-			<Button variant="contained" color="primary" />
+			<form>
+				<Button className={classes.exitMentorshipModal} onClick={handlerMentorshipModal}>
+					<h5>X</h5>
+				</Button>
+				<Typography variant="h4" align="center" gutterBottom>
+					Inicio de sesión
+				</Typography>
+				<Typography variant="body1" gutterBottom>
+					Ingrese su correo electrónico y contraseña para iniciar sesión.
+				</Typography>
+
+				<InputLabel className={classes.styleTextField}>Seleccionar fecha</InputLabel>
+				{calendarioInput}
+			</form>
+		</div>
+	);
+
+	return (
+		<div>
+			<Button variant="contained" color="primary" onClick={handlerMentorshipModal}>
+				AGENDAR MENTORÍA
+			</Button>
 			<Modal
 				open={NewMentorship}
 				onClose={handlerMentorshipModal}
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description">
-				{MentorshipForm}
+				{mentorshipForm}
 			</Modal>
 		</div>
 	);
