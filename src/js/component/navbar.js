@@ -110,7 +110,6 @@ export const Navbar = () => {
 
 	const [values, setValues] = useState({
 		amount: "",
-		password: "",
 		weight: "",
 		weightRange: "",
 		showPassword: false
@@ -163,7 +162,6 @@ export const Navbar = () => {
 					fullWidth
 					id="outlined-adornment-password"
 					type={values.showPassword ? "text" : "password"}
-					value={values.password}
 					onChange={handleChange("password")}
 					endAdornment={
 						<InputAdornment position="end">
@@ -227,7 +225,6 @@ export const Navbar = () => {
 					fullWidth
 					id="outlined-adornment-password"
 					type={values.showPassword ? "text" : "password"}
-					value={values.password}
 					onChange={event => {
 						handleChange("password");
 						setInputPassword(event.target.value);

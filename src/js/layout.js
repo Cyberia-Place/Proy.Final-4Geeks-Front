@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
-
 import { Home } from "./views/home";
 import { Demo } from "./views/demo";
 import { Single } from "./views/single";
-import { InicioAlumno } from "./views/index_usuario_logueado";
+import { InicioAlumno } from "./views/index_alumno";
 import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { IndexProfesor } from "./views/index_profesor";
 
 const theme = createMuiTheme({
 	palette: {
@@ -47,6 +47,9 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/inicio/alumno">
 								<InicioAlumno />
+							</Route>
+							<Route exact path="/inicio/profesor">
+								<IndexProfesor />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>
