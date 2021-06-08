@@ -1,3 +1,28 @@
 /* 
     General Styles
 */
+button {
+    outline: none !important; 
+}
+textarea {
+    outline: none !important; 
+    border: none;
+    overflow:hidden;
+    resize: none;
+    font-size: 25px;
+}
+.titulocard{
+  font-size:2rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  /**Major Properties**/
+  overflow:hidden;
+  line-height: 2.5rem;
+  height: 2.5rem;
+  -webkit-box-orient: vertical;
+  display: block;
+  display: -webkit-box;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 4;
+}
