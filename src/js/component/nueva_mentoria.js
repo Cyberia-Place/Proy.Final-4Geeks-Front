@@ -4,14 +4,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Modal } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import TextField from "@material-ui/core/TextField";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import BookmarksIcon from "@material-ui/icons/Bookmarks";
 
 const useStyles = makeStyles(theme => ({
 	modal: {
 		backgroundColor: "#FFFFFF",
-		width: 400,
+		width: 550,
 		position: "absolute",
 		border: " 1px solid #000",
 		boxShadow: theme.shadows[5],
@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	styleTextField: {
 		marginTop: "15px"
+	},
+	calendarInput: {
+		width: "100%"
 	}
 }));
 
@@ -37,23 +40,46 @@ export const BotonMentoria = () => {
 		setNewMentorship(!NewMentorship);
 	};
 
-	// Dos de estos para los dos input de las horas y uno de calendario de rango
-	// para el dia o los dias a agendar la mentoria. El nombre de este es
-	// Select Time Only
-	// () => {
-	//   const [startDate, setStartDate] = useState(new Date());
-	//   return (
-	//     <DatePicker
-	//       selected={startDate}
-	//       onChange={(date) => setStartDate(date)}
-	//       showTimeSelect
-	//       showTimeSelectOnly
-	//       timeIntervals={15}
-	//       timeCaption="Time"
-	//       dateFormat="h:mm aa"
-	//     />
-	//   );
-	// };
+	const CustomInput = forwardRef(({ value, onClick }, ref) => (
+		<input className="form-control" onClick={onClick} ref={ref} value={value} />
+	));
+
+	const CalendarCustomInput = forwardRef(({ value, onClick }, ref) => (
+		<input className="form-control" onClick={onClick} ref={ref} value={value} />
+	));
+
+	const [startingHour, setStartingHour] = useState(new Date());
+	const InitialHour = (
+		<DatePicker
+			selected={startingHour}
+			onChange={date => setStartingHour(date)}
+			showTimeSelect
+			showTimeSelectOnly
+			timeIntervals={15}
+			timeCaption="Time"
+			dateFormat="h:mm aa"
+			customInput={<CustomInput />}
+		/>
+	);
+
+	const [endingHour, setEndingHour] = useState(new Date());
+	const FinalHour = (
+		<DatePicker
+			selected={endingHour}
+			onChange={date => setEndingHour(date)}
+			showTimeSelect
+			showTimeSelectOnly
+			timeIntervals={15}
+			timeCaption="Time"
+			dateFormat="h:mm aa"
+			customInput={<CustomInput />}
+		/>
+	);
+
+	const [startDate, setStartDate] = useState(new Date());
+	const calendarioInput = (
+		<DatePicker selected={startDate} onChange={date => setStartDate(date)} customInput={<CalendarCustomInput />} />
+	);
 
 	const mentorshipForm = (
 		<div className={classes.modal}>
@@ -62,14 +88,39 @@ export const BotonMentoria = () => {
 					<h5>X</h5>
 				</Button>
 				<Typography variant="h4" align="center" gutterBottom>
-					Inicio de sesión
+					Agendar mentoría
 				</Typography>
+				<br />
 				<Typography variant="body1" gutterBottom>
-					Ingrese su correo electrónico y contraseña para iniciar sesión.
+					Ingrese los datos para el nuevo evento.
 				</Typography>
+				<br />
 
-				<InputLabel className={classes.styleTextField}>Seleccionar fecha</InputLabel>
-				{calendarioInput}
+				<div className="form-row">
+					<div className="form-group col-6">
+						<InputLabel className={classes.styleTextField}>Hora inicial</InputLabel>
+						{InitialHour}
+					</div>
+					<div className="form-group col-6">
+						<InputLabel className={classes.styleTextField}>Hora final</InputLabel>
+						{FinalHour}
+					</div>
+				</div>
+				<div className="form-row">
+					<div className="form-group col-6">
+						<InputLabel className={classes.styleTextField}>Fecha</InputLabel>
+						{calendarioInput}
+					</div>
+					<div className="form-group col-6">
+						<Button
+							variant="contained"
+							color="secondary"
+							// className={classes.button}
+							startIcon={<BookmarksIcon />}>
+							Agendar
+						</Button>
+					</div>
+				</div>
 			</form>
 		</div>
 	);
