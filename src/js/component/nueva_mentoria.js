@@ -1,12 +1,16 @@
 import React, { useState, forwardRef } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
 import { Modal } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import InputLabel from "@material-ui/core/InputLabel";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import { green } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
 	modal: {
@@ -27,13 +31,26 @@ const useStyles = makeStyles(theme => ({
 	styleTextField: {
 		marginTop: "15px"
 	},
-	calendarInput: {
-		width: "100%"
+	checkboxPlacement: {
+		marginBottom: "-10px"
 	}
 }));
 
+//// ****** APARIENCIA CHECKBOX MODAL ****** ////
+const GreenCheckbox = withStyles({
+	root: {
+		color: green[400],
+		"&$checked": {
+			color: green[600]
+		}
+	},
+	checked: {}
+})(props => <Checkbox color="default" {...props} />);
+
 export const BotonMentoria = () => {
 	const classes = useStyles();
+
+	//// ****** EMPIEZA CODIGO CALENDARIO, FECHA Y HORA ****** ////
 	const [NewMentorship, setNewMentorship] = useState(false); // Estado para el props open del modal Sign In
 
 	const handlerMentorshipModal = () => {
@@ -80,6 +97,21 @@ export const BotonMentoria = () => {
 	const calendarioInput = (
 		<DatePicker selected={startDate} onChange={date => setStartDate(date)} customInput={<CalendarCustomInput />} />
 	);
+	//// ****** TERMINA CODIGO CALENDARIO, FECHA Y HORA ****** ////
+
+	//// ****** CODIGO CHECKBOX ****** ////
+	const [state, setState] = useState({
+		checkedG: true
+	});
+
+	const handleChange = event => {
+		setState({ [event.target.name]: event.target.checked });
+	};
+
+	//// ****** FUNCION AGENDAR MENTORÍA ****** ////
+	const scheduleMentorship = () => {
+		handlerMentorshipModal();
+	};
 
 	const mentorshipForm = (
 		<div className={classes.modal}>
@@ -91,32 +123,57 @@ export const BotonMentoria = () => {
 					Agendar mentoría
 				</Typography>
 				<br />
-				<Typography variant="body1" gutterBottom>
-					Ingrese los datos para el nuevo evento.
-				</Typography>
-				<br />
+				<div className="px-2">
+					<Typography variant="body1" gutterBottom>
+						Ingrese los datos para el nuevo evento.
+					</Typography>
+					<br />
 
-				<div className="form-row">
-					<div className="form-group col-6">
-						<InputLabel className={classes.styleTextField}>Hora inicial</InputLabel>
-						{InitialHour}
+					<div className="input-group mb-3" style={{ width: "431px" }}>
+						<select className="custom-select" id="inputGroupSelect02">
+							<option selected>Seleccione una categoría</option>
+							<option value="1">Categoría uno</option>
+							<option value="2">Categoría dos</option>
+							<option value="3">Categoría tres</option>
+						</select>
 					</div>
-					<div className="form-group col-6">
-						<InputLabel className={classes.styleTextField}>Hora final</InputLabel>
-						{FinalHour}
+					<div className="form-row">
+						<div className="form-group col-6">
+							<InputLabel>Hora inicial</InputLabel>
+							{InitialHour}
+						</div>
+						<div className="form-group col-6">
+							<InputLabel>Hora final</InputLabel>
+							{FinalHour}
+						</div>
 					</div>
-				</div>
-				<div className="form-row">
-					<div className="form-group col-6">
-						<InputLabel className={classes.styleTextField}>Fecha</InputLabel>
-						{calendarioInput}
+					<div className="form-row">
+						<div className="form-group col-6">
+							<InputLabel>Fecha</InputLabel>
+							{calendarioInput}
+						</div>
+						<div className="form-group d-flex flex-row align-items-end col-6">
+							<div className={classes.checkboxPlacement}>
+								<FormControlLabel
+									control={
+										<GreenCheckbox
+											checked={state.checkedG}
+											onChange={handleChange}
+											name="checkedG"
+										/>
+									}
+									label="Mentoría recurrente"
+								/>
+							</div>
+						</div>
 					</div>
-					<div className="form-group col-6">
+					<div className="mt-2">
 						<Button
 							variant="contained"
 							color="secondary"
-							// className={classes.button}
-							startIcon={<BookmarksIcon />}>
+							onClick={scheduleMentorship}
+							startIcon={<BookmarksIcon />}
+							fullWidth>
 							Agendar
 						</Button>
 					</div>
