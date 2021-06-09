@@ -37,13 +37,23 @@ export const BotonMentoria = () => {
 		setNewMentorship(!NewMentorship);
 	};
 
-	const [startDate, setStartDate] = useState(new Date());
-	const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-		<TextField id="standard-basic" label="Standard" />
-	));
-	const calendarioInput = (
-		<DatePicker selected={startDate} onChange={date => setStartDate(date)} customInput={<ExampleCustomInput />} />
-	);
+	// Dos de estos para los dos input de las horas y uno de calendario de rango
+	// para el dia o los dias a agendar la mentoria. El nombre de este es
+	// Select Time Only
+	// () => {
+	//   const [startDate, setStartDate] = useState(new Date());
+	//   return (
+	//     <DatePicker
+	//       selected={startDate}
+	//       onChange={(date) => setStartDate(date)}
+	//       showTimeSelect
+	//       showTimeSelectOnly
+	//       timeIntervals={15}
+	//       timeCaption="Time"
+	//       dateFormat="h:mm aa"
+	//     />
+	//   );
+	// };
 
 	const mentorshipForm = (
 		<div className={classes.modal}>
