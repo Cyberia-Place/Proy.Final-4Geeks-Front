@@ -34,7 +34,12 @@ const useStyles = makeStyles(theme => ({
 		margin: "10px",
 		marginRight: "20px",
 		marginLeft: "20px",
-		padding: "20px"
+		padding: "20px",
+		textAlign: "center",
+		border: "1px solid green"
+	},
+	image: {
+		backgroundImage: "url(https://source.unsplash.com/random)"
 	}
 }));
 
@@ -44,8 +49,8 @@ export default function Jumbotron_categorias() {
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<Grid container maxwidth="lg">
-				<Grid md={6} className="p-3">
-					<Typography component="h1" variant="h2" color="inherit" justify="center" gutterBottom>
+				<Grid md={6} className="p-3 pt-5">
+					<Typography component="h1" variant="h2" color="inherit" gutterBottom>
 						Principales categorias
 					</Typography>
 					<Typography color="inherit" paragraph>
@@ -59,12 +64,13 @@ export default function Jumbotron_categorias() {
 						<Card className={classes.card}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Categoría
+									Literatura
 								</Typography>
 
-								<Button variant="subtitle1">Ver cursos</Button>
+								<Button variant="contained" color="primary" className="mt-3" size="large">
+									Ver cursos
+								</Button>
 							</CardContent>
-							<Grid container md={4} className={classes.cardMedia} />
 						</Card>
 					</CardActionArea>
 
@@ -72,13 +78,13 @@ export default function Jumbotron_categorias() {
 						<Card className={classes.card}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Categoría
+									Matemática
 								</Typography>
 
-								<Button variant="subtitle1">Ver cursos</Button>
+								<Button variant="contained" color="primary" className="mt-3" size="large">
+									Ver cursos
+								</Button>
 							</CardContent>
-
-							<CardMedia className={classes.cardMedia} />
 						</Card>
 					</CardActionArea>
 				</Grid>
@@ -88,25 +94,27 @@ export default function Jumbotron_categorias() {
 						<Card className={classes.card}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Categoría
+									Biología
 								</Typography>
-								<Button variant="subtitle1">Ver cursos</Button>
+								<Button variant="contained" color="primary" className="mt-3" size="large">
+									Ver cursos
+								</Button>
 							</CardContent>
-							<CardMedia className={classes.cardMedia} />
 						</Card>
 					</CardActionArea>
 
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
+							<CardMedia className={classes.image} />
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Categoría
+									Programación JavaScript
 								</Typography>
 
-								<Button variant="subtitle1">Ver cursos</Button>
+								<Button variant="contained" color="primary" className="mt-3" size="large">
+									Ver cursos
+								</Button>
 							</CardContent>
-
-							<CardMedia className={classes.cardMedia} />
 						</Card>
 					</CardActionArea>
 				</Grid>

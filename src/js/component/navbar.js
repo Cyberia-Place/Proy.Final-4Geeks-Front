@@ -14,6 +14,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import Link from "@material-ui/core/Link";
 import { Context } from "../store/appContext";
+import validator from "validator";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -96,16 +97,54 @@ const useStyles = makeStyles(theme => ({
 export const Navbar = () => {
 	const classes = useStyles();
 
-	const [inputEmail, setInputEmail] = useState();
-	const [inputPassword, setInputPassword] = useState();
-	const [inputFullName, setInputFullName] = useState();
+	const [inputEmail, setInputEmail] = useState("");
+	const [inputPassword, setInputPassword] = useState("");
+	const [inputFullName, setInputFullName] = useState("");
 
 	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
 	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
 	const { store, actions } = useContext(Context);
+
 	const signup = () => {
-		actions.signUp(inputEmail, inputPassword, inputFullName);
+		let valid = true;
+
+		if (validator.isEmpty(inputFullName)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo nombre no puede estar vacio", "error");
+		}
+
+		if (!validator.isEmail(inputEmail)) {
+			valid = false;
+			actions.showMessage("Error!", "Email invalido", "error");
+		}
+
+		if (validator.isEmpty(inputPassword)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo contraseña no puede estar vacio", "error");
+		}
+
+		if (valid) {
+			actions.signUp(inputEmail, inputPassword, inputFullName);
+		}
+	};
+
+	const login = () => {
+		let valid = true;
+
+		if (!validator.isEmail(inputEmail)) {
+			valid = false;
+			actions.showMessage("Error!", "Email invalido", "error");
+		}
+
+		if (validator.isEmpty(inputPassword)) {
+			valid = false;
+			actions.showMessage("Error!", "El campo contraseña no puede estar vacio", "error");
+		}
+
+		if (valid) {
+			actions.logIn(inputEmail, inputPassword);
+		}
 	};
 
 	const [values, setValues] = useState({
@@ -154,7 +193,12 @@ export const Navbar = () => {
 
 				{/* // Input de email // */}
 				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-				<Input variant="outlined" size="small" fullWidth />
+				<Input
+					onChange={event => setInputEmail(event.target.value)}
+					variant="outlined"
+					size="small"
+					fullWidth
+				/>
 
 				{/* // Input de contraseña // */}
 				<InputLabel className={classes.styleTextField}>Password</InputLabel>
@@ -162,7 +206,14 @@ export const Navbar = () => {
 					fullWidth
 					id="outlined-adornment-password"
 					type={values.showPassword ? "text" : "password"}
+<<<<<<< HEAD
 					onChange={handleChange("password")}
+=======
+					onChange={event => {
+						handleChange("password");
+						setInputPassword(event.target.value);
+					}}
+>>>>>>> c91e88df12c1c3af056823caf88220a49961a6e2
 					endAdornment={
 						<InputAdornment position="end">
 							<IconButton
@@ -176,7 +227,7 @@ export const Navbar = () => {
 					}
 					labelWidth={70}
 				/>
-				<Button variant="contained" className={classes.signInButton} fullWidth>
+				<Button variant="contained" className={classes.signInButton} onClick={login} fullWidth>
 					Iniciar sesión
 				</Button>
 				<Typography variant="body1" gutterBottom>

@@ -3,7 +3,6 @@ import { BotonMentoria } from "../component/nueva_mentoria";
 import { CarrouselMentorias } from "../component/carrousel_mentorias";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
-import { NavbarSesion } from "../component/navbar_sesion";
 import { Calendario } from "../component/calendario";
 import { makeStyles } from "@material-ui/core/styles";
 
