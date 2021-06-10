@@ -33,6 +33,12 @@ const useStyles = makeStyles(theme => ({
 	},
 	checkboxPlacement: {
 		marginBottom: "-10px"
+	},
+	buttonMentorship: {
+		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)",
+		fontSize: "20px",
+		height: "70px",
+		width: "250px"
 	}
 }));
 
@@ -184,7 +190,7 @@ export const BotonMentoria = () => {
 
 	return (
 		<div>
-			<Button variant="contained" color="primary" onClick={handlerMentorshipModal}>
+			<Button className={classes.buttonMentorship} variant="contained" onClick={handlerMentorshipModal}>
 				AGENDAR MENTORÍA
 			</Button>
 			<Modal
