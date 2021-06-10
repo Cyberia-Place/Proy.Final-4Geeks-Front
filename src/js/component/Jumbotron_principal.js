@@ -18,7 +18,10 @@ const useStyles = makeStyles(theme => ({
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
 		height: "600px",
-		width: "100%"
+		width: "100%",
+		justifyContent: "center",
+		border: "none",
+		boxShadow: "none"
 	},
 	overlay: {
 		position: "absolute",
@@ -41,13 +44,13 @@ export default function MainFeaturedPost(props) {
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<div className={classes.overlay} />
-			<Grid container maxwidth="lg">
+			<Grid container maxwidth="lg" justify="center">
 				<Grid item md={6}>
 					<div className={classes.mainFeaturedPostContent}>
-						<Typography component="h1" variant="h2" color="inherit" justify="left" gutterBottom>
-							Tu curso hacia el exito
+						<Typography justify="center" component="h1" variant="h1" color="inherit" gutterBottom>
+							Tu curso hacia el éxito
 						</Typography>
-						<Typography color="inherit" justify="left" paragraph>
+						<Typography color="inherit" paragraph>
 							Something short and leading about the collection below—its contents, the creator, etc. Make
 							it short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
 						</Typography>
