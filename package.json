@@ -81,11 +81,14 @@
 		"@material-ui/icons": "^4.11.2",
 		"@material-ui/lab": "^4.0.0-alpha.58",
 		"bootstrap": "^4.3.1",
+		"material-auto-rotating-carousel": "^3.0.2",
 		"material-ui-rating": "^4.0.0-beta.2",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",
+		"react-material-ui-carousel": "^2.2.6",
 		"react-polyfills": "0.0.1",
-		"react-router-dom": "^5.2.0"
+		"react-router-dom": "^5.2.0",
+		"react-swipeable-views": "^0.14.0"
 	}
 }

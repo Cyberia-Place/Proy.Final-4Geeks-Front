@@ -14,6 +14,8 @@ import ExtensionIcon from "@material-ui/icons/Extension";
 import SchoolIcon from "@material-ui/icons/School";
 import { spacing } from "@material-ui/system";
 import Box from "@material-ui/core/Box";
+import Divider from "@material-ui/core/Divider";
+const { red, blue, lightGreen, white } = require("@material-ui/core/colors");
 
 const theme = createMuiTheme({
 	spacing: [0, 4, 8, 16, 32, 64],
@@ -22,13 +24,21 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
-		position: "relative",
-		backgroundColor: theme.palette.grey[300],
-		color: theme.palette.common.black,
+		backgroundColor: "#59a80f",
+		color: theme.palette.common.white,
 		padding: "50px",
 		height: "500px",
 		width: "100%",
-		marginTop: "50px"
+		marginTop: "50px",
+		textAlign: "center",
+		border: "none",
+		boxShadow: "none"
+	},
+	icon: {
+		color: white
+	},
+	divider: {
+		color: theme.palette.divider
 	}
 }));
 
@@ -36,43 +46,44 @@ export default function Jumbotron_beneficios() {
 	const classes = useStyles();
 
 	return (
-		<Paper className={classes.mainFeaturedPost}>
-			<Grid container maxwidth="lg">
-				<Grid item md={12}>
-					<Typography component="h1" variant="h2" color="inherit" justify="center" gutterBottom>
-						Beneficios
-					</Typography>
-				</Grid>
+		<Grid container className={classes.mainFeaturedPost}>
+			<Grid item md={12}>
+				<Typography component="h1" variant="h2" color="inherit" aling="center" gutterBottom>
+					Beneficios
+				</Typography>
+			</Grid>
 
-				<Grid item md={3} className="pr-3 pt-5 h-3">
-					<CalendarTodayIcon color="disabled" fontSize="large" />
+			<Grid item md={12} className="d-flex">
+				<Grid className="p-5 h-3">
+					<CalendarTodayIcon className={classes.icon} fontSize="large" />
 					<Typography color="inherit" paragraph>
-						Something short and leading about the collection below—its contents, the creator, etc. Make it
-						short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+						La enseñanza online permite estudiar a distancia y con horarios flexibles
 					</Typography>
 				</Grid>
-				<Grid item md={3} className="pr-3 pl-3 pt-5">
-					<ComputerIcon color="disabled" fontSize="large" />
+				<Divider orientation="vertical" className={classes.divider} flexItem />
+				<Grid className="p-5">
+					<ComputerIcon className={classes.icon} fontSize="large" />
 					<Typography color="inherit" paragraph>
-						Something short and leading about the collection below—its contents, the creator, etc. Make it
-						short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+						Estudiar online no es más que adaptar la enseñanza y el aprendizaje a las necesidades y
+						requisitos del mundo moderno.
 					</Typography>
 				</Grid>
-				<Grid item md={3} className="pr-3 pl-3 pt-5">
-					<ExtensionIcon color="disabled" fontSize="large" />
+				<Divider orientation="vertical" className={classes.divider} flexItem />
+				<Grid className="p-5">
+					<ExtensionIcon className={classes.icon} fontSize="large" />
 					<Typography color="inherit" paragraph>
-						Something short and leading about the collection below—its contents, the creator, etc. Make it
-						short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+						Los estudios online permiten la formación continua, es rápida y dinámica, y aprovecha cada medio
+						disponible para exprimir lo mejor de cada uno.
 					</Typography>
 				</Grid>
-				<Grid item md={3} className=" pl-3 pt-5">
-					<SchoolIcon color="disabled" fontSize="large" />
+				<Divider orientation="vertical" flexItem />
+				<Grid className=" p-5">
+					<SchoolIcon className={classes.icon} fontSize="large" />
 					<Typography color="inherit" paragraph>
-						Something short and leading about the collection below—its contents, the creator, etc. Make it
-						short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+						Formación constante con la ayuda de mentores capacitados en la materia a tu disposición
 					</Typography>
 				</Grid>
 			</Grid>
-		</Paper>
+		</Grid>
 	);
 }
