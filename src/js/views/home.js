@@ -9,7 +9,6 @@ import Proxima_clase from "../component/Jumbotron_prox_clase";
 
 export const Home = () => (
 	<div>
-		<Navbar />
 		<MainFeaturedPost />
 		<Jumbotron_funcion />
 		<Jumbotron_beneficios />
