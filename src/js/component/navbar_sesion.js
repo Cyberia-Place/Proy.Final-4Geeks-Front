@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
 	navBar: {
@@ -112,7 +113,9 @@ export const NavbarSesion = () => {
 			transformOrigin={{ vertical: "top", horizontal: "right" }}
 			open={isMenuOpen}
 			onClose={handleMenuClose}>
-			<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+			<MenuItem onClick={handleMenuClose}>
+				<Link to="/profile">Profile</Link>
+			</MenuItem>
 			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
 			<MenuItem
 				onClick={() => {

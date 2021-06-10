@@ -13,6 +13,7 @@ import { Navbar } from "./component/navbar";
 import { NavbarSesion } from "./component/navbar_sesion";
 import { useContext } from "react";
 import { Footer } from "./component/footer";
+import { Profile } from "./views/Profile";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -54,6 +55,9 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/inicio">
 								<InicioAlumno />
+							</Route>
+							<Route exact path="/profile">
+								<Profile />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>

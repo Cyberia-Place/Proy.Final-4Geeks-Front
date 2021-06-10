@@ -35,6 +35,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().showMessage("Error!", "Error en el servidor", "error");
 				}
 			},
+
 			logIn: async (email, contrasenia) => {
 				let myHeaders = new Headers();
 				myHeaders.append("content-type", "application/json");
@@ -74,6 +75,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			showMessage: (title, text, icon) => {
 				swal({ title, text, icon, button: false });
+			},
+
+			getProfile: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
+						let data = await response.json();
+						setStore({ userData: data });
+					} catch (error) {
+						console.log(error);
+					}
+				}
 			}
 		}
 	};
