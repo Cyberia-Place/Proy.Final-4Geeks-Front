@@ -12,8 +12,8 @@ export const ListaClases = () => (
 	<Container maxWidth="lg">
 		<Grid container spacing={2}>
 			<Grid item xs={12}>
-				<Box m={4} ml={0}>
-					<Typography variant="h1">Clases disponibles</Typography>
+				<Box m={4} ml={0} mb={0}>
+					<Typography variant="h2">Clases disponibles</Typography>
 				</Box>
 			</Grid>
 			<Grid item lg={12} direction="row" alignItems="center">
@@ -33,6 +33,18 @@ export const ListaClases = () => (
 						</Button>
 					</Box>
 				</Box>
+			</Grid>
+			<Grid item lg={6}>
+				<CardProf />
+			</Grid>
+			<Grid item lg={6}>
+				<CardProf />
+			</Grid>
+			<Grid item lg={6}>
+				<CardProf />
+			</Grid>
+			<Grid item lg={6}>
+				<CardProf />
 			</Grid>
 			<Grid item lg={6}>
 				<CardProf />

@@ -11,7 +11,9 @@ const useStyles = makeStyles(theme => ({
 		color: theme.palette.common.black,
 		height: "300px",
 		width: "100%",
-		marginTop: "100px"
+		marginTop: "100px",
+		border: "none",
+		boxShadow: "none"
 	},
 	mainFeaturedPostContent: {
 		padding: theme.spacing(3),
@@ -42,8 +44,9 @@ export default function Jumbotron_funcion() {
 							¿Cómo funciona?
 						</Typography>
 						<Typography color="inherit" paragraph>
-							Something short and leading about the collection below—its contents, the creator, etc. Make
-							it short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+							La educación online permite que estas personas continúen con su formación, cómodamente y
+							desde casa. Da igual la edad que tengas: tanto puede servirle al que roza los 30 como al que
+							pasa de 50.
 						</Typography>
 					</div>
 				</Grid>
