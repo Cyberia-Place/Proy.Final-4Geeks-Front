@@ -201,7 +201,7 @@ export const NavbarSesion = () => {
 							</Badge>
 						</IconButton>
 						<Typography variant="h6" gutterBottom>
-							{store.usuario.nombre}
+							{/* {store.usuario.nombre} */}
 						</Typography>
 						<IconButton
 							edge="end"

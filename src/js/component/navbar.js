@@ -149,7 +149,6 @@ export const Navbar = () => {
 
 	const [values, setValues] = useState({
 		amount: "",
-		password: "",
 		weight: "",
 		weightRange: "",
 		showPassword: false
