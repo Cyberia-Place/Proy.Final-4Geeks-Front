@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { Context } from "./store/appContext";
 import { Home } from "./views/home";
-import { Demo } from "./views/demo";
-import { Single } from "./views/single";
 import { InicioAlumno } from "./views/index_alumno";
 import injectContext from "./store/appContext";
 
@@ -47,12 +45,6 @@ const Layout = () => {
 						<Switch>
 							<Route exact path="/">
 								<Home />
-							</Route>
-							<Route exact path="/demo">
-								<Demo />
-							</Route>
-							<Route exact path="/single/:theid">
-								<Single />
 							</Route>
 							<Route exact path="/inicio">
 								<InicioAlumno />
