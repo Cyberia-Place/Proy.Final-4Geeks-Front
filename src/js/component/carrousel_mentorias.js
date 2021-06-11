@@ -5,18 +5,32 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#0e71eb"
+		}
+	}
+});
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
 		backgroundColor: theme.palette.grey[200],
-		color: theme.palette.common.black,
-		padding: "2px"
+		color: theme.palette.common.black
 	},
 	mentorshipCard: {
 		width: "250px",
 		height: "200px",
 		padding: "10px",
 		margin: "20px 10px 0px 10px"
+	},
+	buttonZoom: {
+		margin: "auto"
 	}
 }));
 
@@ -35,6 +49,21 @@ const Item = props => {
 				Fecha: {props.item.mentoria1.fecha}
 				<br />
 				Horario: {props.item.mentoria1.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<div className="d-flex">
+						<Box alignItems="center">
+							<Button
+								variant="contained"
+								color="primary"
+								startIcon={<VideocamIcon />}
+								className={classes.buttonZoom}>
+								ZOOM
+							</Button>
+						</Box>
+					</div>
+				</ThemeProvider>
 			</Paper>
 			<Paper className={classes.mentorshipCard}>
 				{props.item.mentoria2.categoria}

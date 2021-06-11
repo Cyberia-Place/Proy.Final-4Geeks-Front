@@ -5,23 +5,21 @@ import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import { Calendario } from "../component/calendario";
 import { makeStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles({
 	box1: {
-		position: "relative",
-		height: "100%",
-		width: "100%"
+		position: "relative"
 	},
 	box2: {
-		position: "absolute",
-		bottom: "-180px",
-		left: "60px"
+		height: "50vh",
+		minHeight: "30px"
 	},
 	cubreCalendario: {
+		// Este es un div que se superpone al calendario, que es un input, para deshabilitarlo
 		position: "absolute",
 		width: "300px",
 		height: "260px",
-		// backgroundColor: "transparent",
 		backgroundColor: "transparent",
 		top: "90px",
 		zIndex: "1"
@@ -33,7 +31,7 @@ export const IndexProfesor = () => {
 
 	return (
 		<div className={classes.box1}>
-			<Grid container spacing={10}>
+			<Grid container>
 				<Grid container direction="row" justify="center" alignItems="center" xs={4}>
 					<div className={classes.cubreCalendario} />
 					<Calendario />
@@ -43,9 +41,9 @@ export const IndexProfesor = () => {
 				</Grid>
 			</Grid>
 			<Divider orientation="horizontal" fullwidth="true" />
-			<div className={classes.box2}>
+			<Box display="flex" alignItems="center" className={classes.box2}>
 				<BotonMentoria />
-			</div>
+			</Box>
 		</div>
 	);
 };
