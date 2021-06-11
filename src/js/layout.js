@@ -59,7 +59,7 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/inicio/compra">
 								<Compra />
-                            </Route>
+							</Route>
 							<Route exact path="/profile">
 								<Profile />
 							</Route>
