@@ -140,6 +140,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			updatePassword: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					contraseniaPrevia: data.contraseniaPrevia,
+					contraseniaNueva: data.contraseniaNueva
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "PUT",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/updatePassword", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Contraseña actualizada exitosamente", "success");
+							getActions().getProfile();
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
 			darCategoriasPrincipales: async () => {
 				try {
 					let response = await fetch(process.env.BACK_URL + "/principalCategories");
