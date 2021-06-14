@@ -89,6 +89,7 @@
 		"react": "^16.8.4",
 		"react-datepicker": "^4.1.1",
 		"react-dom": "^16.8.4",
+		"react-google-login": "^5.2.2",
 		"react-material-ui-carousel": "^2.2.6",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",

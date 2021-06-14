@@ -15,6 +15,7 @@ import Input from "@material-ui/core/Input";
 import Link from "@material-ui/core/Link";
 import { Context } from "../store/appContext";
 import validator from "validator";
+import { BotonGoogle } from "./boton_google";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -292,6 +293,7 @@ export const Navbar = () => {
 				<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
 					Únete
 				</Button>
+				<BotonGoogle />
 				<Typography variant="body1" align="center" gutterBottom>
 					Volver a Iniciar Sesión.
 				</Typography>
