@@ -5,18 +5,32 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
+
+const theme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#0e71eb"
+		}
+	}
+});
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
 		backgroundColor: theme.palette.grey[200],
-		color: theme.palette.common.black,
-		padding: "2px"
+		color: theme.palette.common.black
 	},
 	mentorshipCard: {
 		width: "250px",
-		height: "200px",
+		// height: "200px",
 		padding: "10px",
 		margin: "20px 10px 0px 10px"
+	},
+	buttonZoom: {
+		margin: "auto"
 	}
 }));
 
@@ -35,6 +49,19 @@ const Item = props => {
 				Fecha: {props.item.mentoria1.fecha}
 				<br />
 				Horario: {props.item.mentoria1.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
+				</ThemeProvider>
 			</Paper>
 			<Paper className={classes.mentorshipCard}>
 				{props.item.mentoria2.categoria}
@@ -46,6 +73,19 @@ const Item = props => {
 				Fecha: {props.item.mentoria2.fecha}
 				<br />
 				Horario: {props.item.mentoria2.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
+				</ThemeProvider>
 			</Paper>
 			<Paper className={classes.mentorshipCard}>
 				{props.item.mentoria3.categoria}
@@ -57,6 +97,19 @@ const Item = props => {
 				Fecha: {props.item.mentoria3.fecha}
 				<br />
 				Horario: {props.item.mentoria3.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
+				</ThemeProvider>
 			</Paper>
 		</Grid>
 	);
@@ -69,19 +122,19 @@ export const CarrouselMentorias = () => {
 		{
 			mentoria1: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria2: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria3: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			}
@@ -89,19 +142,19 @@ export const CarrouselMentorias = () => {
 		{
 			mentoria1: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria2: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria3: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			}
