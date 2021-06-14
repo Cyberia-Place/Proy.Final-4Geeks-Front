@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	mentorshipCard: {
 		width: "250px",
-		height: "200px",
+		// height: "200px",
 		padding: "10px",
 		margin: "20px 10px 0px 10px"
 	},
@@ -52,17 +52,15 @@ const Item = props => {
 				<br />
 				<br />
 				<ThemeProvider theme={theme}>
-					<div className="d-flex">
-						<Box alignItems="center">
-							<Button
-								variant="contained"
-								color="primary"
-								startIcon={<VideocamIcon />}
-								className={classes.buttonZoom}>
-								ZOOM
-							</Button>
-						</Box>
-					</div>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
 				</ThemeProvider>
 			</Paper>
 			<Paper className={classes.mentorshipCard}>
@@ -75,6 +73,19 @@ const Item = props => {
 				Fecha: {props.item.mentoria2.fecha}
 				<br />
 				Horario: {props.item.mentoria2.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
+				</ThemeProvider>
 			</Paper>
 			<Paper className={classes.mentorshipCard}>
 				{props.item.mentoria3.categoria}
@@ -86,6 +97,19 @@ const Item = props => {
 				Fecha: {props.item.mentoria3.fecha}
 				<br />
 				Horario: {props.item.mentoria3.horario}
+				<br />
+				<br />
+				<ThemeProvider theme={theme}>
+					<Box display="flex" alignItems="center">
+						<Button
+							variant="contained"
+							color="primary"
+							startIcon={<VideocamIcon />}
+							className={classes.buttonZoom}>
+							ZOOM
+						</Button>
+					</Box>
+				</ThemeProvider>
 			</Paper>
 		</Grid>
 	);
@@ -98,19 +122,19 @@ export const CarrouselMentorias = () => {
 		{
 			mentoria1: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria2: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria3: {
 				categoria: "Matemática",
-				materia: "Las matemáticas son lo mejor!",
+				materia: "Cálculo vectorial",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			}
@@ -118,19 +142,19 @@ export const CarrouselMentorias = () => {
 		{
 			mentoria1: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria2: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			},
 			mentoria3: {
 				categoria: "Filosofía",
-				materia: "La filosofía es lo mejor!",
+				materia: "Gnoseología",
 				fecha: "17/8/2021",
 				horario: "15:00 - 16:30"
 			}

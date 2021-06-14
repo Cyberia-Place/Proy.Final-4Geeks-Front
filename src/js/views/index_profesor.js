@@ -12,16 +12,19 @@ const useStyles = makeStyles({
 		position: "relative"
 	},
 	box2: {
-		height: "50vh",
+		height: "45vh",
 		minHeight: "30px"
+	},
+	calendario: {
+		marginTop: "7px"
 	},
 	cubreCalendario: {
 		// Este es un div que se superpone al calendario, que es un input, para deshabilitarlo
 		position: "absolute",
-		width: "300px",
+		width: "330px",
 		height: "260px",
 		backgroundColor: "transparent",
-		top: "90px",
+		top: "85px",
 		zIndex: "1"
 	}
 });
@@ -34,16 +37,23 @@ export const IndexProfesor = () => {
 			<Grid container>
 				<Grid container direction="row" justify="center" alignItems="center" xs={4}>
 					<div className={classes.cubreCalendario} />
-					<Calendario />
+					<div className={classes.calendario}>
+						<Calendario />
+					</div>
 				</Grid>
 				<Grid item xs={8}>
 					<CarrouselMentorias />
 				</Grid>
 			</Grid>
 			<Divider orientation="horizontal" fullwidth="true" />
-			<Box display="flex" alignItems="center" className={classes.box2}>
-				<BotonMentoria />
-			</Box>
+			<Grid container direction="row" justify="center" alignItems="center" xs={4}>
+				<Box display="flex" alignItems="center" className={classes.box2}>
+					<BotonMentoria />
+				</Box>
+			</Grid>
+			<Grid item className="invisible" xs={8}>
+				{/* <CarrouselMentorias /> */}
+			</Grid>
 		</div>
 	);
 };
