@@ -37,9 +37,6 @@ const useStyles = makeStyles(theme => ({
 		padding: "20px",
 		textAlign: "center",
 		border: "1px solid green"
-	},
-	image: {
-		backgroundImage: "url(https://source.unsplash.com/random)"
 	}
 }));
 
@@ -49,7 +46,7 @@ export default function Jumbotron_categorias() {
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<Grid container maxwidth="lg">
-				<Grid md={6} className="p-3 pt-5">
+				<Grid item md={6} className="p-3 pt-5">
 					<Typography component="h1" variant="h2" color="inherit" gutterBottom>
 						Principales categorias
 					</Typography>
@@ -59,7 +56,7 @@ export default function Jumbotron_categorias() {
 					</Typography>
 				</Grid>
 
-				<Grid container md={3}>
+				<Grid item md={3}>
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
 							<CardContent>
@@ -89,7 +86,7 @@ export default function Jumbotron_categorias() {
 					</CardActionArea>
 				</Grid>
 
-				<Grid container md={3}>
+				<Grid item md={3}>
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
 							<CardContent>
@@ -105,7 +102,6 @@ export default function Jumbotron_categorias() {
 
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
-							<CardMedia className={classes.image} />
 							<CardContent>
 								<Typography component="h2" variant="h5">
 									Programación JavaScript

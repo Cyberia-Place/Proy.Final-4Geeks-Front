@@ -34,22 +34,22 @@ export const ListaClases = () => (
 					</Box>
 				</Box>
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
-			<Grid item lg={6}>
+			<Grid item lg={12}>
 				<CardProf />
 			</Grid>
 		</Grid>

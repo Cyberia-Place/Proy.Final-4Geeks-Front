@@ -116,7 +116,9 @@ export const NavbarSesion = () => {
 			<MenuItem onClick={handleMenuClose}>
 				<Link to="/profile">Profile</Link>
 			</MenuItem>
-			<MenuItem onClick={handleMenuClose}>My account</MenuItem>
+			<MenuItem onClick={handleMenuClose}>
+				<Link to="/ajustes/perfil">My account</Link>
+			</MenuItem>
 			<MenuItem
 				onClick={() => {
 					handleMenuClose();
@@ -201,7 +203,7 @@ export const NavbarSesion = () => {
 							</Badge>
 						</IconButton>
 						<Typography variant="h6" gutterBottom>
-							{store.usuario.nombre}
+							{/* {store.usuario.nombre} */}
 						</Typography>
 						<IconButton
 							edge="end"

@@ -32,12 +32,6 @@ export default function BodyCompra() {
 						<Grid item lg={3}>
 							<CardCompra />
 						</Grid>
-						<Grid item lg={3}>
-							<CardCompra />
-						</Grid>
-						<Grid item lg={3}>
-							<CardCompra />
-						</Grid>
 					</Grid>
 				</Grid>
 			</Container>

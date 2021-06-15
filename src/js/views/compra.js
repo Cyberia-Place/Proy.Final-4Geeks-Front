@@ -5,7 +5,6 @@ import BodyCompra from "../component/body_compra";
 
 export const Compra = () => (
 	<div>
-		<Navbar />
 		<BodyCompra />
 	</div>
 );

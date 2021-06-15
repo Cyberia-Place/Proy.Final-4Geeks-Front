@@ -98,8 +98,7 @@ export const Profile = () => {
 											<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
 										</Typography>
 										<Typography variant="body1" gutterBottom>
-											<strong>Ubicacion </strong>{" "}
-											{store.userData.ubicacion ? store.userData.ubicacion : "-"}
+											<strong>Pais </strong> {store.userData.pais ? store.userData.pais : "-"}
 										</Typography>
 										<Typography variant="body1" gutterBottom>
 											<strong>Idioma </strong>{" "}
