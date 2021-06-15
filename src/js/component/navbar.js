@@ -347,7 +347,7 @@ export const Navbar = () => {
 					<img src={Logo} width="170" height="37" />
 					{/* </Icon> */}
 
-					<div className={classes.search}>
+					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
 						</div>
@@ -359,7 +359,7 @@ export const Navbar = () => {
 							}}
 							inputProps={{ "aria-label": "search" }}
 						/>
-					</div>
+					</div> */}
 					<div className={classes.searchDiv} />
 					<Button
 						variant="contained"

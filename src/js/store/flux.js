@@ -180,6 +180,34 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let data = await response.json();
 					setStore({ categorias: data });
 				} catch (error) {}
+			},
+
+			filtrarCards: async filter => {
+				// day tiene que ser del tipo: ?week_day=2
+				// hour tiene que ser del tipo: ?hora_inicio=14
+				// en caso de seleccionar dia y hora tiene que ser: ?week_day=2&hora_inicio=14
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + `/clases/filtered${filter}`, requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Información enviada con éxito", "success");
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
 			}
 		}
 	};

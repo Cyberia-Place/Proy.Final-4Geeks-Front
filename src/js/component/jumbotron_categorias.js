@@ -47,7 +47,7 @@ export default function Jumbotron_categorias() {
 					</Typography>
 					<Typography color="inherit" align="justify" paragraph>
 						Encuentra entre la multitud de categorías disponibles la materia que buscas, y participa de la
-						comunidad como profesor o alumno de forma dinámica.
+						comunidad como profesor o alumno de manera dinámica.
 					</Typography>
 				</Grid>
 
