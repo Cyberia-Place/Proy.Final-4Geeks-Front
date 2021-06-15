@@ -7,7 +7,6 @@ import { Demo } from "./views/demo";
 import { Single } from "./views/single";
 import { InicioAlumno } from "./views/index_alumno";
 import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
 import { NavbarSesion } from "./component/navbar_sesion";
 import { useContext } from "react";
@@ -23,7 +22,7 @@ const theme = createMuiTheme({
 			main: "#59a80f"
 		},
 		secondary: {
-			main: "#aef060"
+			main: "#252525"
 		},
 		error: {
 			main: "#fdd835"
