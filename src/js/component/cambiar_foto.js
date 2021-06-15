@@ -30,7 +30,10 @@ export default function Cambiar_foto() {
 
 	return (
 		<React.Fragment>
-			<Grid container spacing={3} md={12} justify="center" className="m-auto">
+			<Typography variant="h6" aling="left" className="mt-3" color="primary" gutterBottom>
+				Cambiar foto
+			</Typography>
+			<Grid container spacing={3} md={12} className="m-auto">
 				<Grid item className="m-3">
 					<img src="https://source.unsplash.com/random" className={classes.img} />
 				</Grid>
@@ -38,7 +41,7 @@ export default function Cambiar_foto() {
 					<label htmlFor="upload-photo">
 						<input style={{ display: "none" }} id="upload-photo" name="upload-photo" type="file" />
 
-						<Button color="secondary" variant="contained" component="span">
+						<Button color="primary" variant="contained" component="span">
 							Cambiar foto
 						</Button>
 					</label>

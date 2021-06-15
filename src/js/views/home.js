@@ -15,4 +15,3 @@ export const Home = () => (
 		<Jumbotron_categorias />
 	</div>
 );
-

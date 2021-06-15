@@ -10,10 +10,10 @@ import Divider from "@material-ui/core/Divider";
 export default function Pago_form() {
 	return (
 		<React.Fragment>
-			<Typography variant="h6" className="mt-3" gutterBottom>
+			<Typography variant="h6" className="mt-3" color="primary" gutterBottom>
 				Información de pago
 			</Typography>
-			<Grid container spacing={3} md={6} justify="center" className="m-auto">
+			<Grid container spacing={3} md={6} className="m-auto">
 				<Grid item xs={12} md={6}>
 					<TextField required id="cardName" label="Nombre de la tarjeta:" fullWidth autoComplete="cc-name" />
 				</Grid>
@@ -43,7 +43,9 @@ export default function Pago_form() {
 						label="Remember credit card details for next time"
 					/>
 				</Grid>
-				<Button className="m-5">Guardar</Button>
+				<Button color="primary" variant="contained" className="m-4">
+					Guardar
+				</Button>
 			</Grid>
 			<Divider variant="middle" />
 		</React.Fragment>

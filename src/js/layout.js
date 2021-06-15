@@ -10,6 +10,7 @@ import injectContext from "./store/appContext";
 import { Footer } from "./component/footer";
 import { Profile } from "./views/Profile";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { Ajustes_del_perfil } from "./views/Ajustes_del_perfil";
 
 const theme = createMuiTheme({
 	palette: {
@@ -22,6 +23,9 @@ const theme = createMuiTheme({
 		error: {
 			main: "#fdd835"
 		}
+	},
+	typography: {
+		fontSize: 18
 	}
 });
 
@@ -51,6 +55,9 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/profile">
 								<Profile />
+							</Route>
+							<Route exact path="/ajustes">
+								<Ajustes_del_perfil />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>

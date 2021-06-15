@@ -19,7 +19,7 @@ export default function Informacion_form() {
 	const classes = useStyles();
 	return (
 		<React.Fragment>
-			<Typography variant="h6" aling="left" className="mt-3" gutterBottom>
+			<Typography variant="h6" aling="left" className="mt-3" color="primary" gutterBottom>
 				Información del perfil
 			</Typography>
 			<Grid container spacing={3} md={6} justify="center" className="m-auto">
@@ -62,7 +62,7 @@ export default function Informacion_form() {
 				<Grid item xs={12} sm={6} md={6}>
 					<TextField required id="ocupacion" name="ocupacion" label="Ocupacion:" fullWidth />
 				</Grid>
-				<Grid item xs={12} sm={6} md={6}>
+				<Grid item xs={12} sm={12} md={12}>
 					<TextField
 						id="outlined-textarea"
 						label="Descripcion:"
@@ -74,9 +74,13 @@ export default function Informacion_form() {
 						inputProps={{ className: classes.textarea }}
 					/>
 				</Grid>
+				<Grid item xs={12} sm={6} md={12}>
+					<Button color="primary" variant="contained" className="m-4">
+						Guardar
+					</Button>
+				</Grid>
 			</Grid>
 
-			<Button className="m-5">Guardar</Button>
 			<Divider variant="middle" />
 		</React.Fragment>
 	);
