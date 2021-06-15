@@ -21,7 +21,7 @@ export default function BodyCompra() {
 		<div>
 			<Container maxWidth="lg">
 				<Grid container mt={5}>
-					<Grid item lg={12}>
+					<Grid item sm={12}>
 						<Box display="flex" justifyContent="center" my={2}>
 							<Typography variant="h3" gutterBottom>
 								Selecciona tu promo!
