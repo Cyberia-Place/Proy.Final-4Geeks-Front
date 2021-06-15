@@ -16,6 +16,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import { Context } from "../store/appContext";
 import validator from "validator";
+import { BotonGoogle } from "./boton_google";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
@@ -65,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 		right: "0px"
 	},
 	signInButton: {
-		background: "linear-gradient(45deg, #9ED54C 30%, #64ffda 90%)",
+		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)",
 		marginTop: "20px",
 		marginBottom: "20px"
 	},
@@ -81,7 +82,6 @@ export default function MainFeaturedPost(props) {
 	const [inputPassword, setInputPassword] = useState("");
 	const [inputFullName, setInputFullName] = useState("");
 
-	const [openLogIn, setOpenLogIn] = useState(false); // Estado para el props open del modal Log In
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
 	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
 	const { store, actions } = useContext(Context);
@@ -109,24 +109,6 @@ export default function MainFeaturedPost(props) {
 		}
 	};
 
-	const login = () => {
-		let valid = true;
-
-		if (!validator.isEmail(inputEmail)) {
-			valid = false;
-			actions.showMessage("Error!", "Email invalido", "error");
-		}
-
-		if (validator.isEmpty(inputPassword)) {
-			valid = false;
-			actions.showMessage("Error!", "El campo contraseña no puede estar vacio", "error");
-		}
-
-		if (valid) {
-			actions.logIn(inputEmail, inputPassword);
-		}
-	};
-
 	const [values, setValues] = useState({
 		amount: "",
 		password: "",
@@ -147,10 +129,6 @@ export default function MainFeaturedPost(props) {
 		event.preventDefault();
 	};
 
-	const abrirCerrarLogIn = () => {
-		setOpenLogIn(!openLogIn);
-	};
-
 	const abrirCerrarSignIn = () => {
 		setOpenSignIn(!openSignIn);
 	};
@@ -158,68 +136,6 @@ export default function MainFeaturedPost(props) {
 	const abrirCerrarChangePassword = () => {
 		setOpenChangePassword(!openChangePassword);
 	};
-
-	const bodyLogIn = (
-		<div className={classes.modal}>
-			<form>
-				<Button className={classes.exitSignInButton} onClick={() => abrirCerrarLogIn()}>
-					<h5>X</h5>
-				</Button>
-				<Typography variant="h4" align="center" gutterBottom>
-					Inicio de sesión
-				</Typography>
-				<Typography variant="body1" gutterBottom>
-					Ingrese su correo electrónico y contraseña para iniciar sesión.
-				</Typography>
-
-				{/* // Input de email // */}
-				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-				<Input
-					onChange={event => setInputEmail(event.target.value)}
-					variant="outlined"
-					size="small"
-					fullWidth
-				/>
-
-				{/* // Input de contraseña // */}
-				<InputLabel className={classes.styleTextField}>Password</InputLabel>
-				<Input
-					fullWidth
-					id="outlined-adornment-password"
-					type={values.showPassword ? "text" : "password"}
-					onChange={event => {
-						handleChange("password");
-						setInputPassword(event.target.value);
-					}}
-					endAdornment={
-						<InputAdornment position="end">
-							<IconButton
-								aria-label="toggle password visibility"
-								onClick={handleClickShowPassword}
-								onMouseDown={handleMouseDownPassword}
-								edge="end">
-								{values.showPassword ? <Visibility /> : <VisibilityOff />}
-							</IconButton>
-						</InputAdornment>
-					}
-					labelWidth={70}
-				/>
-				<Button variant="contained" className={classes.signInButton} onClick={login} fullWidth>
-					Iniciar sesión
-				</Button>
-				<Typography variant="body1" gutterBottom>
-					<Link
-						href="#"
-						onClick={() => {
-							abrirCerrarChangePassword();
-							abrirCerrarLogIn();
-						}}>
-						¿Olvidaste tu contraseña?
-					</Link>
-				</Typography>
-			</form>
-		</div>
-	);
 
 	const bodySignIn = (
 		<div className={classes.modal}>
@@ -268,15 +184,17 @@ export default function MainFeaturedPost(props) {
 							</IconButton>
 						</InputAdornment>
 					}
-					labelWidth={70}
+					labelwidth={70}
 				/>
 				<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
 					Únete
 				</Button>
-				<Typography variant="body1" align="center" gutterBottom>
+				<BotonGoogle />
+				<br />
+				{/* <Typography variant="body1" align="center" gutterBottom>
 					Volver a Iniciar Sesión.
 				</Typography>
-				<br />
+				<br /> */}
 				<Typography variant="caption" display="block" gutterBottom>
 					Acepto los Términos de Uso y la Política de Privacidad de [nombre de la App].
 				</Typography>
@@ -329,23 +247,14 @@ export default function MainFeaturedPost(props) {
 									variant="contained"
 									color="primary"
 									className={classes.navButton}
-									onClick={() => abrirCerrarLogIn()}>
-									Iniciar sesión
+									onClick={() => abrirCerrarSignIn()}>
+									Únete
 								</Button>
 							</Grid>
 						</Grid>
 					</div>
 				</Grid>
 			</Grid>
-
-			{/* // Este es el modal del Log In // */}
-			<Modal
-				open={openLogIn}
-				onClose={abrirCerrarLogIn}
-				aria-labelledby="simple-modal-title"
-				aria-describedby="simple-modal-description">
-				{bodyLogIn}
-			</Modal>
 
 			{/* // Este es el modal del Sign In // */}
 			<Modal
