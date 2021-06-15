@@ -1,6 +1,5 @@
 import React from "react";
 import { ListaClases } from "../component/lista_clases";
-import { NavbarSesion } from "../component/navbar_sesion";
 import Proxima_clase from "../component/Jumbotron_prox_clase";
 import Clases_List from "../component/Lista_clases_inscrito";
 

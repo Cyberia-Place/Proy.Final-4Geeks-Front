@@ -16,6 +16,7 @@ import Link from "@material-ui/core/Link";
 import { Context } from "../store/appContext";
 import validator from "validator";
 import { BotonGoogle } from "./boton_google";
+import Logo from "./logo.png";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -336,9 +337,15 @@ export const Navbar = () => {
 		<div>
 			<AppBar position="static" className={classes.navBar}>
 				<Toolbar>
-					<Typography variant="h6" noWrap>
-						[ICONO]
-					</Typography>
+					{/* <SvgIcon>
+						<img src={Logotipo} alt="logotipo" />
+					</SvgIcon> */}
+
+					{/* <StepLabel icon={<img src={require("./logo.svg")} alt="" width="50" height="50" />} /> */}
+
+					{/* <Icon> */}
+					<img src={Logo} width="170" height="37" />
+					{/* </Icon> */}
 
 					<div className={classes.search}>
 						<div className={classes.searchIcon}>
