@@ -7,8 +7,9 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import PropTypes from "prop-types";
 
-export const ListaClases = () => (
+export const ListaClases = props => (
 	<Container maxWidth="lg">
 		<Grid container spacing={2}>
 			<Grid item xs={12}>
@@ -34,24 +35,19 @@ export const ListaClases = () => (
 					</Box>
 				</Box>
 			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
-			<Grid item lg={12}>
-				<CardProf />
-			</Grid>
+			{props.clases.length > 0
+				? props.clases.map(clase => {
+						return (
+							<Grid key={clase.id} item xs={12}>
+								<CardProf clase={clase} />
+							</Grid>
+						);
+				  })
+				: "no hay clases"}
 		</Grid>
 	</Container>
 );
+
+ListaClases.propTypes = {
+	clases: PropTypes.array
+};

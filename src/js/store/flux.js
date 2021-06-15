@@ -60,7 +60,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
 
-						window.location.href = "/inicio";
+						window.location.href = "/inicio/alumno";
 					}
 				} catch (error) {
 					getActions().showMessage("Error!", "Error en el servidor", "error");
@@ -174,12 +174,52 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			darCategoriasPrincipales: async () => {
-				try {
-					let response = await fetch(process.env.BACK_URL + "/principalCategories");
-					let data = await response.json();
-					setStore({ categorias: data });
-				} catch (error) {}
+			darClases: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/clases", requestOptions);
+						let data = await response.json();
+						setStore({ clases: data });
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darClasesUsuario: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/nextClases", requestOptions);
+						let data = await response.json();
+						setStore({ userClases: data });
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
 			}
 		}
 	};
