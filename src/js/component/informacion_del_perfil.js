@@ -122,7 +122,7 @@ export default function Informacion_form(props) {
 						}}
 					/>
 				</Grid>
-				<Grid item xs={12} sm={6} md={6}>
+				<Grid item xs={12} sm={12} md={12}>
 					<TextField
 						id="outlined-textarea"
 						label="Descripcion:"
@@ -138,11 +138,12 @@ export default function Informacion_form(props) {
 						}}
 					/>
 				</Grid>
+				<Grid item xs={12} sm={6} md={12}>
+					<Button color="primary" variant="contained" className="m-4" onClick={updateProfile}>
+						Guardar
+					</Button>
+				</Grid>
 			</Grid>
-
-			<Button className="m-5" onClick={updateProfile}>
-				Guardar
-			</Button>
 			<Divider variant="middle" />
 		</React.Fragment>
 	);

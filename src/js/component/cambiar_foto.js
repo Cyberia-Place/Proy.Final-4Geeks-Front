@@ -38,7 +38,10 @@ export default function Cambiar_foto(props) {
 
 	return (
 		<React.Fragment>
-			<Grid container spacing={3} md={12} justify="center" className="m-auto">
+			<Typography variant="h6" aling="left" className="mt-3" gutterBottom>
+				Cambiar foto
+			</Typography>
+			<Grid container spacing={3} md={12} className="m-auto">
 				<Grid item className="m-3">
 					<img src={src != "" ? src : "https://fondosmil.com/fondo/17012.jpg"} className={classes.img} />
 				</Grid>

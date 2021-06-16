@@ -18,19 +18,22 @@ const useStyles = makeStyles(theme => ({
 export default function Agregar_link() {
 	const classes = useStyles();
 	return (
-		<React.Fragment>
+		<Grid>
 			<Typography variant="h6" aling="left" className="mt-3" gutterBottom>
 				Link sala principal
 			</Typography>
-			<Grid container spacing={3} md={6} justify="center" className="m-auto">
-				<Grid item xs={12} sm={6} md={6}>
-					<TextField required id="link" name="link" label="Agregar link:" fullWidth />
+			<Grid container spacing={3} md={6} className="m-auto">
+				<Grid md={12}>
+					<Grid item xs={12} sm={6} md={6}>
+						<TextField required id="link" name="link" label="Agregar link:" fullWidth />
+					</Grid>
 				</Grid>
+				<Button color="primary" variant="contained" className="m-4">
+					Guardar
+				</Button>
 			</Grid>
-			<Button className="m-5" justify="center">
-				Guardar
-			</Button>
+
 			<Divider variant="middle" />
-		</React.Fragment>
+		</Grid>
 	);
 }
