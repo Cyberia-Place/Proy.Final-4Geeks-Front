@@ -19,7 +19,7 @@ export default function Agregar_link() {
 	const classes = useStyles();
 	return (
 		<Grid>
-			<Typography variant="h6" aling="left" color="primary" className="mt-3" gutterBottom>
+			<Typography variant="h6" aling="left" className="mt-3" gutterBottom>
 				Link sala principal
 			</Typography>
 			<Grid container spacing={3} md={6} className="m-auto">

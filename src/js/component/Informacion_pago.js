@@ -10,7 +10,7 @@ import Divider from "@material-ui/core/Divider";
 export default function Pago_form() {
 	return (
 		<React.Fragment>
-			<Typography variant="h6" className="mt-3" color="primary" gutterBottom>
+			<Typography variant="h6" className="mt-3" gutterBottom>
 				Información de pago
 			</Typography>
 			<Grid container spacing={3} md={6} className="m-auto">

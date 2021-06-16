@@ -6,11 +6,7 @@ import {
 	Typography,
 	Card,
 	CardContent,
-	CardActions,
-	CardHeader,
 	makeStyles,
-	Box,
-	Divider,
 	LinearProgress,
 	Paper
 } from "@material-ui/core";
@@ -27,10 +23,12 @@ const useStyles = makeStyles(theme => ({
 	},
 
 	paper: {
-		background: "black",
+		background: "#252525",
 		color: "white"
 	},
-
+	container: {
+		marginTop: theme.spacing(5)
+	},
 	userContent: {
 		height: "100%"
 	},
@@ -54,7 +52,7 @@ export const Profile = () => {
 	}, []);
 
 	return (
-		<Container maxWidth="md">
+		<Container maxWidth="md" className={classes.container}>
 			{store.userData ? (
 				<Grid container spacing={3}>
 					<Grid item xs={12}>
@@ -100,8 +98,7 @@ export const Profile = () => {
 											<strong>Edad </strong> {store.userData.edad ? store.userData.edad : "-"}
 										</Typography>
 										<Typography variant="body1" gutterBottom>
-											<strong>Ubicacion </strong>{" "}
-											{store.userData.ubicacion ? store.userData.ubicacion : "-"}
+											<strong>Pais </strong> {store.userData.pais ? store.userData.pais : "-"}
 										</Typography>
 										<Typography variant="body1" gutterBottom>
 											<strong>Idioma </strong>{" "}
