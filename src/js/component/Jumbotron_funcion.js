@@ -36,7 +36,7 @@ export default function Jumbotron_funcion() {
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<Grid container maxwidth="lg" justify="flex-end">
-				<Grid container md={4} className={classes.image} />
+				<Grid item md={4} className={classes.image} />
 
 				<Grid item md={6}>
 					<div className={classes.mainFeaturedPostContent}>
