@@ -7,9 +7,9 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import PropTypes from "prop-types";
+import { TextField, makeStyles } from "@material-ui/core";
 import { Context } from "../store/appContext";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -23,20 +23,31 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export const ListaClases = () => {
+export const ListaClases = props => {
 	const classes = useStyles();
 
 	const { store, actions } = useContext(Context);
-
-	const [selectedDay, setSelectedDay] = useState();
-	const [selectedHour, setSelectedHour] = useState();
+	const [selectedDay, setSelectedDay] = useState("-1");
+	const [selectedHour, setSelectedHour] = useState("-1");
 
 	// Falta esta funcion
-	const cardList = () => {
-		const filter = "?" + selectedDay;
+	const cardList = event => {
+		event.preventDefault();
+		let filter = "?";
+		if (selectedDay != -1) {
+			filter += "week_day=" + selectedDay;
+			if (selectedHour != -1) {
+				filter += "&hora_inicio=" + selectedHour;
+			}
+		} else {
+			if (selectedHour != -1) {
+				filter += "hora_inicio=" + selectedHour;
+			}
+		}
 		actions.filtrarCards(filter);
+		setSelectedDay("-1");
+		setSelectedHour("-1");
 	};
-
 	return (
 		<Container maxWidth="lg">
 			<Grid container spacing={2}>
@@ -52,12 +63,12 @@ export const ListaClases = () => {
 								variant="contained"
 								color="primary"
 								aria-label="contained primary button group">
-								<Button onClick={() => setSelectedDay("2")}>LUN</Button>
-								<Button onClick={() => setSelectedDay("3")}>MAR</Button>
-								<Button onClick={() => setSelectedDay("4")}>MIE</Button>
-								<Button onClick={() => setSelectedDay("5")}>JUE</Button>
-								<Button onClick={() => setSelectedDay("6")}>VIE</Button>
-								<Button onClick={() => setSelectedDay("7")}>SAB</Button>
+								<Button onClick={() => setSelectedDay("1")}>LUN</Button>
+								<Button onClick={() => setSelectedDay("2")}>MAR</Button>
+								<Button onClick={() => setSelectedDay("3")}>MIE</Button>
+								<Button onClick={() => setSelectedDay("4")}>JUE</Button>
+								<Button onClick={() => setSelectedDay("5")}>VIE</Button>
+								<Button onClick={() => setSelectedDay("6")}>SAB</Button>
 							</ButtonGroup>
 							<Box ml="auto" display="flex" flexDirection="row" alignItems="center">
 								{/* SELECTOR HORA */}
@@ -84,25 +95,20 @@ export const ListaClases = () => {
 						</Box>
 					</form>
 				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
+				{props.clases.length > 0
+					? props.clases.map(clase => {
+							return (
+								<Grid key={clase.id} item xs={12}>
+									<CardProf clase={clase} />
+								</Grid>
+							);
+					  })
+					: "no hay clases"}
 			</Grid>
 		</Container>
 	);
+};
+
+ListaClases.propTypes = {
+	clases: PropTypes.array
 };

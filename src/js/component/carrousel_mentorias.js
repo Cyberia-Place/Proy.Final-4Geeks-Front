@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import { useEffect } from "react";
 
 const theme = createMuiTheme({
 	palette: {
@@ -39,141 +40,56 @@ const Item = props => {
 
 	return (
 		<Grid container direction="row" justify="center" alignItems="center">
-			<Paper className={classes.mentorshipCard}>
-				{props.item.mentoria1.categoria}
-				<br />
-				<Divider orientation="horizontal" variant="fullWidth" />
-				<br />
-				Materia: {props.item.mentoria1.materia}
-				<br />
-				Fecha: {props.item.mentoria1.fecha}
-				<br />
-				Horario: {props.item.mentoria1.horario}
-				<br />
-				<br />
-				<ThemeProvider theme={theme}>
-					<Box display="flex" alignItems="center">
-						<Button
-							variant="contained"
-							color="primary"
-							startIcon={<VideocamIcon />}
-							className={classes.buttonZoom}>
-							ZOOM
-						</Button>
-					</Box>
-				</ThemeProvider>
-			</Paper>
-			<Paper className={classes.mentorshipCard}>
-				{props.item.mentoria2.categoria}
-				<br />
-				<Divider orientation="horizontal" variant="fullWidth" />
-				<br />
-				Materia: {props.item.mentoria2.materia}
-				<br />
-				Fecha: {props.item.mentoria2.fecha}
-				<br />
-				Horario: {props.item.mentoria2.horario}
-				<br />
-				<br />
-				<ThemeProvider theme={theme}>
-					<Box display="flex" alignItems="center">
-						<Button
-							variant="contained"
-							color="primary"
-							startIcon={<VideocamIcon />}
-							className={classes.buttonZoom}>
-							ZOOM
-						</Button>
-					</Box>
-				</ThemeProvider>
-			</Paper>
-			<Paper className={classes.mentorshipCard}>
-				{props.item.mentoria3.categoria}
-				<br />
-				<Divider orientation="horizontal" variant="fullWidth" />
-				<br />
-				Materia: {props.item.mentoria3.materia}
-				<br />
-				Fecha: {props.item.mentoria3.fecha}
-				<br />
-				Horario: {props.item.mentoria3.horario}
-				<br />
-				<br />
-				<ThemeProvider theme={theme}>
-					<Box display="flex" alignItems="center">
-						<Button
-							variant="contained"
-							color="primary"
-							startIcon={<VideocamIcon />}
-							className={classes.buttonZoom}>
-							ZOOM
-						</Button>
-					</Box>
-				</ThemeProvider>
-			</Paper>
+			{props.item.map(elem => {
+				return (
+					<Paper key={elem.id} className={classes.mentorshipCard}>
+						{elem.nombre}
+						<br />
+						<Divider orientation="horizontal" variant="fullWidth" />
+						<br />
+						Fecha: {elem.fecha}
+						<br />
+						Horario: {elem.hora_inicio} - {elem.hora_fin}
+						<br />
+						<br />
+						<ThemeProvider theme={theme}>
+							<Box display="flex" alignItems="center">
+								<Button
+									variant="contained"
+									color="primary"
+									startIcon={<VideocamIcon />}
+									className={classes.buttonZoom}>
+									ZOOM
+								</Button>
+							</Box>
+						</ThemeProvider>
+					</Paper>
+				);
+			})}
 		</Grid>
 	);
 };
 
-export const CarrouselMentorias = () => {
+export const CarrouselMentorias = props => {
 	const classes = useStyles();
-
-	var items = [
-		{
-			mentoria1: {
-				categoria: "Matemática",
-				materia: "Cálculo vectorial",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			},
-			mentoria2: {
-				categoria: "Matemática",
-				materia: "Cálculo vectorial",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			},
-			mentoria3: {
-				categoria: "Matemática",
-				materia: "Cálculo vectorial",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			}
-		},
-		{
-			mentoria1: {
-				categoria: "Filosofía",
-				materia: "Gnoseología",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			},
-			mentoria2: {
-				categoria: "Filosofía",
-				materia: "Gnoseología",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			},
-			mentoria3: {
-				categoria: "Filosofía",
-				materia: "Gnoseología",
-				fecha: "17/8/2021",
-				horario: "15:00 - 16:30"
-			}
-		}
-	];
 
 	return (
 		<Carousel className={classes.mainFeaturedPost} autoPlay={false} interval={4000} animation="slide">
-			{items.map((item, i) => (
-				<Item key={i} item={item} />
-			))}
+			{props.clases.length > 0 ? (
+				props.clases.map((item, i) => <Item key={i} item={item} />)
+			) : (
+				<Grid container direction="row" justify="center" alignItems="center">
+					<Paper className={classes.mentorshipCard}>No hay clases</Paper>
+				</Grid>
+			)}
 		</Carousel>
 	);
 };
 
 Item.propTypes = {
-	item: PropTypes.object,
-	categoria: PropTypes.string,
-	materia: PropTypes.string,
-	fecha: PropTypes.string,
-	hora: PropTypes.string
+	item: PropTypes.array
+};
+
+CarrouselMentorias.propTypes = {
+	clases: PropTypes.array
 };

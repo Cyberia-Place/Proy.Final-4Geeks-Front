@@ -7,6 +7,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -20,52 +21,33 @@ function ListItemLink(props) {
 	return <ListItem button component="a" {...props} />;
 }
 
-export default function Clases_List() {
+export default function Clases_List(props) {
 	const classes = useStyles();
 
 	return (
 		<div className={classes.root}>
 			<h4>Clases programadas:</h4>
 			<List component="nav" aria-label="main mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Literatura" secondary="Jan 1, 10:00hrs" />
-				</ListItem>
-				<Divider />
-				<ListItem button>
-					<ListItemText primary="Ciencia" secondary="Jan 4, 14:00hrs" />
-				</ListItem>
+				{props.clases.length > 0
+					? props.clases.map(clase => {
+							return (
+								<div key={clase.id}>
+									<ListItem button>
+										<ListItemText
+											primary={clase.nombre}
+											secondary={`${clase.fecha} ${clase.hora_inicio}`}
+										/>
+									</ListItem>
+									<Divider />
+								</div>
+							);
+					  })
+					: "no hay clases "}
 			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 5, 12:00hrs" />
-				</ListItem>
-				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 8, 20:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 9, 08:30hrs" />
-				</ListItem>
-				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 14, 10:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 15, 15:00hrs" />
-				</ListItem>
-				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 19, 18:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
 		</div>
 	);
 }
+
+Clases_List.propTypes = {
+	clases: PropTypes.array
+};

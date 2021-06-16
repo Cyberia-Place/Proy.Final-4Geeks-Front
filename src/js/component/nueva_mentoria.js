@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useContext } from "react";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
@@ -11,6 +11,8 @@ import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import { green } from "@material-ui/core/colors";
+import { Context } from "../store/appContext";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(theme => ({
 	modal: {
@@ -54,6 +56,15 @@ const GreenCheckbox = withStyles({
 })(props => <Checkbox color="default" {...props} />);
 
 export const BotonMentoria = () => {
+	const { store, actions } = useContext(Context);
+
+	useEffect(() => {
+		actions.darCategorias();
+	}, []);
+
+	const [nombre, setNombre] = useState("");
+	const [categorias, setCategorias] = useState("");
+
 	const classes = useStyles();
 
 	//// ****** EMPIEZA CODIGO CALENDARIO, FECHA Y HORA ****** ////
@@ -117,6 +128,17 @@ export const BotonMentoria = () => {
 	//// ****** FUNCION AGENDAR MENTORÍA ****** ////
 	const scheduleMentorship = () => {
 		handlerMentorshipModal();
+		let data = {
+			nombre: nombre,
+			fecha: startDate,
+			hora_inicio: startingHour,
+			hora_fin: endingHour,
+			categorias: []
+		};
+		data.categorias.push(categorias);
+		actions.agendarMentoria(data);
+		setNombre("");
+		setCategorias("");
 	};
 
 	const mentorshipForm = (
@@ -136,12 +158,34 @@ export const BotonMentoria = () => {
 					<br />
 
 					<div className="input-group mb-3" style={{ width: "431px" }}>
-						<select className="custom-select" id="inputGroupSelect02">
+						<select
+							className="custom-select"
+							id="inputGroupSelect02"
+							onChange={event => setCategorias(event.target.value)}>
 							<option selected>Seleccione una categoría</option>
-							<option value="1">Categoría uno</option>
-							<option value="2">Categoría dos</option>
-							<option value="3">Categoría tres</option>
+							{store.categories ? (
+								store.categories.map(category => {
+									return (
+										<option key={category.id} value={category.nombre}>
+											{category.nombre}
+										</option>
+									);
+								})
+							) : (
+								<option>No hay categorias</option>
+							)}
 						</select>
+					</div>
+					<div className="form-row">
+						<div className="form-group col">
+							<input
+								className="form-control"
+								type="text"
+								id="nombre"
+								value={nombre}
+								onChange={event => setNombre(event.target.value)}
+							/>
+						</div>
 					</div>
 					<div className="form-row">
 						<div className="form-group col-6">
@@ -158,7 +202,7 @@ export const BotonMentoria = () => {
 							<InputLabel>Fecha</InputLabel>
 							{calendarioInput}
 						</div>
-						<div className="form-group d-flex flex-row align-items-end col-6">
+						{/* <div className="form-group d-flex flex-row align-items-end col-6">
 							<div className={classes.checkboxPlacement}>
 								<FormControlLabel
 									control={
@@ -171,7 +215,7 @@ export const BotonMentoria = () => {
 									label="Mentoría recurrente"
 								/>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<div className="mt-2">
 						<Button

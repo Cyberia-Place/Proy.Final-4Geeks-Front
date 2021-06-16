@@ -58,6 +58,9 @@ const Layout = () => {
 							<Route exact path="/profile">
 								<Profile />
 							</Route>
+							<Route exact path="/profile/:id">
+								<Profile />
+							</Route>
 							<Route exact path="/ajustes/perfil">
 								<Ajustes_del_perfil />
 							</Route>
