@@ -171,7 +171,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							getActions().showMessage("Exito!", "Usuario actualizado exitosamente", "success");
-							getActions().getProfile();
+							getActions().getProfile({});
 						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
@@ -365,6 +365,38 @@ const getState = ({ getStore, getActions, setStore }) => {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							setStore({ clases: data });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			inscribirse: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					clase_id: data.clase_id
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/enroll", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Inscripcion realizada exitosamente", "success");
 						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");

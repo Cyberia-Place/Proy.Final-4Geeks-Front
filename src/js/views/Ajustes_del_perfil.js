@@ -27,7 +27,7 @@ export const Ajustes_del_perfil = () => {
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getProfile();
+		actions.getProfile({});
 	}, []);
 	const classes = useStyles();
 	return (
