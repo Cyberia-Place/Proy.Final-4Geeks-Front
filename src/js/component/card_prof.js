@@ -9,11 +9,11 @@ import EventIcon from "@material-ui/icons/Event";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Context } from "../store/appContext";
 import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
 	root: {
