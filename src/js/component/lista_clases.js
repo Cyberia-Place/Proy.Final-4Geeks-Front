@@ -27,13 +27,26 @@ export const ListaClases = props => {
 	const classes = useStyles();
 
 	const { store, actions } = useContext(Context);
-	const [selectedDay, setSelectedDay] = useState();
-	const [selectedHour, setSelectedHour] = useState();
+	const [selectedDay, setSelectedDay] = useState("-1");
+	const [selectedHour, setSelectedHour] = useState("-1");
 
 	// Falta esta funcion
-	const cardList = () => {
-		const filter = "?" + selectedDay;
+	const cardList = event => {
+		event.preventDefault();
+		let filter = "?";
+		if (selectedDay != -1) {
+			filter += "week_day=" + selectedDay;
+			if (selectedHour != -1) {
+				filter += "&hora_inicio=" + selectedHour;
+			}
+		} else {
+			if (selectedHour != -1) {
+				filter += "hora_inicio=" + selectedHour;
+			}
+		}
 		actions.filtrarCards(filter);
+		setSelectedDay("-1");
+		setSelectedHour("-1");
 	};
 	return (
 		<Container maxWidth="lg">
@@ -50,12 +63,12 @@ export const ListaClases = props => {
 								variant="contained"
 								color="primary"
 								aria-label="contained primary button group">
-								<Button onClick={() => setSelectedDay("2")}>LUN</Button>
-								<Button onClick={() => setSelectedDay("3")}>MAR</Button>
-								<Button onClick={() => setSelectedDay("4")}>MIE</Button>
-								<Button onClick={() => setSelectedDay("5")}>JUE</Button>
-								<Button onClick={() => setSelectedDay("6")}>VIE</Button>
-								<Button onClick={() => setSelectedDay("7")}>SAB</Button>
+								<Button onClick={() => setSelectedDay("1")}>LUN</Button>
+								<Button onClick={() => setSelectedDay("2")}>MAR</Button>
+								<Button onClick={() => setSelectedDay("3")}>MIE</Button>
+								<Button onClick={() => setSelectedDay("4")}>JUE</Button>
+								<Button onClick={() => setSelectedDay("5")}>VIE</Button>
+								<Button onClick={() => setSelectedDay("6")}>SAB</Button>
 							</ButtonGroup>
 							<Box ml="auto" display="flex" flexDirection="row" alignItems="center">
 								{/* SELECTOR HORA */}

@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				swal({ title, text, icon, button: false });
 			},
 
-			getProfile: async () => {
+			getProfile: async user => {
 				let token = localStorage.getItem("token");
 
 				if (token) {
@@ -93,9 +93,47 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 					try {
-						let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
+						let response = await fetch(
+							process.env.BACK_URL + `/user/profile${user.id ? `/${user.id}` : ""}`,
+							requestOptions
+						);
 						let data = await response.json();
-						setStore({ userData: data });
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ userData: data });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			getStats: async user => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(
+							process.env.BACK_URL + `/user/stats${user.id ? `/${user.id}` : ""}`,
+							requestOptions
+						);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ userStats: data });
+						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
@@ -309,6 +347,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// day tiene que ser del tipo: ?week_day=2
 				// hour tiene que ser del tipo: ?hora_inicio=14
 				// en caso de seleccionar dia y hora tiene que ser: ?week_day=2&hora_inicio=14
+				let token = localStorage.getItem("token");
 				if (token) {
 					var myHeaders = new Headers();
 					myHeaders.append("Content-Type", "application/json");

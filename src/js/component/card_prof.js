@@ -47,9 +47,7 @@ export default function CardProf(props) {
 							<EventIcon /> {props.clase.fecha} <AccessTimeIcon />{" "}
 							{moment(props.clase.hora_inicio, "LT").format("LT")} -{" "}
 							{moment(props.clase.hora_fin, "LT").format("LT")}{" "}
-							<Link href="#" onClick={preventDefault}>
-								{props.clase.profesor.nombre}
-							</Link>
+							<Link to={`/profile/${props.clase.profesor.id}`}>{props.clase.profesor.nombre}</Link>
 						</Typography>
 						<Box component="fieldset" borderColor="transparent">
 							<Rating name="read-only" value={props.clase.profesor.valoracion} readOnly size="large" />
