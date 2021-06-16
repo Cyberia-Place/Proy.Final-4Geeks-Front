@@ -25,9 +25,6 @@ const theme = createMuiTheme({
 		error: {
 			main: "#fdd835"
 		}
-	},
-	typography: {
-		fontSize: 18
 	}
 });
 
