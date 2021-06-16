@@ -3,16 +3,13 @@ import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Modal from "@material-ui/core/Modal";
-import InputBase from "@material-ui/core/InputBase";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import InputLabel from "@material-ui/core/InputLabel";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import SearchIcon from "@material-ui/icons/Search";
 import Input from "@material-ui/core/Input";
 import { Context } from "../store/appContext";
 import validator from "validator";
@@ -70,8 +67,10 @@ const useStyles = makeStyles(theme => ({
 		marginTop: "20px",
 		marginBottom: "20px"
 	},
-	textPrueba: {
-		display: "flex"
+	button: {
+		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)",
+		width: "15vw",
+		height: "5vh"
 	}
 }));
 
@@ -83,7 +82,6 @@ export default function MainFeaturedPost(props) {
 	const [inputFullName, setInputFullName] = useState("");
 
 	const [openSignIn, setOpenSignIn] = useState(false); // Estado para el props open del modal Sign In
-	const [openChangePassword, setOpenChangePassword] = useState(false); // Estado para el props open del modal ChangePassword
 	const { store, actions } = useContext(Context);
 
 	const signup = () => {
@@ -131,10 +129,6 @@ export default function MainFeaturedPost(props) {
 
 	const abrirCerrarSignIn = () => {
 		setOpenSignIn(!openSignIn);
-	};
-
-	const abrirCerrarChangePassword = () => {
-		setOpenChangePassword(!openChangePassword);
 	};
 
 	const bodySignIn = (
@@ -202,43 +196,18 @@ export default function MainFeaturedPost(props) {
 		</div>
 	);
 
-	const bodyChangePassword = (
-		<div className={classes.modal}>
-			<form>
-				<Button className={classes.exitSignInButton} onClick={() => abrirCerrarChangePassword()}>
-					<h5>X</h5>
-				</Button>
-				<Typography variant="h4" align="center" gutterBottom>
-					¿Olvidaste tu contraseña?
-				</Typography>
-				<Typography variant="body1" gutterBottom>
-					Introduce tu dirección de correo electrónico. Te enviaremos un enlace para restablecer su
-					contraseña.
-				</Typography>
-				<br />
-				{/* // Input de email // */}
-				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-				<Input variant="outlined" size="small" fullWidth />
-
-				<Button variant="contained" className={classes.signInButton}>
-					Enviar enlace
-				</Button>
-			</form>
-		</div>
-	);
-
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<div className={classes.overlay} />
 			<Grid container maxwidth="lg" justify="center">
 				<Grid item md={6}>
 					<div className={classes.mainFeaturedPostContent}>
-						<Typography justify="center" component="h1" variant="h1" color="inherit" gutterBottom>
+						<Typography justify="center" variant="h2" color="inherit" gutterBottom>
 							Tu curso hacia el éxito
 						</Typography>
-						<Typography color="inherit" paragraph>
-							Something short and leading about the collection below—its contents, the creator, etc. Make
-							it short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+						<Typography variant="h6" color="inherit" paragraph>
+							Coordina mentorías de la materia de tu interés y alcanza la excelencia con el soporte de
+							profesores en línea, o aprende enseñando como tutor.
 						</Typography>
 
 						<Grid container spacing={2} justify="center" size="large">
@@ -246,7 +215,7 @@ export default function MainFeaturedPost(props) {
 								<Button
 									variant="contained"
 									color="primary"
-									className={classes.navButton}
+									className={classes.button}
 									onClick={() => abrirCerrarSignIn()}>
 									Únete
 								</Button>
@@ -263,14 +232,6 @@ export default function MainFeaturedPost(props) {
 				aria-labelledby="simple-modal-title"
 				aria-describedby="simple-modal-description">
 				{bodySignIn}
-			</Modal>
-
-			<Modal
-				open={openChangePassword}
-				onClose={abrirCerrarChangePassword}
-				aria-labelledby="simple-modal-title"
-				aria-describedby="simple-modal-description">
-				{bodyChangePassword}
 			</Modal>
 		</Paper>
 	);
