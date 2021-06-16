@@ -8,8 +8,20 @@ import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { Context } from "../store/appContext";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
+import Swal from "sweetalert2";
+
+const muiTheme = createMuiTheme({
+	palette: {
+		primary: {
+			main: "#59a80f"
+		},
+		secondary: {
+			main: "#65bf11"
+		}
+	}
+});
 
 const useStyles = makeStyles(theme => ({
 	container: {
@@ -32,9 +44,23 @@ export const ListaClases = () => {
 	const [selectedHour, setSelectedHour] = useState();
 
 	// Falta esta funcion
-	const cardList = () => {
-		const filter = "?" + selectedDay;
-		actions.filtrarCards(filter);
+	const cardListFilter = event => {
+		if (selectedDay && selectedHour) {
+			const filter = "?week_day=" + selectedDay + "&hora_inicio=" + selectedHour;
+			console.log(selectedDay, selectedHour, filter);
+			actions.filtrarCards(filter);
+		} else if (!selectedDay && selectedHour) {
+			const filter = "?hora_inicio=" + selectedHour;
+			actions.filtrarCards(filter);
+			console.log(selectedDay, selectedHour, filter);
+		} else if (selectedDay && !selectedHour) {
+			const filter = "?week_day=" + selectedHour;
+			actions.filtrarCards(filter);
+			console.log(selectedDay, selectedHour, filter);
+		} else {
+			Swal.fire("Ingrese día y hora para filtrar");
+		}
+		event.preventDefault();
 	};
 
 	return (
@@ -46,19 +72,45 @@ export const ListaClases = () => {
 					</Box>
 				</Grid>
 				<Grid item lg={12} direction="row" alignItems="center">
-					<form onSubmit={cardList}>
+					<form onSubmit={event => cardListFilter(event)}>
 						<Box display="flex" flexDirection="row" alignItems="center">
-							<ButtonGroup
-								variant="contained"
-								color="primary"
-								aria-label="contained primary button group">
-								<Button onClick={() => setSelectedDay("2")}>LUN</Button>
-								<Button onClick={() => setSelectedDay("3")}>MAR</Button>
-								<Button onClick={() => setSelectedDay("4")}>MIE</Button>
-								<Button onClick={() => setSelectedDay("5")}>JUE</Button>
-								<Button onClick={() => setSelectedDay("6")}>VIE</Button>
-								<Button onClick={() => setSelectedDay("7")}>SAB</Button>
-							</ButtonGroup>
+							<ThemeProvider theme={muiTheme}>
+								<ButtonGroup
+									variant="contained"
+									color="primary"
+									aria-label="contained primary button group">
+									<Button
+										onClick={() => setSelectedDay("2")}
+										color={selectedDay == "2" ? "secondary" : "primary"}>
+										LUN
+									</Button>
+									<Button
+										onClick={() => setSelectedDay("3")}
+										color={selectedDay == "3" ? "secondary" : "primary"}>
+										MAR
+									</Button>
+									<Button
+										onClick={() => setSelectedDay("4")}
+										color={selectedDay == "4" ? "secondary" : "primary"}>
+										MIE
+									</Button>
+									<Button
+										onClick={() => setSelectedDay("5")}
+										color={selectedDay == "5" ? "secondary" : "primary"}>
+										JUE
+									</Button>
+									<Button
+										onClick={() => setSelectedDay("6")}
+										color={selectedDay == "6" ? "secondary" : "primary"}>
+										VIE
+									</Button>
+									<Button
+										onClick={() => setSelectedDay("7")}
+										color={selectedDay == "7" ? "secondary" : "primary"}>
+										SAB
+									</Button>
+								</ButtonGroup>
+							</ThemeProvider>
 							<Box ml="auto" display="flex" flexDirection="row" alignItems="center">
 								{/* SELECTOR HORA */}
 								<div className={classes.container}>
