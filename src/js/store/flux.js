@@ -1,5 +1,6 @@
 import { PostAdd } from "@material-ui/icons";
 import swal from "sweetalert";
+import moment from "moment";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -96,7 +97,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						let data = await response.json();
 						setStore({ userData: data });
 					} catch (error) {
-						console.log(error);
+						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
 			},
@@ -216,6 +217,89 @@ const getState = ({ getStore, getActions, setStore }) => {
 						let response = await fetch(process.env.BACK_URL + "/user/nextClases", requestOptions);
 						let data = await response.json();
 						setStore({ userClases: data });
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darClasesDocente: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/teacher/nextClases", requestOptions);
+						let data = await response.json();
+						setStore({
+							calendario: data.map(elem => {
+								return moment(elem.fecha).toDate();
+							})
+						});
+						let teacherClases = [];
+						for (let i = 0; i < data.length; i += 3) {
+							let pedazo = data.slice(i, i + 3);
+							teacherClases.push(pedazo);
+						}
+						setStore({
+							teacherClases: teacherClases
+						});
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darCategorias: async () => {
+				try {
+					let response = await fetch(process.env.BACK_URL + "/categories");
+					let data = await response.json();
+					setStore({ categories: data });
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
+			agendarMentoria: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					nombre: data.nombre,
+					fecha: moment(data.fecha).format("YYYY-MM-DD"),
+					hora_inicio: moment(data.hora_inicio).format("LT"),
+					hora_fin: moment(data.hora_fin).format("LT"),
+					categorias: data.categorias
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/class", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Mentoria agregada exitosamente", "success");
+							getActions().getProfile();
+						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}

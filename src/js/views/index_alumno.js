@@ -25,7 +25,7 @@ export const InicioAlumno = () => {
 						<ListaClases clases={store.clases} />
 					</div>
 					<div className="col-12 col-md-3 mt-3">
-						<Proxima_clase />
+						<Proxima_clase clase={store.userClases.nextClases[0]} />
 					</div>
 				</div>
 			) : (
