@@ -15,6 +15,7 @@ import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 
 const useStyles = makeStyles(theme => ({
 	navBar: {
@@ -72,13 +73,17 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.up("md")]: {
 			display: "none"
 		}
+	},
+	tokens: {
+		marginBottom: "-5px"
 	}
 }));
 
 export const NavbarSesion = () => {
 	const { store, actions } = useContext(Context);
-
 	const classes = useStyles();
+
+	const [tokens, setTokens] = useState("100"); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -176,21 +181,11 @@ export const NavbarSesion = () => {
 					<Typography variant="h6" noWrap>
 						[ICONO]
 					</Typography>
-
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
-							<SearchIcon />
-						</div>
-						<InputBase
-							placeholder="Search…"
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput
-							}}
-							inputProps={{ "aria-label": "search" }}
-						/>
-					</div>
 					<div className={classes.searchDiv} />
+					<MonetizationOnIcon fontSize="default" />
+					<Typography classes={classes.tokens} variant="h6" gutterBottom>
+						{tokens}
+					</Typography>
 					<div className={classes.sectionDesktop}>
 						<IconButton aria-label="show 4 new mails" color="inherit">
 							<Badge badgeContent={4} color="error">

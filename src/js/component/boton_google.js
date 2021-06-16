@@ -13,7 +13,7 @@ const theme = createMuiTheme({
 });
 
 const responseGoogle = response => {
-	// console.log(response);
+	console.log(response);
 	console.log(response.profileObj);
 };
 
@@ -21,7 +21,7 @@ export const BotonGoogle = () => {
 	return (
 		<ThemeProvider theme={theme}>
 			<GoogleLogin
-				clientId="893541568420-e0vjluam1bjufdp1k1eglhh787vp7e60.apps.googleusercontent.com"
+				clientId="893541568420-jkdmsfhuacmuj67r6k4t6sefj8qukmt8.apps.googleusercontent.com"
 				// buttonText="Iniciar Sesión"
 				render={renderProps => (
 					<GoogleButton
