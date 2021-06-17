@@ -28,7 +28,7 @@ export default function Pago_form() {
 						required
 						id="cvv"
 						label="CVV"
-						helperText="Last three digits on signature strip"
+						helperText="Últimos tres dígitos"
 						fullWidth
 						autoComplete="cc-csc"
 					/>
@@ -40,7 +40,7 @@ export default function Pago_form() {
 				<Grid item xs={12}>
 					<FormControlLabel
 						control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-						label="Remember credit card details for next time"
+						label="Recordar información de pago para la próxima vez"
 					/>
 				</Grid>
 				<Button color="primary" variant="contained" className="m-4">

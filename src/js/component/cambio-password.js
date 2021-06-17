@@ -33,7 +33,7 @@ export const CambioPassword = () => {
 	};
 
 	return (
-		<div style={{ backgroundColor: "#252525" }} className="d-flex justify-content-center">
+		<div style={{ backgroundColor: "#252525" }} className="d-flex justify-content-center h-100">
 			<div
 				className="p-5 bg-light"
 				style={{

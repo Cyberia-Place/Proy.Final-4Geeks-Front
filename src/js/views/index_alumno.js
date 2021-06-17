@@ -18,7 +18,12 @@ export const InicioAlumno = () => {
 		<div>
 			{store.clases && store.userClases ? (
 				<div className="flex-container m-4 p-4 d-flex pt-3">
-					<div className="col-3 col-md-2 mt-3">
+					<div
+						className={
+							"col-3" +
+							// col-md-2
+							"mt-3"
+						}>
 						<Proxima_clase clase={store.userClases.nextClases[0]} />
 						<Clases_List clases={store.userClases} />
 					</div>
