@@ -118,6 +118,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			googleLogIn: async tokenId => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ tokenId }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/google-login", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						localStorage.setItem("usuario", JSON.stringify(data.usuario));
+						localStorage.setItem("token", data.token);
+						localStorage.setItem("expires", data.expires);
+
+						setStore({ usuario: data.usuario });
+
+						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
+
+						window.location.href = "/inicio/alumno";
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
 			logout: () => {
 				localStorage.clear();
 				setStore({ usuario: null });

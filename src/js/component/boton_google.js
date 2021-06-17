@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import GoogleLogin from "react-google-login";
 import { Button, createMuiTheme, ThemeProvider } from "@material-ui/core";
 import GoogleButton from "./boton_google/diseño_boton_google";
+import { Context } from "../store/appContext";
 // import GoogleButton from "react-google-button";
 
 const theme = createMuiTheme({
@@ -12,12 +13,14 @@ const theme = createMuiTheme({
 	}
 });
 
-const responseGoogle = response => {
-	console.log(response);
-	console.log(response.profileObj);
-};
-
 export const BotonGoogle = () => {
+	const { store, actions } = useContext(Context);
+	const responseGoogle = response => {
+		console.log(response);
+		console.log(response.profileObj);
+		actions.googleLogIn(response.tokenId);
+	};
+
 	return (
 		<ThemeProvider theme={theme}>
 			<GoogleLogin

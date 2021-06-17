@@ -46,25 +46,31 @@ const Layout = () => {
 							<Route exact path="/">
 								<Home />
 							</Route>
-							<Route exact path="/inicio/alumno">
-								<InicioAlumno />
-							</Route>
-							<Route exact path="/inicio/compra">
-								<Compra />
-							</Route>
-							<Route exact path="/inicio/profesor">
-								<IndexProfesor />
-							</Route>
-							<Route exact path="/profile">
-								<Profile />
-							</Route>
-							<Route exact path="/profile/:id">
-								<Profile />
-							</Route>
-							<Route exact path="/ajustes/perfil">
-								<Ajustes_del_perfil />
-							</Route>
-							<Route exact path="/reset-password/:token">
+							{store.usuario ? (
+								<>
+									<Route exact path="/inicio/alumno">
+										<InicioAlumno />
+									</Route>
+									<Route exact path="/inicio/compra">
+										<Compra />
+									</Route>
+									<Route exact path="/inicio/profesor">
+										<IndexProfesor />
+									</Route>
+									<Route exact path="/profile">
+										<Profile />
+									</Route>
+									<Route exact path="/profile/:id">
+										<Profile />
+									</Route>
+									<Route exact path="/ajustes/perfil">
+										<Ajustes_del_perfil />
+									</Route>
+								</>
+							) : (
+								""
+							)}
+							<Route exact path="/reset-password">
 								hola
 							</Route>
 							<Route>
