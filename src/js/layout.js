@@ -39,7 +39,7 @@ const Layout = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="d-flex flex-column h-100">
+			<div className="h-100">
 				<BrowserRouter basename={basename}>
 					<ScrollToTop>
 						{store.usuario ? <NavbarSesion /> : <Navbar />}

@@ -1,9 +1,9 @@
 import React from "react";
-import { Grid, InputLabel, makeStyles, Typography, OutlinedInput } from "@material-ui/core";
+import { Grid, InputLabel, makeStyles, Typography, OutlinedInput, Button } from "@material-ui/core";
 
 const useStyles = makeStyles({
-	input: {
-		width: "10vw"
+	button: {
+		width: "40vw"
 	}
 });
 
@@ -11,7 +11,7 @@ export const CambioPassword = () => {
 	const classes = useStyles();
 
 	return (
-		<div style={{ backgroundColor: "#252525" }} className="d-flex justify-content-center h-100">
+		<div style={{ backgroundColor: "#252525" }} className="d-flex justify-content-center">
 			<div
 				className="p-5 bg-light"
 				style={{
@@ -36,6 +36,11 @@ export const CambioPassword = () => {
 					<div style={{ width: "100%", marginBottom: "30px" }}>
 						<InputLabel>Repita nueva contraseña</InputLabel>
 						<OutlinedInput color="primary" fullWidth={true} />
+						<div style={{ width: "60%", marginTop: "30px" }} className="mx-auto">
+							<Button className="mx-auto" variant="contained" color="primary" fullWidth={true}>
+								Enviar
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>
