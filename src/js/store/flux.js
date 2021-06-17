@@ -5,7 +5,8 @@ import moment from "moment";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			usuario: null
+			usuario: null,
+			googleLoged: false
 		},
 		actions: {
 			loadSomeData: () => {
@@ -108,6 +109,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("expires", data.expires);
 
 						setStore({ usuario: data.usuario });
+						setStore({ googleLoged: false });
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
 
@@ -139,6 +141,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("expires", data.expires);
 
 						setStore({ usuario: data.usuario });
+						setStore({ googleLoged: true });
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
 
@@ -282,13 +285,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					try {
 						let response = await fetch(process.env.BACK_URL + "/user/updatePassword", requestOptions);
 						let data = await response.json();
+						console.log(data);
 						if (data.message) {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							getActions().showMessage("Exito!", "Contraseña actualizada exitosamente", "success");
-							getActions().getProfile();
+							getActions().getProfile({});
 						}
 					} catch (error) {
+						console.log(error);
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}

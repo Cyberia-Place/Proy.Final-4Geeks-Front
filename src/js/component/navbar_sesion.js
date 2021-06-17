@@ -139,14 +139,24 @@ export const NavbarSesion = () => {
 				<Link to="/ajustes/perfil">My account</Link>
 			</MenuItem>
 			<MenuItem>
-				<GoogleLogout
-					clientId="893541568420-jkdmsfhuacmuj67r6k4t6sefj8qukmt8.apps.googleusercontent.com"
-					buttonText="Logout"
-					onLogoutSuccess={() => {
-						handleMenuClose();
-						actions.logout();
-					}}
-				/>
+				{store.googleLoged ? (
+					<GoogleLogout
+						clientId="893541568420-jkdmsfhuacmuj67r6k4t6sefj8qukmt8.apps.googleusercontent.com"
+						buttonText="Logout"
+						onLogoutSuccess={() => {
+							handleMenuClose();
+							actions.logout();
+						}}
+					/>
+				) : (
+					<div
+						onClick={() => {
+							handleMenuClose();
+							actions.logout();
+						}}>
+						Logout
+					</div>
+				)}
 			</MenuItem>
 		</Menu>
 	);
