@@ -152,3 +152,4 @@ export const ListaClases = props => {
 ListaClases.propTypes = {
 	clases: PropTypes.array
 };
+
