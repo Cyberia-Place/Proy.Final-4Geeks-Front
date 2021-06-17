@@ -315,7 +315,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fecha: moment(data.fecha).format("YYYY-MM-DD"),
 					hora_inicio: moment(data.hora_inicio).format("LT"),
 					hora_fin: moment(data.hora_fin).format("LT"),
-					categorias: data.categorias
+                    categorias: data.categorias,
+                    precio: data.precio
 				};
 
 				if (token) {
@@ -402,7 +403,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
-			}
+            },
+            
+            getCredits: async () => {
+				let token = localStorage.getItem("token");
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + '/user/credits', requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ creditos: data.creditos });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
 		}
 	};
 };

@@ -76,7 +76,7 @@ export default function CardProf(props) {
 							</Button>
 							<Box ml="auto" mr={3}>
 								<Typography variant="h4">
-									<MonetizationOnIcon fontSize="large" /> 12
+									<MonetizationOnIcon fontSize="large" /> {props.clase.precio}
 								</Typography>
 							</Box>
 						</Box>

@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -90,7 +91,11 @@ export const NavbarSesion = () => {
 	const { store, actions } = useContext(Context);
 	const classes = useStyles();
 
-	const [tokens, setTokens] = useState("100"); // Recibe del back la cantidad de tokens del usuario
+    useEffect(() => {
+        actions.getCredits();
+    }, []);
+
+	const [tokens, setTokens] = useState(store.creditos ? store.creditos : '0'); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
