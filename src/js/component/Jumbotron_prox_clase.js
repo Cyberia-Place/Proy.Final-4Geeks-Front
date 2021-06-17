@@ -107,14 +107,19 @@ export default function Proxima_clase(props) {
 												}}>
 												Cancelar
 											</Button>
-											<Button
-												variant="contained"
-												id="BotonUnirse"
-												color="primary"
-												size="large"
-												className={classes.Button}>
-												Unirse
-											</Button>
+											{props.clase.profesor.url ? (
+												<Button
+													variant="contained"
+													id="BotonUnirse"
+													color="primary"
+													size="large"
+													href={props.clase.profesor.url}
+													className={classes.Button}>
+													Unirse
+												</Button>
+											) : (
+												""
+											)}
 										</Grid>
 									</Grid>
 								</>

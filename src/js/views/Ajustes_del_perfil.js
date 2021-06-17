@@ -48,7 +48,7 @@ export const Ajustes_del_perfil = () => {
 							/>
 							<Contraseña_form />
 							<Pago_form />
-							<Agregar_link />
+							<Agregar_link url={store.userData.url} />
 						</Card>
 					</div>
 				) : (

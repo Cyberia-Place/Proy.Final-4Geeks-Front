@@ -52,17 +52,22 @@ const Item = props => {
 						Horario: {elem.hora_inicio} - {elem.hora_fin}
 						<br />
 						<br />
-						<ThemeProvider theme={theme}>
-							<Box display="flex" alignItems="center">
-								<Button
-									variant="contained"
-									color="primary"
-									startIcon={<VideocamIcon />}
-									className={classes.buttonZoom}>
-									ZOOM
-								</Button>
-							</Box>
-						</ThemeProvider>
+						{elem.url ? (
+							<ThemeProvider theme={theme}>
+								<Box display="flex" alignItems="center">
+									<Button
+										variant="contained"
+										color="primary"
+										startIcon={<VideocamIcon />}
+										href={elem.url}
+										className={classes.buttonZoom}>
+										ZOOM
+									</Button>
+								</Box>
+							</ThemeProvider>
+						) : (
+							""
+						)}
 					</Paper>
 				);
 			})}
