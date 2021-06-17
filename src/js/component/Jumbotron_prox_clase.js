@@ -46,46 +46,57 @@ export default function Proxima_clase(props) {
 								</Typography>
 							</Grid>
 							<Divider className="mb-3" />
-							<Grid container spacing={2} justify="center">
-								<Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
-									Literatura
-								</Typography>
-							</Grid>
-							<Grid container spacing={2} justify="center">
-								<Typography color="inherit" className="pr-2" paragraph>
-									Prof.:
-								</Typography>
-								<Typography id="fecha" color="inherit" paragraph>
-									Juanito López
-								</Typography>
-							</Grid>
-							<Grid container spacing={2} justify="center">
-								<Typography color="inherit" className="pr-2" paragraph>
-									Fecha:
-								</Typography>
-								<Typography id="fecha" color="inherit" paragraph>
-									18/06/2021
-								</Typography>
-							</Grid>
-							<Grid container spacing={2} justify="center">
-								<Typography color="inherit" className="pr-2" paragraph>
-									Hora:
-								</Typography>
-								<Typography id="hora" color="inherit" paragraph>
-									09:00hrs
-								</Typography>
-							</Grid>
-							<Grid container spacing={2} justify="center">
-								<Grid item>
-									<Button
-										variant="contained"
-										id="BotonUnirse"
-										size="large"
-										className={classes.Button}>
-										Unirse
-									</Button>
+							{props.clase ? (
+								<>
+									<Grid container spacing={2} justify="center">
+										<Typography
+											id="materia"
+											component="h3"
+											variant="h3"
+											color="inherit"
+											gutterBottom>
+											{props.clase.nombre}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Prof.:
+										</Typography>
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.profesor.nombre}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Fecha:
+										</Typography>
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.fecha}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Hora:
+										</Typography>
+										<Typography id="hora" color="inherit" paragraph>
+											{props.clase.hora_inicio} - {props.clase.hora_fin}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Grid item>
+											<Button variant="contained" id="BotonUnirse" color="primary" size="large" className={classes.Button}>
+												Unirse
+											</Button>
+										</Grid>
+									</Grid>
+								</>
+							) : (
+								<Grid container spacing={2} justify="center">
+									<Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
+										No hay
+									</Typography>
 								</Grid>
-							</Grid>
+							)}
 						</Box>
 					</div>
 				</Grid>
@@ -93,3 +104,7 @@ export default function Proxima_clase(props) {
 		</Grid>
 	);
 }
+
+Proxima_clase.propTypes = {
+	clase: PropTypes.object
+};

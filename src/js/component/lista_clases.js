@@ -7,6 +7,8 @@ import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
+import PropTypes from "prop-types";
+import { TextField, makeStyles } from "@material-ui/core";
 import { Context } from "../store/appContext";
 import { makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -35,34 +37,31 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export const ListaClases = () => {
+export const ListaClases = props => {
 	const classes = useStyles();
 
 	const { store, actions } = useContext(Context);
-
-	const [selectedDay, setSelectedDay] = useState();
-	const [selectedHour, setSelectedHour] = useState();
+	const [selectedDay, setSelectedDay] = useState("-1");
+	const [selectedHour, setSelectedHour] = useState("-1");
 
 	// Falta esta funcion
-	const cardListFilter = event => {
-		if (selectedDay && selectedHour) {
-			const filter = "?week_day=" + selectedDay + "&hora_inicio=" + selectedHour;
-			console.log(selectedDay, selectedHour, filter);
-			actions.filtrarCards(filter);
-		} else if (!selectedDay && selectedHour) {
-			const filter = "?hora_inicio=" + selectedHour;
-			actions.filtrarCards(filter);
-			console.log(selectedDay, selectedHour, filter);
-		} else if (selectedDay && !selectedHour) {
-			const filter = "?week_day=" + selectedHour;
-			actions.filtrarCards(filter);
-			console.log(selectedDay, selectedHour, filter);
-		} else {
-			Swal.fire("Ingrese día y hora para filtrar");
-		}
+	const cardList = event => {
 		event.preventDefault();
+		let filter = "?";
+		if (selectedDay != -1) {
+			filter += "week_day=" + selectedDay;
+			if (selectedHour != -1) {
+				filter += "&hora_inicio=" + selectedHour;
+			}
+		} else {
+			if (selectedHour != -1) {
+				filter += "hora_inicio=" + selectedHour;
+			}
+		}
+		actions.filtrarCards(filter);
+		setSelectedDay("-1");
+		setSelectedHour("-1");
 	};
-
 	return (
 		<Container maxWidth="lg">
 			<Grid container spacing={2}>
@@ -136,25 +135,20 @@ export const ListaClases = () => {
 						</Box>
 					</form>
 				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
-				<Grid item lg={12}>
-					<CardProf />
-				</Grid>
+				{props.clases.length > 0
+					? props.clases.map(clase => {
+							return (
+								<Grid key={clase.id} item xs={12}>
+									<CardProf clase={clase} />
+								</Grid>
+							);
+					  })
+					: "no hay clases"}
 			</Grid>
 		</Container>
 	);
+};
+
+ListaClases.propTypes = {
+	clases: PropTypes.array
 };

@@ -3,6 +3,7 @@ import DatePicker, { registerLocale } from "react-datepicker";
 import es from "date-fns/locale/es";
 import "react-datepicker/dist/react-datepicker.css";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
 	hundirCalendario: {
@@ -11,9 +12,9 @@ const useStyles = makeStyles({
 	}
 });
 
-export const Calendario = () => {
+export const Calendario = props => {
 	const classes = useStyles();
-	const [fechas_resaltadas, setFechasResaltadas] = useState([]);
+	const [fechas_resaltadas, setFechasResaltadas] = useState(props.fechas);
 	registerLocale("es", es);
 
 	const resaltarFecha = fecha => {
@@ -32,4 +33,8 @@ export const Calendario = () => {
 			/>
 		</div>
 	);
+};
+
+Calendario.propTypes = {
+	fechas: PropTypes.array
 };

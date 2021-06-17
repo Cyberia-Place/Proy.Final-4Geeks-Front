@@ -10,6 +10,7 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import Rating from "@material-ui/lab/Rating";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -25,32 +26,35 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function Clases_List() {
+function ListItemLink(props) {
+	return <ListItem button component="a" {...props} />;
+}
+
+export default function Clases_List(props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(0);
 
 	return (
 		<div className={classes.root}>
 			<div className={classes.prox}>
-				<h4>Próximas clases:</h4>
-				<Box>
-					<ListItemText primary="Literatura" secondary="18/06/2021 9:00 a.m con Juanito López" />
-				</Box>
-
-				<Divider />
-				<Box>
-					<ListItemText primary="Química" secondary="19/06/2021 10:00 a.m con Elena Hope" />
-				</Box>
-
-				<Divider />
-				<Box button>
-					<ListItemText primary="Biología" secondary="20/06/2021 13:00 p.m con María Rodriguez" />
-				</Box>
-
-				<Divider />
-				<Box button>
-					<ListItemText primary="Lógica Computacional" secondary="10/03/2020 16:00 p.m con Ramiro Paez" />
-				</Box>
+					<h4>Clases programadas:</h4>
+                        <List component="nav" aria-label="main mailbox folders">
+                            {props.clases.length > 0
+                                ? props.clases.map(clase => {
+                                        return (
+                                            <div key={clase.id}>
+                                                <ListItem button>
+                                                    <ListItemText
+                                                        primary={clase.nombre}
+                                                        secondary={`${clase.fecha} ${clase.hora_inicio}`}
+                                                    />
+                                                </ListItem>
+                                                <Divider />
+                                            </div>
+                                        );
+                                })
+                                : "no hay clases "}
+                        </List>
 
 				<Divider />
 			</div>
@@ -88,6 +92,11 @@ export default function Clases_List() {
 				</Box>
 				<Divider />
 			</div>
+		
 		</div>
 	);
 }
+
+Clases_List.propTypes = {
+	clases: PropTypes.array
+};
