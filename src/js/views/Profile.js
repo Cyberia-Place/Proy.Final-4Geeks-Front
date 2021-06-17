@@ -17,6 +17,7 @@ import { useState } from "react";
 import Categories_Area from "../component/Categories_Area";
 import Rating from "@material-ui/lab/Rating";
 import { useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 const useStyles = makeStyles(theme => ({
 	userImg: {
@@ -175,9 +176,25 @@ export const Profile = () => {
 									<Box display="flex" alignItems="center">
 										<strong>Calificacion </strong>{" "}
 										<Rating
-											name="read-only"
+											name="valoracion"
 											value={store.userStats.enseniando.valoracion}
-											readOnly
+											onChange={event => {
+												let val = event.target.value;
+												swal({
+													title: "Confirmar",
+													text: "Deseas valorar al profesor?",
+													icon: "warning",
+													buttons: true,
+													dangerMode: true
+												}).then(will => {
+													if (will) {
+														actions.valorate({
+															valoracion: val,
+															id: store.userData.id
+														});
+													}
+												});
+											}}
 										/>
 									</Box>
 								</Typography>

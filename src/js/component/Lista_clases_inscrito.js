@@ -37,62 +37,74 @@ export default function Clases_List(props) {
 	return (
 		<div className={classes.root}>
 			<div className={classes.prox}>
-					<h4>Clases programadas:</h4>
-                        <List component="nav" aria-label="main mailbox folders">
-                            {props.clases.length > 0
-                                ? props.clases.map(clase => {
-                                        return (
-                                            <div key={clase.id}>
-                                                <ListItem button>
-                                                    <ListItemText
-                                                        primary={clase.nombre}
-                                                        secondary={`${clase.fecha} ${clase.hora_inicio}`}
-                                                    />
-                                                </ListItem>
-                                                <Divider />
-                                            </div>
-                                        );
-                                })
-                                : "no hay clases "}
-                        </List>
+				<h4>Clases programadas:</h4>
+				<List component="nav" aria-label="main mailbox folders">
+					{props.clases.nextClases.length > 0
+						? props.clases.nextClases.map(clase => {
+								return (
+									<div key={clase.id}>
+										<ListItem button>
+											<ListItemText
+												primary={clase.nombre}
+												secondary={`${clase.fecha} ${clase.hora_inicio}`}
+											/>
+										</ListItem>
+										<Divider />
+									</div>
+								);
+						  })
+						: "no hay clases "}
+				</List>
 
 				<Divider />
 			</div>
 			<div className={classes.prox}>
 				<h4>Clases Atendidas:</h4>
 
-				<Box>
-					<ListItemText primary="Literatura" secondary="el 23/05/2021 con Fulanito Perez" />
-				</Box>
-				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
-					<Typography component="legend">Califica al profesor:</Typography>
-					<Rating
-						name="simple-controlled"
-						value={value}
-						onChange={(event, newValue) => {
-							setValue(newValue);
-						}}
-					/>
-				</Box>
-				<Divider />
-				<Box button>
-					<ListItemText primary="TypeScript" secondary="el 17/04/2021 con José Rodriguez" />
-				</Box>
-				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
-					<Typography component="legend">Calificación:</Typography>
-					<Rating name="read-only" value={4} readOnly />
-				</Box>
-				<Divider />
-				<Box button>
-					<ListItemText primary="Matemática I" secondary="el 10/03/2021 con Juanita Fernandez" />
-				</Box>
-				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
-					<Typography component="legend">Calificación:</Typography>
-					<Rating name="read-only" value={5} readOnly />
-				</Box>
-				<Divider />
+				{props.clases.previousClases.length > 0
+					? props.clases.previousClases.map((clase, i) => {
+							return (
+								<div key={clase.id}>
+									<Box>
+										<ListItemText
+											primary={clase.nombre}
+											secondary={`${clase.fecha} ${clase.hora_inicio} con ${clase.profesor}`}
+										/>
+									</Box>
+									<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
+										<Typography component="legend">Califica al profesor:</Typography>
+										{i == 0 ? (
+											<Rating
+												name="simple-controlled"
+												value={clase.profesor.valoracion}
+												onChange={event => {
+													let val = event.target.value;
+													swal({
+														title: "Confirmar",
+														text: "Deseas valorar al profesor?",
+														icon: "warning",
+														buttons: true,
+														dangerMode: true
+													}).then(will => {
+														if (will) {
+															actions.valorate({
+																valoracion: val,
+																id: clase.profesor.valoracion
+															});
+														}
+													});
+												}}
+											/>
+										) : (
+											<Rating name="read-only" value={clase.profesor.valoracion} readOnly />
+										)}
+									</Box>
+									<Divider />
+								</div>
+							);
+					  })
+					: "no hay clases "}
 			</div>
-		
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -9,9 +9,11 @@ import EventIcon from "@material-ui/icons/Event";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import PropTypes from "prop-types";
 import moment from "moment";
+import { Context } from "../store/appContext";
+import swal from "sweetalert";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -31,6 +33,7 @@ export default function CardProf(props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(2);
 	const preventDefault = event => event.preventDefault();
+	const { store, actions } = useContext(Context);
 
 	return (
 		<div>
@@ -53,12 +56,27 @@ export default function CardProf(props) {
 							<Rating name="read-only" value={props.clase.profesor.valoracion} readOnly size="large" />
 						</Box>
 						<Box display="flex" flexDirection="row" alignItems="center">
-							<Button variant="outlined" color="primary">
+							<Button
+								variant="outlined"
+								color="primary"
+								onClick={() => {
+									swal({
+										title: "Confirmar",
+										text: "Deseas inscribirte a la mentoria",
+										icon: "warning",
+										buttons: true,
+										dangerMode: true
+									}).then(willEnroll => {
+										if (willEnroll) {
+											actions.inscribirse({ clase_id: props.clase.id });
+										}
+									});
+								}}>
 								Reservar
 							</Button>
 							<Box ml="auto" mr={3}>
 								<Typography variant="h4">
-									<MonetizationOnIcon fontSize="large" /> 12
+									<MonetizationOnIcon fontSize="large" /> {props.clase.precio}
 								</Typography>
 							</Box>
 						</Box>

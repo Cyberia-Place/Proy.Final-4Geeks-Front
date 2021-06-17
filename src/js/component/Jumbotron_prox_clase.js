@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { AutoRotatingCarousel } from "material-auto-rotating-carousel";
 import { Slide } from "material-auto-rotating-carousel";
 const { red, blue, lightGreen } = require("@material-ui/core/colors");
@@ -16,6 +16,7 @@ import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Box from "@material-ui/core/Box";
+import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
@@ -34,6 +35,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function Proxima_clase(props) {
 	const classes = useStyles();
+	const { store, actions } = useContext(Context);
+
 	return (
 		<Grid md={12}>
 			<div className=" mt-2 d-flex  ">
@@ -84,7 +87,32 @@ export default function Proxima_clase(props) {
 									</Grid>
 									<Grid container spacing={2} justify="center">
 										<Grid item>
-											<Button variant="contained" id="BotonUnirse" color="primary" size="large" className={classes.Button}>
+											<Button
+												variant="contained"
+												id="BotonCancelar"
+												className={classes.Button}
+												size="large"
+												onClick={() => {
+													swal({
+														title: "Confirmar",
+														text: "Deseas eliminar la inscripcion a la mentoria",
+														icon: "warning",
+														buttons: true,
+														dangerMode: true
+													}).then(willEnroll => {
+														if (willEnroll) {
+															actions.removerInscripcion({ clase_id: props.clase.id });
+														}
+													});
+												}}>
+												Cancelar
+											</Button>
+											<Button
+												variant="contained"
+												id="BotonUnirse"
+												color="primary"
+												size="large"
+												className={classes.Button}>
 												Unirse
 											</Button>
 										</Grid>

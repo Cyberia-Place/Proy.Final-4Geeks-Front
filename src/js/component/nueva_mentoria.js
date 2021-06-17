@@ -63,6 +63,7 @@ export const BotonMentoria = () => {
 	}, []);
 
 	const [nombre, setNombre] = useState("");
+	const [precio, setPrecio] = useState("");
 	const [categorias, setCategorias] = useState("");
 
 	const classes = useStyles();
@@ -133,7 +134,8 @@ export const BotonMentoria = () => {
 			fecha: startDate,
 			hora_inicio: startingHour,
 			hora_fin: endingHour,
-			categorias: []
+			categorias: [],
+			precio: precio
 		};
 		data.categorias.push(categorias);
 		actions.agendarMentoria(data);
@@ -182,8 +184,21 @@ export const BotonMentoria = () => {
 								className="form-control"
 								type="text"
 								id="nombre"
+								placeholder="Nombre"
 								value={nombre}
 								onChange={event => setNombre(event.target.value)}
+							/>
+						</div>
+					</div>
+					<div className="form-row">
+						<div className="form-group col">
+							<input
+								className="form-control"
+								type="text"
+								id="precio"
+								placeholder="Precio"
+								value={precio}
+								onChange={event => setPrecio(event.target.value)}
 							/>
 						</div>
 					</div>

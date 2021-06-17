@@ -17,8 +17,11 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
+import Logo from "./logo.png";
+import { GoogleLogout } from "react-google-login";
 
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+import { useEffect } from "react";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
@@ -90,7 +93,11 @@ export const NavbarSesion = () => {
 	const { store, actions } = useContext(Context);
 	const classes = useStyles();
 
-	const [tokens, setTokens] = useState("100"); // Recibe del back la cantidad de tokens del usuario
+	useEffect(() => {
+		actions.getCredits();
+	}, []);
+
+	const [tokens, setTokens] = useState(store.creditos ? store.creditos : "0"); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -131,12 +138,25 @@ export const NavbarSesion = () => {
 			<MenuItem onClick={handleMenuClose}>
 				<Link to="/ajustes/perfil">My account</Link>
 			</MenuItem>
-			<MenuItem
-				onClick={() => {
-					handleMenuClose();
-					actions.logout();
-				}}>
-				Log out
+			<MenuItem>
+				{store.googleLoged ? (
+					<GoogleLogout
+						clientId="893541568420-jkdmsfhuacmuj67r6k4t6sefj8qukmt8.apps.googleusercontent.com"
+						buttonText="Logout"
+						onLogoutSuccess={() => {
+							handleMenuClose();
+							actions.logout();
+						}}
+					/>
+				) : (
+					<div
+						onClick={() => {
+							handleMenuClose();
+							actions.logout();
+						}}>
+						Logout
+					</div>
+				)}
 			</MenuItem>
 		</Menu>
 	);
@@ -183,9 +203,7 @@ export const NavbarSesion = () => {
 		<div>
 			<AppBar position="static" className={classes.navBar}>
 				<Toolbar>
-					<Typography variant="h6" noWrap>
-						[ICONO]
-					</Typography>
+					<img src={Logo} width="170" height="37" />
 					<div className={classes.searchDiv} />
 					<Box display="flex" alignItems="center">
 						<Link to="/inicio/alumno">

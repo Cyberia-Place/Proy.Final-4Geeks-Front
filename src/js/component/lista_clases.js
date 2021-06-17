@@ -10,9 +10,8 @@ import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
 import { TextField, makeStyles } from "@material-ui/core";
 import { Context } from "../store/appContext";
-import { makeStyles, ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Swal from "sweetalert2";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import swal from "sweetalert2";
 
 const muiTheme = createMuiTheme({
 	palette: {
@@ -45,7 +44,7 @@ export const ListaClases = props => {
 	const [selectedHour, setSelectedHour] = useState("-1");
 
 	// Falta esta funcion
-	const cardList = event => {
+	const cardListFilter = event => {
 		event.preventDefault();
 		let filter = "?";
 		if (selectedDay != -1) {
@@ -79,33 +78,33 @@ export const ListaClases = props => {
 									color="primary"
 									aria-label="contained primary button group">
 									<Button
+										onClick={() => setSelectedDay("1")}
+										color={selectedDay == "1" ? "secondary" : "primary"}>
+										LUN
+									</Button>
+									<Button
 										onClick={() => setSelectedDay("2")}
 										color={selectedDay == "2" ? "secondary" : "primary"}>
-										LUN
+										MAR
 									</Button>
 									<Button
 										onClick={() => setSelectedDay("3")}
 										color={selectedDay == "3" ? "secondary" : "primary"}>
-										MAR
+										MIE
 									</Button>
 									<Button
 										onClick={() => setSelectedDay("4")}
 										color={selectedDay == "4" ? "secondary" : "primary"}>
-										MIE
+										JUE
 									</Button>
 									<Button
 										onClick={() => setSelectedDay("5")}
 										color={selectedDay == "5" ? "secondary" : "primary"}>
-										JUE
+										VIE
 									</Button>
 									<Button
 										onClick={() => setSelectedDay("6")}
 										color={selectedDay == "6" ? "secondary" : "primary"}>
-										VIE
-									</Button>
-									<Button
-										onClick={() => setSelectedDay("7")}
-										color={selectedDay == "7" ? "secondary" : "primary"}>
 										SAB
 									</Button>
 								</ButtonGroup>
@@ -152,4 +151,3 @@ export const ListaClases = props => {
 ListaClases.propTypes = {
 	clases: PropTypes.array
 };
-

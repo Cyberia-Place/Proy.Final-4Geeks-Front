@@ -5,7 +5,8 @@ import moment from "moment";
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			usuario: null
+			usuario: null,
+			googleLoged: false
 		},
 		actions: {
 			loadSomeData: () => {
@@ -37,6 +38,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			forgotPassword: async email => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ email }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/forgot-password", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						getActions().showMessage(
+							"Exito!",
+							"Se a enviado un correo con el link para restablecer la contraseña",
+							"success"
+						);
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
+			resetPassword: async (token, nuevaContrasenia) => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ nuevaContrasenia, token }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/reset-password", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						getActions().showMessage("Exito!", "Se ha restablecido la contraseña", "success");
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
 			logIn: async (email, contrasenia) => {
 				let myHeaders = new Headers();
 				myHeaders.append("content-type", "application/json");
@@ -58,6 +109,39 @@ const getState = ({ getStore, getActions, setStore }) => {
 						localStorage.setItem("expires", data.expires);
 
 						setStore({ usuario: data.usuario });
+						setStore({ googleLoged: false });
+
+						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
+
+						window.location.href = "/inicio/alumno";
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
+			googleLogIn: async tokenId => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ tokenId }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/google-login", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						localStorage.setItem("usuario", JSON.stringify(data.usuario));
+						localStorage.setItem("token", data.token);
+						localStorage.setItem("expires", data.expires);
+
+						setStore({ usuario: data.usuario });
+						setStore({ googleLoged: true });
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
 
@@ -171,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							getActions().showMessage("Exito!", "Usuario actualizado exitosamente", "success");
-							getActions().getProfile();
+							getActions().getProfile({});
 						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
@@ -201,13 +285,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 					try {
 						let response = await fetch(process.env.BACK_URL + "/user/updatePassword", requestOptions);
 						let data = await response.json();
+						console.log(data);
 						if (data.message) {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							getActions().showMessage("Exito!", "Contraseña actualizada exitosamente", "success");
-							getActions().getProfile();
+							getActions().getProfile({});
 						}
 					} catch (error) {
+						console.log(error);
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
@@ -315,7 +401,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fecha: moment(data.fecha).format("YYYY-MM-DD"),
 					hora_inicio: moment(data.hora_inicio).format("LT"),
 					hora_fin: moment(data.hora_fin).format("LT"),
-					categorias: data.categorias
+					categorias: data.categorias,
+					precio: data.precio
 				};
 
 				if (token) {
@@ -348,7 +435,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// day tiene que ser del tipo: ?week_day=2
 				// hour tiene que ser del tipo: ?hora_inicio=14
 				// en caso de seleccionar dia y hora tiene que ser: ?week_day=2&hora_inicio=14
-				let token = localStorage.getItem("token");
 				if (token) {
 					var myHeaders = new Headers();
 					myHeaders.append("Content-Type", "application/json");
@@ -366,6 +452,129 @@ const getState = ({ getStore, getActions, setStore }) => {
 							getActions().showMessage("Error!", data.message, "error");
 						} else {
 							setStore({ clases: data });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			inscribirse: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					clase_id: data.clase_id
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/enroll", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Inscripcion realizada exitosamente", "success");
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			removerInscripcion: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					clase_id: data.clase_id
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "DELETE",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/enroll", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Inscripcion eliminada exitosamente", "success");
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			getCredits: async () => {
+				let token = localStorage.getItem("token");
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/credits", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ creditos: data.creditos });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			valorate: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					valoracion: data.valoracion,
+					id: data.id
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/valorate", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Valoracion realizada exitosamente", "success");
 						}
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
