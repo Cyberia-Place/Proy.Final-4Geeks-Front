@@ -14,6 +14,7 @@ import { Profile } from "./views/Profile";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { IndexProfesor } from "./views/index_profesor";
 import { Ajustes_del_perfil } from "./views/Ajustes_del_perfil";
+import { CambioPassword } from "./component/cambio-password";
 
 const theme = createMuiTheme({
 	palette: {
@@ -38,7 +39,7 @@ const Layout = () => {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<div className="d-flex flex-column">
+			<div className="h-100">
 				<BrowserRouter basename={basename}>
 					<ScrollToTop>
 						{store.usuario ? <NavbarSesion /> : <Navbar />}
@@ -63,6 +64,9 @@ const Layout = () => {
 							</Route>
 							<Route exact path="/ajustes/perfil">
 								<Ajustes_del_perfil />
+							</Route>
+							<Route exact path="/cambio-password">
+								<CambioPassword />
 							</Route>
 							<Route>
 								<h1>Not found!</h1>
