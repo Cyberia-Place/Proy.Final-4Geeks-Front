@@ -10,6 +10,8 @@ import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
+import PropTypes from "prop-types";
+import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-export default function CardProf() {
+export default function CardProf(props) {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(2);
 	const preventDefault = event => event.preventDefault();
@@ -39,16 +41,16 @@ export default function CardProf() {
 					</Box>
 					<Box>
 						<Box>
-							<p className="titulocard">Tecnologo asdasd as asdsads asdsadas asdasd asd asdda a</p>
+							<p className="titulocard">{props.clase.nombre}</p>
 						</Box>
 						<Typography variant="body1">
-							<EventIcon /> 22/07 <AccessTimeIcon /> 22:00 -{" "}
-							<Link href="#" onClick={preventDefault}>
-								nombreprof
-							</Link>
+							<EventIcon /> {props.clase.fecha} <AccessTimeIcon />{" "}
+							{moment(props.clase.hora_inicio, "LT").format("LT")} -{" "}
+							{moment(props.clase.hora_fin, "LT").format("LT")}{" "}
+							<Link to={`/profile/${props.clase.profesor.id}`}>{props.clase.profesor.nombre}</Link>
 						</Typography>
 						<Box component="fieldset" borderColor="transparent">
-							<Rating name="read-only" value={value} readOnly size="large" />
+							<Rating name="read-only" value={props.clase.profesor.valoracion} readOnly size="large" />
 						</Box>
 						<Box display="flex" flexDirection="row" alignItems="center">
 							<Button variant="outlined" color="primary">
@@ -66,3 +68,7 @@ export default function CardProf() {
 		</div>
 	);
 }
+
+CardProf.propTypes = {
+	clase: PropTypes.object
+};

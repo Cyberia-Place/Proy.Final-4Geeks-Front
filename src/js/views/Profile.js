@@ -8,12 +8,15 @@ import {
 	CardContent,
 	makeStyles,
 	LinearProgress,
-	Paper
+	Paper,
+	Box
 } from "@material-ui/core";
 import { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useState } from "react";
 import Categories_Area from "../component/Categories_Area";
+import Rating from "@material-ui/lab/Rating";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
 	userImg: {
@@ -45,15 +48,21 @@ const useStyles = makeStyles(theme => ({
 export const Profile = () => {
 	const classes = useStyles();
 
+	let { id } = useParams();
+
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
-		actions.getProfile();
+		let data = {};
+		if (id) data.id = id;
+
+		actions.getProfile(data);
+		actions.getStats(data);
 	}, []);
 
 	return (
 		<Container maxWidth="md" className={classes.container}>
-			{store.userData ? (
+			{store.userData && store.userStats ? (
 				<Grid container spacing={3}>
 					<Grid item xs={12}>
 						<Card>
@@ -135,18 +144,15 @@ export const Profile = () => {
 							</Paper>
 							<CardContent className={classes.content}>
 								<Typography variant="body1" gutterBottom>
-									<strong>Clases asistidas </strong> 120
+									<strong>Clases asistidas </strong> {store.userStats.aprendiendo.cantidad_en_clase}
 								</Typography>
 								<Typography variant="body1" gutterBottom>
-									<strong>Horas </strong> 200 hs
-								</Typography>
-								<Typography variant="body1" gutterBottom>
-									<strong>Opiniones </strong> 22
+									<strong>Horas </strong> {store.userStats.aprendiendo.horas_en_clase}
 								</Typography>
 								<br />
 								<Categories_Area
 									titulo="Areas de interes"
-									categorias={["cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat", "cat"]}
+									categorias={store.userStats.aprendiendo.interests}
 								/>
 							</CardContent>
 						</Card>
@@ -160,19 +166,26 @@ export const Profile = () => {
 							</Paper>
 							<CardContent className={classes.content}>
 								<Typography variant="body1" gutterBottom>
-									<strong>Clases impartidas </strong> 160
+									<strong>Clases impartidas </strong> {store.userStats.enseniando.cantidad_clase}
 								</Typography>
 								<Typography variant="body1" gutterBottom>
-									<strong>Horas </strong> 300 hs
+									<strong>Horas </strong> {store.userStats.enseniando.horas_clase}
 								</Typography>
 								<Typography variant="body1" gutterBottom>
-									<strong>Calificacion</strong> {/* <Rating name="read-only" value={3} readOnly /> */}
+									<Box display="flex" alignItems="center">
+										<strong>Calificacion </strong>{" "}
+										<Rating
+											name="read-only"
+											value={store.userStats.enseniando.valoracion}
+											readOnly
+										/>
+									</Box>
 								</Typography>
 
 								<br />
 								<Categories_Area
 									titulo="Areas de conocimiento"
-									categorias={["cat", "cat", "cat", "cat"]}
+									categorias={store.userStats.enseniando.knowledge}
 								/>
 							</CardContent>
 						</Card>

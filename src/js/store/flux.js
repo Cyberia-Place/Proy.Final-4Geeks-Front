@@ -1,5 +1,6 @@
 import { PostAdd } from "@material-ui/icons";
 import swal from "sweetalert";
+import moment from "moment";
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -60,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 						getActions().showMessage("Login exitoso!", "Usuario logeado exitosamente", "success");
 
-						window.location.href = "/inicio";
+						window.location.href = "/inicio/alumno";
 					}
 				} catch (error) {
 					getActions().showMessage("Error!", "Error en el servidor", "error");
@@ -77,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				swal({ title, text, icon, button: false });
 			},
 
-			getProfile: async () => {
+			getProfile: async user => {
 				let token = localStorage.getItem("token");
 
 				if (token) {
@@ -92,11 +93,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 					try {
-						let response = await fetch(process.env.BACK_URL + "/user/profile", requestOptions);
+						let response = await fetch(
+							process.env.BACK_URL + `/user/profile${user.id ? `/${user.id}` : ""}`,
+							requestOptions
+						);
 						let data = await response.json();
-						setStore({ userData: data });
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ userData: data });
+						}
 					} catch (error) {
-						console.log(error);
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			getStats: async user => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(
+							process.env.BACK_URL + `/user/stats${user.id ? `/${user.id}` : ""}`,
+							requestOptions
+						);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ userStats: data });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
 			},
@@ -174,12 +213,164 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			darCategoriasPrincipales: async () => {
+			darClases: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/clases", requestOptions);
+						let data = await response.json();
+						setStore({ clases: data });
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darClasesUsuario: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/user/nextClases", requestOptions);
+						let data = await response.json();
+						setStore({ userClases: data });
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darClasesDocente: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders,
+						redirect: "follow"
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/teacher/nextClases", requestOptions);
+						let data = await response.json();
+						setStore({
+							calendario: data.map(elem => {
+								return moment(elem.fecha).toDate();
+							})
+						});
+						let teacherClases = [];
+						for (let i = 0; i < data.length; i += 3) {
+							let pedazo = data.slice(i, i + 3);
+							teacherClases.push(pedazo);
+						}
+						setStore({
+							teacherClases: teacherClases
+						});
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			darCategorias: async () => {
 				try {
-					let response = await fetch(process.env.BACK_URL + "/principalCategories");
+					let response = await fetch(process.env.BACK_URL + "/categories");
 					let data = await response.json();
-					setStore({ categorias: data });
-				} catch (error) {}
+					setStore({ categories: data });
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
+			agendarMentoria: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					nombre: data.nombre,
+					fecha: moment(data.fecha).format("YYYY-MM-DD"),
+					hora_inicio: moment(data.hora_inicio).format("LT"),
+					hora_fin: moment(data.hora_fin).format("LT"),
+					categorias: data.categorias
+				};
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						body: JSON.stringify(body),
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/class", requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							getActions().showMessage("Exito!", "Mentoria agregada exitosamente", "success");
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			filtrarCards: async filter => {
+				let token = localStorage.getItem("token");
+				// day tiene que ser del tipo: ?week_day=2
+				// hour tiene que ser del tipo: ?hora_inicio=14
+				// en caso de seleccionar dia y hora tiene que ser: ?week_day=2&hora_inicio=14
+				let token = localStorage.getItem("token");
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "GET",
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + `/clases/filtered${filter}`, requestOptions);
+						let data = await response.json();
+						if (data.message) {
+							getActions().showMessage("Error!", data.message, "error");
+						} else {
+							setStore({ clases: data });
+						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
 			}
 		}
 	};

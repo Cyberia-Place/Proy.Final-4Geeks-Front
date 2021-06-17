@@ -15,8 +15,16 @@ import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+
+import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 
 const useStyles = makeStyles(theme => ({
+	navButton: {
+		marginRight: theme.spacing(2),
+		height: "30px"
+	},
 	navBar: {
 		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)"
 	},
@@ -72,13 +80,17 @@ const useStyles = makeStyles(theme => ({
 		[theme.breakpoints.up("md")]: {
 			display: "none"
 		}
+	},
+	tokens: {
+		marginBottom: "-5px"
 	}
 }));
 
 export const NavbarSesion = () => {
 	const { store, actions } = useContext(Context);
-
 	const classes = useStyles();
+
+	const [tokens, setTokens] = useState("100"); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -141,20 +153,18 @@ export const NavbarSesion = () => {
 			open={isMobileMenuOpen}
 			onClose={handleMobileMenuClose}>
 			<MenuItem>
-				<IconButton aria-label="show 4 new mails" color="inherit">
-					<Badge badgeContent={4} color="error">
-						<MailIcon />
-					</Badge>
-				</IconButton>
-				<p>Messages</p>
+				<Link to="/inicio/alumno">
+					<Button variant="contained" className={classes.navButton} color="secondary">
+						Alumno
+					</Button>
+				</Link>
 			</MenuItem>
 			<MenuItem>
-				<IconButton aria-label="show 11 new notifications" color="inherit">
-					<Badge badgeContent={11} color="error">
-						<NotificationsIcon />
-					</Badge>
-				</IconButton>
-				<p>Notifications</p>
+				<Link to="/inicio/profesor">
+					<Button variant="contained" className={classes.navButton} color="secondary">
+						Alumno
+					</Button>
+				</Link>
 			</MenuItem>
 			<MenuItem onClick={handleProfileMenuOpen}>
 				<IconButton
@@ -176,32 +186,22 @@ export const NavbarSesion = () => {
 					<Typography variant="h6" noWrap>
 						[ICONO]
 					</Typography>
-
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
-							<SearchIcon />
-						</div>
-						<InputBase
-							placeholder="Search…"
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput
-							}}
-							inputProps={{ "aria-label": "search" }}
-						/>
-					</div>
 					<div className={classes.searchDiv} />
-					<div className={classes.sectionDesktop}>
-						<IconButton aria-label="show 4 new mails" color="inherit">
-							<Badge badgeContent={4} color="error">
-								<MailIcon />
-							</Badge>
-						</IconButton>
-						<IconButton aria-label="show 17 new notifications" color="inherit">
-							<Badge badgeContent={17} color="error">
-								<NotificationsIcon />
-							</Badge>
-						</IconButton>
+					<Box display="flex" alignItems="center">
+						<Link to="/inicio/alumno">
+							<Button variant="contained" className={classes.navButton} color="secondary">
+								Alumno
+							</Button>
+						</Link>
+						<Link to="/inicio/profesor">
+							<Button variant="contained" className={classes.navButton} color="secondary">
+								Profesor
+							</Button>
+						</Link>
+						<MonetizationOnIcon fontSize="default" />
+						<Typography classes={classes.tokens} variant="h6">
+							{tokens}
+						</Typography>
 						<Typography variant="h6" gutterBottom>
 							{/* {store.usuario.nombre} */}
 						</Typography>
@@ -214,7 +214,7 @@ export const NavbarSesion = () => {
 							color="inherit">
 							<AccountCircle />
 						</IconButton>
-					</div>
+					</Box>
 					<div className={classes.sectionMobile}>
 						<IconButton
 							aria-label="show more"

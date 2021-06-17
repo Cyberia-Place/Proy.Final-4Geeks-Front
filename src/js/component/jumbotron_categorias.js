@@ -1,18 +1,13 @@
-import React, { Component } from "react";
+import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
-import { createMuiTheme } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
 import Paper from "@material-ui/core/Paper";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
@@ -34,12 +29,9 @@ const useStyles = makeStyles(theme => ({
 		margin: "10px",
 		marginRight: "20px",
 		marginLeft: "20px",
-		padding: "20px",
+		// padding: "20px",
 		textAlign: "center",
 		border: "1px solid green"
-	},
-	image: {
-		backgroundImage: "url(https://source.unsplash.com/random)"
 	}
 }));
 
@@ -49,71 +41,75 @@ export default function Jumbotron_categorias() {
 	return (
 		<Paper className={classes.mainFeaturedPost}>
 			<Grid container maxwidth="lg">
-				<Grid md={6} className="p-3 pt-5">
-					<Typography component="h1" variant="h2" color="inherit" gutterBottom>
+				<Grid item md={6} className="p-3 pt-5">
+					<Typography component="h1" variant="h2" color="inherit" align="center" gutterBottom>
 						Principales categorias
 					</Typography>
-					<Typography color="inherit" paragraph>
-						Something short and leading about the collection below—its contents, the creator, etc. Make it
-						short and sweet, but not too short so folks don&apos;t simply skip over it entirely.
+					<Typography color="inherit" align="justify" paragraph>
+						Encuentra entre la multitud de categorías disponibles la materia que buscas, y participa de la
+						comunidad como profesor o alumno de manera dinámica.
 					</Typography>
 				</Grid>
 
-				<Grid container md={3}>
-					<CardActionArea component="a" href="#">
-						<Card className={classes.card}>
-							<CardContent>
-								<Typography component="h2" variant="h5">
-									Literatura
-								</Typography>
-
-								<Button variant="contained" color="primary" className="mt-3" size="large">
-									Ver cursos
-								</Button>
-							</CardContent>
-						</Card>
-					</CardActionArea>
-
+				<Grid item md={3}>
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
 									Matemática
 								</Typography>
+							</CardContent>
+						</Card>
+					</CardActionArea>
 
-								<Button variant="contained" color="primary" className="mt-3" size="large">
-									Ver cursos
-								</Button>
+					<CardActionArea component="a" href="#">
+						<Card className={classes.card}>
+							<CardContent>
+								<Typography component="h2" variant="h5">
+									Física
+								</Typography>
+							</CardContent>
+						</Card>
+					</CardActionArea>
+
+					<CardActionArea component="a" href="#">
+						<Card className={classes.card}>
+							<CardContent>
+								<Typography component="h2" variant="h5">
+									Filosofía
+								</Typography>
 							</CardContent>
 						</Card>
 					</CardActionArea>
 				</Grid>
 
-				<Grid container md={3}>
+				<Grid item md={3}>
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Biología
+									Programación
 								</Typography>
-								<Button variant="contained" color="primary" className="mt-3" size="large">
-									Ver cursos
-								</Button>
 							</CardContent>
 						</Card>
 					</CardActionArea>
 
 					<CardActionArea component="a" href="#">
 						<Card className={classes.card}>
-							<CardMedia className={classes.image} />
 							<CardContent>
 								<Typography component="h2" variant="h5">
-									Programación JavaScript
+									Inglés
 								</Typography>
+							</CardContent>
+						</Card>
+					</CardActionArea>
 
-								<Button variant="contained" color="primary" className="mt-3" size="large">
-									Ver cursos
-								</Button>
+					<CardActionArea component="a" href="#">
+						<Card className={classes.card}>
+							<CardContent>
+								<Typography component="h2" variant="h5">
+									Ciencia de Datos
+								</Typography>
 							</CardContent>
 						</Card>
 					</CardActionArea>

@@ -15,12 +15,14 @@ import Grid from "@material-ui/core/Grid";
 import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
-		backgroundColor: theme.palette.grey[200],
-		color: theme.palette.common.black,
-		padding: "2px"
+		backgroundColor: "#59a80f",
+		color: theme.palette.common.white,
+		padding: "2px",
+		border: "none"
 	},
 	mainFeaturedPostContent: {},
 	Button: {
@@ -37,54 +39,72 @@ export default function Proxima_clase(props) {
 			<div className=" mt-2 d-flex  ">
 				<Grid item md={12} className={classes.mainFeaturedPost}>
 					<div className={classes.mainFeaturedPostContent}>
-						<Grid container justify="center">
-							<Typography component="h4" variant="h4" color="main" gutterBottom>
-								Próxima clase:
-							</Typography>
-						</Grid>
-						<Divider className="mb-3" />
-						<Grid container spacing={2} justify="center">
-							<Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
-								Literatura
-							</Typography>
-						</Grid>
-						<Grid container spacing={2} justify="center">
-							<Typography color="inherit" className="pr-2" paragraph>
-								Prof.:
-							</Typography>
-							<Typography id="fecha" color="inherit" paragraph>
-								Juanito López
-							</Typography>
-						</Grid>
-						<Grid container spacing={2} justify="center">
-							<Typography color="inherit" className="pr-2" paragraph>
-								Fecha:
-							</Typography>
-							<Typography id="fecha" color="inherit" paragraph>
-								26/06/2021
-							</Typography>
-						</Grid>
-						<Grid container spacing={2} justify="center">
-							<Typography color="inherit" className="pr-2" paragraph>
-								Hora:
-							</Typography>
-							<Typography id="hora" color="inherit" paragraph>
-								09:00hrs
-							</Typography>
-						</Grid>
-						<Grid container spacing={2} justify="center">
-							<Grid item>
-								<Button variant="contained" id="BotonCancelar" className={classes.Button} size="large">
-									Cancelar
-								</Button>
-								<Button variant="contained" id="BotonUnirse" color="primary" size="large">
-									Unirse
-								</Button>
+						<Box borderRadius="borderRadius" border={2} borderColor="#666666" p={2}>
+							<Grid container justify="center">
+								<Typography component="h4" variant="h4" color="main" gutterBottom>
+									Próxima clase:
+								</Typography>
 							</Grid>
-						</Grid>
+							<Divider className="mb-3" />
+							{props.clase ? (
+								<>
+									<Grid container spacing={2} justify="center">
+										<Typography
+											id="materia"
+											component="h3"
+											variant="h3"
+											color="inherit"
+											gutterBottom>
+											{props.clase.nombre}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Prof.:
+										</Typography>
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.profesor.nombre}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Fecha:
+										</Typography>
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.fecha}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Hora:
+										</Typography>
+										<Typography id="hora" color="inherit" paragraph>
+											{props.clase.hora_inicio} - {props.clase.hora_fin}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Grid item>
+											<Button variant="contained" id="BotonUnirse" color="primary" size="large" className={classes.Button}>
+												Unirse
+											</Button>
+										</Grid>
+									</Grid>
+								</>
+							) : (
+								<Grid container spacing={2} justify="center">
+									<Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
+										No hay
+									</Typography>
+								</Grid>
+							)}
+						</Box>
 					</div>
 				</Grid>
 			</div>
 		</Grid>
 	);
 }
+
+Proxima_clase.propTypes = {
+	clase: PropTypes.object
+};

@@ -7,12 +7,22 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import InboxIcon from "@material-ui/icons/Inbox";
 import DraftsIcon from "@material-ui/icons/Drafts";
+import Rating from "@material-ui/lab/Rating";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
 	root: {
 		width: "100%",
-		maxWidth: 360,
-		backgroundColor: theme.palette.background.paper
+		backgroundColor: theme.palette.background.paper,
+		marginTop: "40px"
+	},
+	prox: {
+		backgroundColor: theme.palette.grey[100],
+		height: "400px",
+		margin: "10px",
+		padding: "10px"
 	}
 }));
 
@@ -20,52 +30,73 @@ function ListItemLink(props) {
 	return <ListItem button component="a" {...props} />;
 }
 
-export default function Clases_List() {
+export default function Clases_List(props) {
 	const classes = useStyles();
+	const [value, setValue] = React.useState(0);
 
 	return (
 		<div className={classes.root}>
-			<h4>Clases programadas:</h4>
-			<List component="nav" aria-label="main mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Literatura" secondary="Jan 1, 10:00hrs" />
-				</ListItem>
+			<div className={classes.prox}>
+					<h4>Clases programadas:</h4>
+                        <List component="nav" aria-label="main mailbox folders">
+                            {props.clases.length > 0
+                                ? props.clases.map(clase => {
+                                        return (
+                                            <div key={clase.id}>
+                                                <ListItem button>
+                                                    <ListItemText
+                                                        primary={clase.nombre}
+                                                        secondary={`${clase.fecha} ${clase.hora_inicio}`}
+                                                    />
+                                                </ListItem>
+                                                <Divider />
+                                            </div>
+                                        );
+                                })
+                                : "no hay clases "}
+                        </List>
+
 				<Divider />
-				<ListItem button>
-					<ListItemText primary="Ciencia" secondary="Jan 4, 14:00hrs" />
-				</ListItem>
-			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 5, 12:00hrs" />
-				</ListItem>
+			</div>
+			<div className={classes.prox}>
+				<h4>Clases Atendidas:</h4>
+
+				<Box>
+					<ListItemText primary="Literatura" secondary="el 23/05/2021 con Fulanito Perez" />
+				</Box>
+				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
+					<Typography component="legend">Califica al profesor:</Typography>
+					<Rating
+						name="simple-controlled"
+						value={value}
+						onChange={(event, newValue) => {
+							setValue(newValue);
+						}}
+					/>
+				</Box>
 				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 8, 20:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 9, 08:30hrs" />
-				</ListItem>
+				<Box button>
+					<ListItemText primary="TypeScript" secondary="el 17/04/2021 con José Rodriguez" />
+				</Box>
+				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
+					<Typography component="legend">Calificación:</Typography>
+					<Rating name="read-only" value={4} readOnly />
+				</Box>
 				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 14, 10:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
-			<List component="nav" aria-label="secondary mailbox folders">
-				<ListItem button>
-					<ListItemText primary="Programación OOP" secondary="Jan 15, 15:00hrs" />
-				</ListItem>
+				<Box button>
+					<ListItemText primary="Matemática I" secondary="el 10/03/2021 con Juanita Fernandez" />
+				</Box>
+				<Box component="fieldset" mb={12} borderColor="transparent" className="m-0">
+					<Typography component="legend">Calificación:</Typography>
+					<Rating name="read-only" value={5} readOnly />
+				</Box>
 				<Divider />
-				<ListItemLink href="#simple-list">
-					<ListItemText primary="Dibujo" secondary="Jan 19, 18:00hrs" />
-				</ListItemLink>
-			</List>
-			<Divider />
+			</div>
+		
 		</div>
 	);
 }
+
+Clases_List.propTypes = {
+	clases: PropTypes.array
+};

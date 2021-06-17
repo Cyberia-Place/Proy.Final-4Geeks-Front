@@ -15,12 +15,14 @@ import Input from "@material-ui/core/Input";
 import Link from "@material-ui/core/Link";
 import { Context } from "../store/appContext";
 import validator from "validator";
+import { BotonGoogle } from "./boton_google";
+import Logo from "./logo.png";
 
 const useStyles = makeStyles(theme => ({
 	navButton: {
-		marginRight: theme.spacing(2),
-		backgroundColor: "#252525",
-		color: "white"
+		marginRight: theme.spacing(2)
+		// backgroundColor: "#252525",
+		// color: "white"
 	},
 	navBar: {
 		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)"
@@ -85,7 +87,7 @@ const useStyles = makeStyles(theme => ({
 		right: "0px"
 	},
 	signInButton: {
-		background: "linear-gradient(45deg, #9ED54C 30%, #64ffda 90%)",
+		background: "linear-gradient(45deg, #59a80f 30%, #aef060 90%)",
 		marginTop: "20px",
 		marginBottom: "20px"
 	},
@@ -221,11 +223,13 @@ export const Navbar = () => {
 							</IconButton>
 						</InputAdornment>
 					}
-					labelWidth={70}
+					labelwidth={70}
 				/>
 				<Button variant="contained" className={classes.signInButton} onClick={login} fullWidth>
 					Iniciar sesión
 				</Button>
+				<BotonGoogle />
+				<br />
 				<Typography variant="body1" gutterBottom>
 					<Link
 						href="#"
@@ -287,15 +291,17 @@ export const Navbar = () => {
 							</IconButton>
 						</InputAdornment>
 					}
-					labelWidth={70}
+					labelwidth={70}
 				/>
 				<Button ariant="contained" className={classes.signInButton} onClick={signup} fullWidth>
 					Únete
 				</Button>
-				<Typography variant="body1" align="center" gutterBottom>
+				<BotonGoogle />
+				<br />
+				{/* <Typography variant="body1" align="center" gutterBottom>
 					Volver a Iniciar Sesión.
 				</Typography>
-				<br />
+				<br /> */}
 				<Typography variant="caption" display="block" gutterBottom>
 					Acepto los Términos de Uso y la Política de Privacidad de [nombre de la App].
 				</Typography>
@@ -331,11 +337,17 @@ export const Navbar = () => {
 		<div>
 			<AppBar position="static" className={classes.navBar}>
 				<Toolbar>
-					<Typography variant="h6" noWrap>
-						[ICONO]
-					</Typography>
+					{/* <SvgIcon>
+						<img src={Logotipo} alt="logotipo" />
+					</SvgIcon> */}
 
-					<div className={classes.search}>
+					{/* <StepLabel icon={<img src={require("./logo.svg")} alt="" width="50" height="50" />} /> */}
+
+					{/* <Icon> */}
+					<img src={Logo} width="170" height="37" />
+					{/* </Icon> */}
+
+					{/* <div className={classes.search}>
 						<div className={classes.searchIcon}>
 							<SearchIcon />
 						</div>
@@ -347,12 +359,20 @@ export const Navbar = () => {
 							}}
 							inputProps={{ "aria-label": "search" }}
 						/>
-					</div>
+					</div> */}
 					<div className={classes.searchDiv} />
-					<Button variant="contained" className={classes.navButton} onClick={() => abrirCerrarLogIn()}>
+					<Button
+						variant="contained"
+						className={classes.navButton}
+						color="secondary"
+						onClick={() => abrirCerrarLogIn()}>
 						Iniciar Sesion
 					</Button>
-					<Button variant="contained" className={classes.navButton} onClick={() => abrirCerrarSignIn()}>
+					<Button
+						variant="contained"
+						className={classes.navButton}
+						color="secondary"
+						onClick={() => abrirCerrarSignIn()}>
 						Registrarse
 					</Button>
 				</Toolbar>
