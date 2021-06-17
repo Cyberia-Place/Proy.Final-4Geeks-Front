@@ -236,6 +236,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (data.ocupacion) Object.assign(body, { ocupacion: data.ocupacion });
 				if (data.idioma) Object.assign(body, { idioma: data.idioma });
 				if (data.pais) Object.assign(body, { pais: data.pais });
+				if (data.url) Object.assign(body, { url: data.url });
 
 				if (token) {
 					var myHeaders = new Headers();
@@ -576,6 +577,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 						} else {
 							getActions().showMessage("Exito!", "Valoracion realizada exitosamente", "success");
 						}
+					} catch (error) {
+						getActions().showMessage("Error!", "Error en el servidor", "error");
+					}
+				}
+			},
+
+			checkout: async () => {
+				let token = localStorage.getItem("token");
+
+				if (token) {
+					var myHeaders = new Headers();
+					myHeaders.append("Content-Type", "application/json");
+					myHeaders.append("Authorization", token);
+
+					var requestOptions = {
+						method: "POST",
+						headers: myHeaders
+					};
+
+					try {
+						let response = await fetch(process.env.BACK_URL + "/checkout", requestOptions);
+						let data = await response.json();
+						console.log(data);
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}

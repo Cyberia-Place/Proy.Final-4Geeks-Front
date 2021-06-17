@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import Button from "@material-ui/core/Button";
+import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -32,6 +33,11 @@ export default function CardCompra() {
 	const classes = useStyles();
 	const [value, setValue] = React.useState(2);
 	const preventDefault = event => event.preventDefault();
+	const { store, actions } = useContext(Context);
+
+	const checkout = () => {
+		actions.checkout();
+	};
 
 	return (
 		<div>
@@ -51,7 +57,7 @@ export default function CardCompra() {
 							</Typography>
 						</Box>
 						<Box display="flex" justifyContent="center" mb={3}>
-							<Button variant="contained" color="primary">
+							<Button variant="contained" color="primary" onClick={checkout}>
 								Comprar
 							</Button>
 						</Box>
