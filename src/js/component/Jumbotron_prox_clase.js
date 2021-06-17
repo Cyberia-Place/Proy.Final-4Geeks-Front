@@ -19,9 +19,10 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
-		backgroundColor: theme.palette.grey[200],
-		color: theme.palette.common.black,
-		padding: "2px"
+		backgroundColor: "#59a80f",
+		color: theme.palette.common.white,
+		padding: "2px",
+		border: "none"
 	},
 	mainFeaturedPostContent: {},
 	Button: {
@@ -83,14 +84,7 @@ export default function Proxima_clase(props) {
 									</Grid>
 									<Grid container spacing={2} justify="center">
 										<Grid item>
-											<Button
-												variant="contained"
-												id="BotonCancelar"
-												className={classes.Button}
-												size="large">
-												Cancelar
-											</Button>
-											<Button variant="contained" id="BotonUnirse" color="primary" size="large">
+											<Button variant="contained" id="BotonUnirse" color="primary" size="large" className={classes.Button}>
 												Unirse
 											</Button>
 										</Grid>
