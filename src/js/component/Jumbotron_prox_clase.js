@@ -38,7 +38,7 @@ export default function Proxima_clase(props) {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<Grid md={12}>
+		<Grid container md={12}>
 			<div className=" mt-2 d-flex  ">
 				<Grid item md={12} className={classes.mainFeaturedPost}>
 					<div className={classes.mainFeaturedPostContent}>

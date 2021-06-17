@@ -20,8 +20,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	prox: {
 		backgroundColor: theme.palette.grey[100],
+		width: "100%",
 		height: "400px",
-		margin: "10px",
+		// margin: "10px",
 		padding: "10px"
 	}
 }));

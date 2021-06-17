@@ -6,9 +6,6 @@ import InputBase from "@material-ui/core/InputBase";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import Badge from "@material-ui/core/Badge";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
@@ -133,10 +130,10 @@ export const NavbarSesion = () => {
 			open={isMenuOpen}
 			onClose={handleMenuClose}>
 			<MenuItem onClick={handleMenuClose}>
-				<Link to="/profile">Profile</Link>
+				<Link to="/profile">Perfil</Link>
 			</MenuItem>
 			<MenuItem onClick={handleMenuClose}>
-				<Link to="/ajustes/perfil">My account</Link>
+				<Link to="/ajustes/perfil">Ajustes</Link>
 			</MenuItem>
 			<MenuItem>
 				{store.googleLoged ? (
@@ -154,7 +151,7 @@ export const NavbarSesion = () => {
 							handleMenuClose();
 							actions.logout();
 						}}>
-						Logout
+						Cerrar sesión
 					</div>
 				)}
 			</MenuItem>

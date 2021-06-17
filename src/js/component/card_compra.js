@@ -51,7 +51,10 @@ export default function CardCompra() {
 							</Typography>
 						</Box>
 						<Box display="flex" justifyContent="center" mb={3}>
-							<Button variant="contained" color="primary">
+							<Button
+								variant="contained"
+								color="primary"
+								href="https://3001-azure-chinchilla-nkb8dtwx.ws-us08.gitpod.io/checkout">
 								Comprar
 							</Button>
 						</Box>
