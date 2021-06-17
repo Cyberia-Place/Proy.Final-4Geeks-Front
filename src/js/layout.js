@@ -64,6 +64,9 @@ const Layout = () => {
 							<Route exact path="/ajustes/perfil">
 								<Ajustes_del_perfil />
 							</Route>
+							<Route exact path="/reset-password/:token">
+								hola
+							</Route>
 							<Route>
 								<h1>Not found!</h1>
 							</Route>

@@ -37,6 +37,56 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			forgotPassword: async email => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ email }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/forgot-password", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						getActions().showMessage(
+							"Exito!",
+							"Se a enviado un correo con el link para restablecer la contraseña",
+							"success"
+						);
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
+			resetPassword: async (token, nuevaContrasenia) => {
+				let myHeaders = new Headers();
+				myHeaders.append("content-type", "application/json");
+				let options = {
+					headers: myHeaders,
+					body: JSON.stringify({ nuevaContrasenia, token }),
+					method: "POST"
+				};
+
+				try {
+					let response = await fetch(process.env.BACK_URL + "/reset-password", options);
+					let data = await response.json();
+
+					if (data.message) {
+						getActions().showMessage("Error!", data.message, "error");
+					} else {
+						getActions().showMessage("Exito!", "Se ha restablecido la contraseña", "success");
+					}
+				} catch (error) {
+					getActions().showMessage("Error!", "Error en el servidor", "error");
+				}
+			},
+
 			logIn: async (email, contrasenia) => {
 				let myHeaders = new Headers();
 				myHeaders.append("content-type", "application/json");
@@ -315,8 +365,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fecha: moment(data.fecha).format("YYYY-MM-DD"),
 					hora_inicio: moment(data.hora_inicio).format("LT"),
 					hora_fin: moment(data.hora_fin).format("LT"),
-                    categorias: data.categorias,
-                    precio: data.precio
+					categorias: data.categorias,
+					precio: data.precio
 				};
 
 				if (token) {
@@ -403,9 +453,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
-            },
+			},
 
-            removerInscripcion: async data => {
+			removerInscripcion: async data => {
 				let token = localStorage.getItem("token");
 
 				let body = {
@@ -435,9 +485,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
-            },
-            
-            getCredits: async () => {
+			},
+
+			getCredits: async () => {
 				let token = localStorage.getItem("token");
 				if (token) {
 					var myHeaders = new Headers();
@@ -450,7 +500,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 					try {
-						let response = await fetch(process.env.BACK_URL + '/user/credits', requestOptions);
+						let response = await fetch(process.env.BACK_URL + "/user/credits", requestOptions);
 						let data = await response.json();
 						if (data.message) {
 							getActions().showMessage("Error!", data.message, "error");
@@ -461,13 +511,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
-            },
-            
-            valorate: async data => {
-                let token = localStorage.getItem("token");
+			},
 
-                let body = {
-                    valoracion: data.valoracion,
+			valorate: async data => {
+				let token = localStorage.getItem("token");
+
+				let body = {
+					valoracion: data.valoracion,
 					id: data.id
 				};
 
@@ -477,13 +527,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					myHeaders.append("Authorization", token);
 
 					var requestOptions = {
-                        method: "POST",
-                        body: JSON.stringify(body),
+						method: "POST",
+						body: JSON.stringify(body),
 						headers: myHeaders
 					};
 
 					try {
-						let response = await fetch(process.env.BACK_URL + '/valorate', requestOptions);
+						let response = await fetch(process.env.BACK_URL + "/valorate", requestOptions);
 						let data = await response.json();
 						if (data.message) {
 							getActions().showMessage("Error!", data.message, "error");
@@ -494,7 +544,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}
 				}
-            }
+			}
 		}
 	};
 };

@@ -19,114 +19,114 @@ import Box from "@material-ui/core/Box";
 import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
-    mainFeaturedPost: {
-        backgroundColor: theme.palette.grey[200],
-        color: theme.palette.common.black,
-        padding: "2px"
-    },
-    mainFeaturedPostContent: {},
-    Button: {
-        marginRight: theme.spacing(2),
-        backgroundColor: "#252525",
-        color: "white"
-    }
+	mainFeaturedPost: {
+		backgroundColor: theme.palette.grey[200],
+		color: theme.palette.common.black,
+		padding: "2px"
+	},
+	mainFeaturedPostContent: {},
+	Button: {
+		marginRight: theme.spacing(2),
+		backgroundColor: "#252525",
+		color: "white"
+	}
 }));
 
 export default function Proxima_clase(props) {
-    const classes = useStyles();
-    const { store, actions } = useContext(Context);
+	const classes = useStyles();
+	const { store, actions } = useContext(Context);
 
-    return (
-        <Grid md={12}>
-            <div className=" mt-2 d-flex  ">
-                <Grid item md={12} className={classes.mainFeaturedPost}>
-                    <div className={classes.mainFeaturedPostContent}>
-                        <Box borderRadius="borderRadius" border={2} borderColor="#666666" p={2}>
-                            <Grid container justify="center">
-                                <Typography component="h4" variant="h4" color="main" gutterBottom>
-                                    Próxima clase:
+	return (
+		<Grid md={12}>
+			<div className=" mt-2 d-flex  ">
+				<Grid item md={12} className={classes.mainFeaturedPost}>
+					<div className={classes.mainFeaturedPostContent}>
+						<Box borderRadius="borderRadius" border={2} borderColor="#666666" p={2}>
+							<Grid container justify="center">
+								<Typography component="h4" variant="h4" color="main" gutterBottom>
+									Próxima clase:
 								</Typography>
-                            </Grid>
-                            <Divider className="mb-3" />
-                            {props.clase ? (
-                                <>
-                                    <Grid container spacing={2} justify="center">
-                                        <Typography
-                                            id="materia"
-                                            component="h3"
-                                            variant="h3"
-                                            color="inherit"
-                                            gutterBottom>
-                                            {props.clase.nombre}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid container spacing={2} justify="center">
-                                        <Typography color="inherit" className="pr-2" paragraph>
-                                            Prof.:
+							</Grid>
+							<Divider className="mb-3" />
+							{props.clase ? (
+								<>
+									<Grid container spacing={2} justify="center">
+										<Typography
+											id="materia"
+											component="h3"
+											variant="h3"
+											color="inherit"
+											gutterBottom>
+											{props.clase.nombre}
 										</Typography>
-                                        <Typography id="fecha" color="inherit" paragraph>
-                                            {props.clase.profesor.nombre}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid container spacing={2} justify="center">
-                                        <Typography color="inherit" className="pr-2" paragraph>
-                                            Fecha:
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Prof.:
 										</Typography>
-                                        <Typography id="fecha" color="inherit" paragraph>
-                                            {props.clase.fecha}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid container spacing={2} justify="center">
-                                        <Typography color="inherit" className="pr-2" paragraph>
-                                            Hora:
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.profesor.nombre}
 										</Typography>
-                                        <Typography id="hora" color="inherit" paragraph>
-                                            {props.clase.hora_inicio} - {props.clase.hora_fin}
-                                        </Typography>
-                                    </Grid>
-                                    <Grid container spacing={2} justify="center">
-                                        <Grid item>
-                                            <Button
-                                                variant="contained"
-                                                id="BotonCancelar"
-                                                className={classes.Button}
-                                                size="large"
-                                                onClick={() => {
-                                                    swal({
-                                                        title: "Confirmar",
-                                                        text: "Deseas eliminar la inscripcion a la mentoria",
-                                                        icon: "warning",
-                                                        buttons: true,
-                                                        dangerMode: true
-                                                    }).then(willEnroll => {
-                                                        if (willEnroll) {
-                                                            actions.removerInscripcion({ clase_id: props.clase.id });
-                                                        }
-                                                    });
-                                                }}>
-                                                Cancelar
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Fecha:
+										</Typography>
+										<Typography id="fecha" color="inherit" paragraph>
+											{props.clase.fecha}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Typography color="inherit" className="pr-2" paragraph>
+											Hora:
+										</Typography>
+										<Typography id="hora" color="inherit" paragraph>
+											{props.clase.hora_inicio} - {props.clase.hora_fin}
+										</Typography>
+									</Grid>
+									<Grid container spacing={2} justify="center">
+										<Grid item>
+											<Button
+												variant="contained"
+												id="BotonCancelar"
+												className={classes.Button}
+												size="large"
+												onClick={() => {
+													swal({
+														title: "Confirmar",
+														text: "Deseas eliminar la inscripcion a la mentoria",
+														icon: "warning",
+														buttons: true,
+														dangerMode: true
+													}).then(willEnroll => {
+														if (willEnroll) {
+															actions.removerInscripcion({ clase_id: props.clase.id });
+														}
+													});
+												}}>
+												Cancelar
 											</Button>
-                                            <Button variant="contained" id="BotonUnirse" color="primary" size="large">
-                                                Unirse
+											<Button variant="contained" id="BotonUnirse" color="primary" size="large">
+												Unirse
 											</Button>
-                                        </Grid>
-                                    </Grid>
-                                </>
-                            ) : (
-                                    <Grid container spacing={2} justify="center">
-                                        <Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
-                                            No hay
+										</Grid>
+									</Grid>
+								</>
+							) : (
+								<Grid container spacing={2} justify="center">
+									<Typography id="materia" component="h3" variant="h3" color="inherit" gutterBottom>
+										No hay
 									</Typography>
-                                    </Grid>
-                                )}
-                        </Box>
-                    </div>
-                </Grid>
-            </div>
-        </Grid>
-    );
+								</Grid>
+							)}
+						</Box>
+					</div>
+				</Grid>
+			</div>
+		</Grid>
+	);
 }
 
 Proxima_clase.propTypes = {
-    clase: PropTypes.object
+	clase: PropTypes.object
 };

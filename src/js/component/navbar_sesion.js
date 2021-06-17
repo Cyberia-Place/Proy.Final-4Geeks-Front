@@ -91,11 +91,11 @@ export const NavbarSesion = () => {
 	const { store, actions } = useContext(Context);
 	const classes = useStyles();
 
-    useEffect(() => {
-        actions.getCredits();
-    }, []);
+	useEffect(() => {
+		actions.getCredits();
+	}, []);
 
-	const [tokens, setTokens] = useState(store.creditos ? store.creditos : '0'); // Recibe del back la cantidad de tokens del usuario
+	const [tokens, setTokens] = useState(store.creditos ? store.creditos : "0"); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 

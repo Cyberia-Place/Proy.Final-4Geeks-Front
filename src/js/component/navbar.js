@@ -131,6 +131,14 @@ export const Navbar = () => {
 		}
 	};
 
+	const forgotPassword = () => {
+		if (validator.isEmail(inputEmail)) {
+			actions.forgotPassword(inputEmail);
+		} else {
+			actions.showMessage("Error!", "Email invalido", "error");
+		}
+	};
+
 	const login = () => {
 		let valid = true;
 
@@ -325,9 +333,14 @@ export const Navbar = () => {
 				<br />
 				{/* // Input de email // */}
 				<InputLabel className={classes.styleTextField}>Correo electrónico</InputLabel>
-				<Input variant="outlined" size="small" fullWidth />
+				<Input
+					variant="outlined"
+					size="small"
+					fullWidth
+					onChange={event => setInputEmail(event.target.value)}
+				/>
 
-				<Button variant="contained" className={classes.signInButton}>
+				<Button variant="contained" className={classes.signInButton} onClick={forgotPassword}>
 					Enviar enlace
 				</Button>
 			</form>
