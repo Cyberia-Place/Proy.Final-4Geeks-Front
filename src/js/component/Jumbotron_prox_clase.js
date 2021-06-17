@@ -20,9 +20,10 @@ import { Context } from "../store/appContext";
 
 const useStyles = makeStyles(theme => ({
 	mainFeaturedPost: {
-		backgroundColor: theme.palette.grey[200],
-		color: theme.palette.common.black,
-		padding: "2px"
+		backgroundColor: "#59a80f",
+		color: theme.palette.common.white,
+		padding: "2px",
+		border: "none"
 	},
 	mainFeaturedPostContent: {},
 	Button: {
@@ -106,7 +107,12 @@ export default function Proxima_clase(props) {
 												}}>
 												Cancelar
 											</Button>
-											<Button variant="contained" id="BotonUnirse" color="primary" size="large">
+											<Button
+												variant="contained"
+												id="BotonUnirse"
+												color="primary"
+												size="large"
+												className={classes.Button}>
 												Unirse
 											</Button>
 										</Grid>

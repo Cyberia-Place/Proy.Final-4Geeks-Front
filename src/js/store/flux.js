@@ -426,10 +426,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			filtrarCards: async filter => {
+				let token = localStorage.getItem("token");
 				// day tiene que ser del tipo: ?week_day=2
 				// hour tiene que ser del tipo: ?hora_inicio=14
 				// en caso de seleccionar dia y hora tiene que ser: ?week_day=2&hora_inicio=14
-				let token = localStorage.getItem("token");
 				if (token) {
 					var myHeaders = new Headers();
 					myHeaders.append("Content-Type", "application/json");
