@@ -599,7 +599,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					try {
 						let response = await fetch(process.env.BACK_URL + "/checkout", requestOptions);
 						let data = await response.json();
-						console.log(data);
+						window.location.href = data;
 					} catch (error) {
 						getActions().showMessage("Error!", "Error en el servidor", "error");
 					}

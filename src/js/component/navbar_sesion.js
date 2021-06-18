@@ -94,7 +94,6 @@ export const NavbarSesion = () => {
 		actions.getCredits();
 	}, []);
 
-	const [tokens, setTokens] = useState(store.creditos ? store.creditos : "0"); // Recibe del back la cantidad de tokens del usuario
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -134,6 +133,9 @@ export const NavbarSesion = () => {
 			</MenuItem>
 			<MenuItem onClick={handleMenuClose}>
 				<Link to="/ajustes/perfil">Ajustes</Link>
+			</MenuItem>
+			<MenuItem onClick={handleMenuClose}>
+				<Link to="/inicio/compra">Creditos</Link>
 			</MenuItem>
 			<MenuItem>
 				{store.googleLoged ? (
@@ -215,7 +217,7 @@ export const NavbarSesion = () => {
 						</Link>
 						<MonetizationOnIcon fontSize="default" />
 						<Typography classes={classes.tokens} variant="h6">
-							{tokens}
+							{store.creditos ? store.creditos : "0"}
 						</Typography>
 						<Typography variant="h6" gutterBottom>
 							{/* {store.usuario.nombre} */}

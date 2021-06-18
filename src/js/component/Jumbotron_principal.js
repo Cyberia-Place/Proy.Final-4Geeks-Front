@@ -21,7 +21,8 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: theme.palette.grey[800],
 		color: theme.palette.common.white,
 		marginBottom: theme.spacing(4),
-		backgroundImage: "url(https://source.unsplash.com/random)",
+		backgroundImage:
+			"url(https://www.trecebits.com/wp-content/uploads/2020/03/libros-gratis-Internet-Archive-800x445.jpg)",
 		backgroundSize: "cover",
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",

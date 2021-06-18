@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	image: {
-		backgroundImage: "url(https://source.unsplash.com/random)",
+		backgroundImage: "url(https://certificacionestic.net/wp-content/uploads/2020/09/consejos-clases-online.jpg)",
 		backgroundRepeat: "no-repeat",
 		backgroundSize: "cover",
 		backgroundPosition: "center",
